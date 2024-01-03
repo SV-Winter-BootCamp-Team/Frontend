@@ -13,7 +13,6 @@ function App() {
 			<Route path="/signup" element={<SignUpPage />} />
 			<Route path="/login" element={<LoginPage />} />
 			<Route path="/main/:user_id" element={<MainPage />} />
-			<Route path="/background" element={<BackgroundPage />} />
 			<Route path="/canvas/:canvas_id" element={<CanvasPage />} />
 		</Routes>
 	)
