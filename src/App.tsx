@@ -3,7 +3,6 @@ import OnBoardingPage from './pages/OnBoardingPage'
 import SignUpPage from './pages/SignUpPage'
 import LoginPage from './pages/LoginPage'
 import MainPage from './pages/MainPage'
-import BackgroundPage from './pages/BackgroundPage'
 import CanvasPage from './pages/CanvasPage'
 
 function App() {
