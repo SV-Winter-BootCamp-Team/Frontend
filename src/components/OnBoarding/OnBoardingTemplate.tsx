@@ -28,7 +28,7 @@ export default function OnBoardingPage() {
             </section>
 			<section className="w-[100vw] h-[100vh] flex-col bg-gradient-to-b from-[#CB96EF] to-[#7AA1CD]">
                 <div className="w-fit pt-[163px] mx-auto text-[#514958] text-6xl">
-                    <div className="border-2 border-[#000000] border-dotted rounded-[25px] w-[777px] h-[651px]" />
+                    <div className="border-2 border-[#000000] border-dotted rounded-[25px] w-[700px] h-[600px]" />
                 </div>
                 <div className="w-fit mx-auto text-[#514958] text-5xl">
                     <div>나만의 개성을 담은 배경을 직접 디자인할 수 있습니다</div>
