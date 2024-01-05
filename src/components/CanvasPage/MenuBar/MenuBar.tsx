@@ -23,13 +23,13 @@ export default function MenuBar({ isOpen, handleMenuBarClick }: MenuBarProps) {
 	}
 
 	return (
-		<div className="flex">
-			<div className="flex flex-col">
+		<div className="flex bg-orange-400">
+			<div className="flex flex-col items-center">
 				<button
 					onClick={handleMenuBarClick}
-					className="flex flex-col items-center justify-center"
+					className="flex flex-col items-center justify-center mt-6 mb-2"
 				>
-					햄버거
+					<img src="../../../../public/images/svg/hamburger.svg" alt="menu" />
 				</button>
 				{Object.values(Menu).map((menu, index) => {
 					if (typeof menu === 'string') {
@@ -37,7 +37,6 @@ export default function MenuBar({ isOpen, handleMenuBarClick }: MenuBarProps) {
 							<Button
 								key={index}
 								name={menu}
-								icon={'https://cdn-icons-png.flaticon.com/512/1946/1946429.png'}
 								handleButtonClick={handleButtonClick}
 							/>
 						)

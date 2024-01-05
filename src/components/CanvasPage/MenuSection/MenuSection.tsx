@@ -1,8 +1,8 @@
-import MyCanvas from './MyCanvas'
-import Invite from './Invite'
-import AISticker from './AISticker'
-import AIBackground from './AIBackground'
-import Upload from './Upload'
+import MyCanvas from '../MyCanvas'
+import Invite from '../Invite'
+import AISticker from '../AISticker'
+import AIBackground from '../AIBackground'
+import Upload from '../Upload'
 
 type MenuSectionProps = {
 	isOpen: boolean
@@ -11,7 +11,7 @@ type MenuSectionProps = {
 
 export default function MenuSection({ isOpen, menu }: MenuSectionProps) {
 	return (
-		<div className={`h-screen w-60 bg-red-300 ${!isOpen && 'hidden'}`}>
+		<div className={`flex-grow w-60 bg-red-300 ${!isOpen && 'hidden'}`}>
 			{menu === '내 캔버스' && <MyCanvas />}
 			{menu === '초대하기' && <Invite />}
 			{menu === '배경 업로드' && <Upload />}

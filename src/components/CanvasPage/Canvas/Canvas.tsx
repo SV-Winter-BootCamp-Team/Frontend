@@ -5,16 +5,6 @@ type CanvasProps = {
 }
 
 export default function Canvas({ isOpen }: CanvasProps) {
-	const onDragStart = (event: React.DragEvent<HTMLDivElement>) => {
-		const { clientX, clientY } = event
-		const offsetX = clientX - event.currentTarget.getBoundingClientRect().left
-		const offsetY = clientY - event.currentTarget.getBoundingClientRect().top
-		event.dataTransfer.setData(
-			'text/plain',
-			JSON.stringify({ id: event.currentTarget.id, offsetX, offsetY }),
-		)
-	}
-
 	const onDragOver = (event: React.DragEvent<HTMLDivElement>) => {
 		event.preventDefault()
 	}
@@ -36,20 +26,7 @@ export default function Canvas({ isOpen }: CanvasProps) {
 	}
 
 	return (
-		<div className="flex">
-			<div className="p-4">
-				{Array.from({ length: 5 }).map((_, index) => (
-					<div
-						key={index}
-						id={`draggable-${index}`}
-						draggable="true"
-						onDragStart={onDragStart}
-						className="w-16 h-16 mb-10 bg-blue-300 cursor-grab"
-					>
-						요소 {index + 1}
-					</div>
-				))}
-			</div>
+		<div className="flex items-center justify-center flex-grow">
 			<div
 				id="board"
 				onDragOver={onDragOver}
