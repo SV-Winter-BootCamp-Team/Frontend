@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
-import CanvasPreview from '../components/CanvasPreview'
+import CanvasPreview from '../components/MainPage/CanvasPreview'
 import { useEffect, useState } from 'react'
 import NavBar from '../components/NavBar'
 

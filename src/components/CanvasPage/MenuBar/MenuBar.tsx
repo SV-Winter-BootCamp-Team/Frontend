@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Button from './Button'
-import MenuSection from './MenuSection'
+import MenuSection from '../MenuSection'
 
 enum Menu {
 	'내 캔버스',

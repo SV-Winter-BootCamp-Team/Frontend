@@ -1,4 +1,4 @@
-import { CanvasPreviewProps } from '../../pages/MainPage'
+import { CanvasPreviewProps } from '../../../pages/MainPage'
 
 export default function CanvasPreview({
 	content,

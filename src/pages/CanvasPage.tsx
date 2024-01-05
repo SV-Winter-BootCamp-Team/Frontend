@@ -1,6 +1,6 @@
 import NavBar from '../components/NavBar'
-import Canvas from '../components/Canvas'
-import MenuBar from '../components/MenuBar/MenuBar'
+import Canvas from '../components/CanvasPage/Canvas'
+import MenuBar from '../components/CanvasPage/MenuBar'
 import { useState } from 'react'
 
 export default function CanvasPage() {
