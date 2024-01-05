@@ -1,6 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-const App: React.FC = () => {
+type CanvasProps = {
+	isOpen: boolean
+}
+
+export default function Canvas({ isOpen }: CanvasProps) {
 	const onDragStart = (event: React.DragEvent<HTMLDivElement>) => {
 		const { clientX, clientY } = event
 		const offsetX = clientX - event.currentTarget.getBoundingClientRect().left
@@ -40,7 +44,7 @@ const App: React.FC = () => {
 						id={`draggable-${index}`}
 						draggable="true"
 						onDragStart={onDragStart}
-						className="w-32 h-32 mb-10 bg-blue-300 cursor-grab"
+						className="w-16 h-16 mb-10 bg-blue-300 cursor-grab"
 					>
 						요소 {index + 1}
 					</div>
@@ -50,12 +54,12 @@ const App: React.FC = () => {
 				id="board"
 				onDragOver={onDragOver}
 				onDrop={onDrop}
-				className="w-[500px] h-[500px] bg-gray-300 relative"
+				className={` bg-gray-300 relative ${
+					isOpen ? 'w-[700px] h-[500px]' : 'w-[900px] h-[650px]'
+				}`}
 			>
 				드롭 영역
 			</div>
 		</div>
 	)
 }
-
-export default App
