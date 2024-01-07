@@ -24,7 +24,7 @@ export default function MenuBar({ isOpen, handleMenuBarClick }: MenuBarProps) {
 
 	return (
 		<div className="flex bg-orange-400">
-			<div className="flex flex-col items-center">
+			<div className="flex flex-col items-center w-16">
 				<button
 					onClick={handleMenuBarClick}
 					className="flex flex-col items-center justify-center mt-6 mb-2"

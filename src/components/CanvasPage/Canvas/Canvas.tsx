@@ -31,8 +31,8 @@ export default function Canvas({ isOpen }: CanvasProps) {
 				id="board"
 				onDragOver={onDragOver}
 				onDrop={onDrop}
-				className={` bg-gray-300 relative ${
-					isOpen ? 'w-[700px] h-[500px]' : 'w-[900px] h-[650px]'
+				className={`bg-white relative ${
+					isOpen ? 'w-[700px] h-[500px]' : 'w-[900px] h-[600px]'
 				}`}
 			>
 				드롭 영역

@@ -11,15 +11,14 @@ export default function AISticker() {
 
 	return (
 		<>
-			<div>AISticker</div>
-			<div className="p-4">
-				{Array.from({ length: 5 }).map((_, index) => (
+			<div className="grid grid-cols-2 gap-6 my-7 mx-7">
+				{Array.from({ length: 8 }).map((_, index) => (
 					<div
 						key={index}
 						id={`draggable-${index}`}
 						draggable="true"
 						onDragStart={onDragStart}
-						className="w-16 h-16 mb-10 bg-blue-300 cursor-grab"
+						className="bg-blue-300 w-36 h-36 cursor-grab"
 					>
 						요소 {index + 1}
 					</div>

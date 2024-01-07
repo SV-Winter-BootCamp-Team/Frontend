@@ -11,7 +11,7 @@ type MenuSectionProps = {
 
 export default function MenuSection({ isOpen, menu }: MenuSectionProps) {
 	return (
-		<div className={`flex-grow w-60 bg-red-300 ${!isOpen && 'hidden'}`}>
+		<div className={`flex-grow w-[380px] bg-red-300 ${!isOpen && 'hidden'}`}>
 			{menu === '내 캔버스' && <MyCanvas />}
 			{menu === '초대하기' && <Invite />}
 			{menu === '배경 업로드' && <Upload />}
