@@ -1,10 +1,10 @@
-import { CanvasDataType } from '../../pages/MainPage'
+import { CanvasPreviewProps } from '../../../pages/MainPage'
 
-export default function Canvas({
+export default function CanvasPreview({
 	content,
 	canvas_name,
 	update_at,
-}: CanvasDataType) {
+}: CanvasPreviewProps) {
 	return (
 		<div className="flex-col">
 			<div className="flex justify-center px-32 py-32 border-2 sm:py-[100px]">
