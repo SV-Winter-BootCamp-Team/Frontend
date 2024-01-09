@@ -7,14 +7,19 @@ import Upload from '../Upload'
 type MenuSectionProps = {
 	isOpen: boolean
 	menu: string
+	setImageURL: (imageURL: string) => void
 }
 
-export default function MenuSection({ isOpen, menu }: MenuSectionProps) {
+export default function MenuSection({
+	isOpen,
+	menu,
+	setImageURL,
+}: MenuSectionProps) {
 	return (
 		<div className={`flex-grow w-[380px] bg-red-300 ${!isOpen && 'hidden'}`}>
 			{menu === '내 캔버스' && <MyCanvas />}
 			{menu === '초대하기' && <Invite />}
-			{menu === '배경 업로드' && <Upload />}
+			{menu === '배경 업로드' && <Upload setImageURL={setImageURL} />}
 			{menu === 'AI 배경' && <AIBackground />}
 			{menu === 'AI 스티커' && <AISticker />}
 		</div>

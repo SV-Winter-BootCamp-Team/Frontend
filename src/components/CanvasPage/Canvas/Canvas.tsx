@@ -2,9 +2,10 @@ import React from 'react'
 
 type CanvasProps = {
 	isOpen: boolean
+	backgroundImage?: string
 }
 
-export default function Canvas({ isOpen }: CanvasProps) {
+export default function Canvas({ isOpen, backgroundImage }: CanvasProps) {
 	const onDragOver = (event: React.DragEvent<HTMLDivElement>) => {
 		event.preventDefault()
 	}
@@ -26,17 +27,34 @@ export default function Canvas({ isOpen }: CanvasProps) {
 	}
 
 	return (
-		<div className="flex items-center justify-center flex-grow">
-			<div
-				id="board"
-				onDragOver={onDragOver}
-				onDrop={onDrop}
-				className={`bg-white relative ${
-					isOpen ? 'w-[700px] h-[500px]' : 'w-[900px] h-[600px]'
-				}`}
-			>
-				드롭 영역
-			</div>
+		<div className="flex items-center justify-center w-screen">
+			{backgroundImage ? (
+				<div
+					id="board"
+					onDragOver={onDragOver}
+					onDrop={onDrop}
+					className={`bg-white relative ${
+						isOpen ? 'w-[880px] h-[495px]' : 'w-[960px] h-[540px]'
+					}`}
+				>
+					<img
+						src={backgroundImage}
+						alt="background"
+						className="object-cover w-full h-full"
+					/>
+				</div>
+			) : (
+				<div
+					id="board"
+					onDragOver={onDragOver}
+					onDrop={onDrop}
+					className={`bg-white relative ${
+						isOpen ? 'w-[700px] h-[500px]' : 'w-[900px] h-[600px]'
+					}`}
+				>
+					드롭 영역
+				</div>
+			)}
 		</div>
 	)
 }
