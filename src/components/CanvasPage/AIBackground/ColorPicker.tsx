@@ -1,9 +1,13 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import plus from '../../../../public/images/svg/plus.svg'
 
-export default function ColorPicker() {
+type ColorPickerProps = {
+	color: string
+	setColor: (color: string) => void
+}
+
+export default function ColorPicker({ color, setColor }: ColorPickerProps) {
 	const colorInputRef = useRef<HTMLInputElement>(null)
-	const [color, setColor] = useState<string>('')
 
 	const handleButtonClick = () => {
 		colorInputRef.current?.click()
@@ -11,7 +15,6 @@ export default function ColorPicker() {
 	const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const newColor = event.target.value
 		setColor(newColor)
-		console.log('Selected Color:', newColor)
 	}
 
 	return (
@@ -20,7 +23,7 @@ export default function ColorPicker() {
 			id="color-picker"
 			style={{ backgroundColor: color }}
 			onClick={handleButtonClick}
-			className="flex items-center justify-center w-8 h-8"
+			className="flex items-center justify-center w-8 h-8 rounded-sm"
 		>
 			<div className="flex items-center justify-center w-6 h-6 bg-white rounded-full">
 				<img src={plus} alt="plus" />
