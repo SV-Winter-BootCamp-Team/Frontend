@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import plus from '../../../../public/images/svg/plus.svg'
+import plus from '/images/svg/plus.svg'
 
 type ColorPickerProps = {
 	color: string

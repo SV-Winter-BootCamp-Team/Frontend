@@ -1,5 +1,5 @@
 import { ChangeEvent, useRef } from 'react'
-import upload from '../../../../public/images/svg/upload.svg'
+import upload from '/images/svg/upload.svg'
 import { UploadProps } from './Upload'
 
 export default function UploadButton({ setImageURL }: UploadProps) {

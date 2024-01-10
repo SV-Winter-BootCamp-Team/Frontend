@@ -1,8 +1,8 @@
-import avator from '../../../../public/images/svg/avator.svg'
-import home from '../../../../public/images/svg/home.svg'
-import backarrow from '../../../../public/images/svg/backarrow.svg'
-import frontarrow from '../../../../public/images/svg/frontarrow.svg'
-import download from '../../../../public/images/svg/download.svg'
+import avator from '/images/svg/avator.svg'
+import home from '/images/svg/home.svg'
+import backarrow from '/images/svg/backarrow.svg'
+import frontarrow from '/images/svg/frontarrow.svg'
+import download from '/images/svg/download.svg'
 
 export default function CanvasNavBar() {
 	return (

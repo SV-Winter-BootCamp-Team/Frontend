@@ -1,4 +1,5 @@
 import Button from './Button'
+import hamburger from '/images/svg/hamburger.svg'
 
 enum Menu {
 	'내 캔버스',
@@ -29,7 +30,7 @@ export default function MenuBar({
 				onClick={handleMenuBarClick}
 				className="flex flex-col items-center justify-center mt-6 mb-2"
 			>
-				<img src="../../../../public/images/svg/hamburger.svg" alt="menu" />
+				<img src={hamburger} alt="menu" />
 			</button>
 			{Object.values(Menu).map((menu, index) => {
 				if (typeof menu === 'string') {
