@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 export type UserKeyType = {
@@ -10,7 +10,11 @@ export type UserKeyType = {
 }
 
 export default function SignUpPage() {
+	const nav = useNavigate()
+
 	const [userKey, setUserKey] = useState<UserKeyType>()
+	const [signUpTried, setSignUpTried] = useState(false)
+	const [signUpSuccess, setSignUpSuccess] = useState(false)
 
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target
@@ -21,13 +25,20 @@ export default function SignUpPage() {
 		})
 	}
 
-	const onSubmit = async () => {
+	const onSubmit = () => {
 		console.log(userKey)
-		const response = await axios.post(
-			'http://localhost:8000/api/v1/users/register/',
-			userKey,
-		)
-		console.log(response)
+
+		axios
+			.post('http://localhost:8000/api/v1/users/register/', userKey)
+			.then((response) => {
+				console.log(response)
+				nav({
+					pathname: '/login',
+				})
+			})
+			.catch((error) => {
+				setSignUpTried(true)
+			})
 	}
 
 	return (
@@ -49,10 +60,21 @@ export default function SignUpPage() {
 					<div>
 						<h1 className="mt-[20px] mb-[20px]">이메일</h1>
 						<input
-							className="w-[450px] border-[1px] border-[#000000] rounded"
+							className={`w-[450px] ${
+								!signUpTried
+									? 'border-[1px] border-[#000000]'
+									: 'border-[2px] border-[#eb683f]'
+							} rounded`}
 							onChange={onChange}
 							name="user_email"
 						/>
+						<div
+							className={`text-[15px] text-[#eb683f] ${
+								!signUpTried && 'hidden'
+							}`}
+						>
+							이메일을 정확히 입력해주세요
+						</div>
 					</div>
 					<div>
 						<h1 className="mt-[20px] mb-[20px]">비밀번호</h1>
@@ -67,7 +89,7 @@ export default function SignUpPage() {
 						className="bg-[#603DED] w-[450px] rounded mt-12 mb-6 py-[10px] text-[#ffffff]"
 						onClick={onSubmit}
 					>
-						<Link to="/login">가입하기</Link>
+						가입하기
 					</button>
 				</div>
 			</div>
