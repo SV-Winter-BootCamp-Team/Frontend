@@ -18,7 +18,7 @@ export default function UploadButton({ setImageURL }: UploadProps) {
 	return (
 		<button
 			onClick={handleButtonClick}
-			className="flex items-center justify-center h-10 mt-8 bg-blue-400 rounded-lg w-80"
+			className="flex items-center justify-center h-10 mt-8 bg-blue-400 rounded-lg w-[340px]"
 		>
 			<input
 				type="file"

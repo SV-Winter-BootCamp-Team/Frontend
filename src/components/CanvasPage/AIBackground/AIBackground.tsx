@@ -5,6 +5,7 @@ import Color from './Color'
 import palette from '/images/svg/palette.svg'
 import brush from '/images/svg/brush.svg'
 import history from '/images/svg/history.svg'
+import Button from './Button'
 
 export default function AIBackground() {
 	const [color, setColor] = useState<string>('#FFFFFF')
@@ -17,11 +18,10 @@ export default function AIBackground() {
 			{/* 색상 영역 */}
 			<div className="mt-2 ml-6">
 				<div className="flex">
-					<img src={palette} alt="palette" />
+					<img src={palette} alt="palette" className="w-5" />
 					<p className="my-4 ml-1">색상</p>
 				</div>
-
-				<div className="grid grid-cols-7 gap-2 w-72">
+				<div className="grid grid-cols-7 gap-3 w-72">
 					<ColorPicker color={color} setColor={setColor} />
 					<Color color="#EC5F59" setColor={setColor} />
 					<Color color="#F1A259" setColor={setColor} />
@@ -39,10 +39,10 @@ export default function AIBackground() {
 				</div>
 			</div>
 			{/* 테마 영역 */}
-			<div className="ml-4">
+			<div className="mt-8 ml-4">
 				<div className="flex items-center ml-2">
-					<img src={brush} alt="theme" className="mt-8" />
-					<p className="mt-8 ml-1">테마</p>
+					<img src={brush} alt="theme" className="w-5" />
+					<p className="ml-1">테마</p>
 				</div>
 				<div className="flex flex-wrap">
 					<Theme theme="힐링되는" setTheme={setTheme} />
@@ -58,19 +58,22 @@ export default function AIBackground() {
 					<Theme theme="깔끔한" setTheme={setTheme} />
 				</div>
 			</div>
+			<Button />
 			{/* 배경 영역 */}
-			<div className="mt-8 ml-6">
-				<div className="flex items-center mb-4">
-					<img src={history} alt="background" className="w-5" />
-					<p className="ml-1">내 배경들</p>
+			{/* <div className="flex flex-col items-center mt-8">
+				<div>
+					<div className="flex items-center mb-4">
+						<img src={history} alt="background" className="w-5" />
+						<p className="ml-1">내 배경들</p>
+					</div>
+					<div className="grid grid-cols-2 gap-x-5 gap-y-5">
+						<div className="w-[160px] bg-blue-300 h-[90px]">grid1</div>
+						<div className="w-[160px] bg-blue-300 h-[90px]">grid1</div>
+						<div className="w-[160px] bg-blue-300 h-[90px]">grid1</div>
+						<div className="w-[160px] bg-blue-300 h-[90px]">grid1</div>
+					</div>
 				</div>
-				<div className="grid grid-cols-2 gap-4">
-					<div className="w-[160px] bg-blue-300 h-[90px]">grid1</div>
-					<div className="w-[160px] bg-blue-300 h-[90px]">grid1</div>
-					<div className="w-[160px] bg-blue-300 h-[90px]">grid1</div>
-					<div className="w-[160px] bg-blue-300 h-[90px]">grid1</div>
-				</div>
-			</div>
+			</div> */}
 		</div>
 	)
 }

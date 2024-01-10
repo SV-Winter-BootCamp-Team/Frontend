@@ -6,7 +6,10 @@ enum Menu {
 	'초대하기',
 	'배경 업로드',
 	'AI 배경',
+	'추천 배경',
 	'AI 스티커',
+	'히스토리',
+	'텍스트',
 }
 
 type MenuBarProps = {
@@ -28,7 +31,7 @@ export default function MenuBar({
 		<div className="flex flex-col items-center w-16">
 			<button
 				onClick={handleMenuBarClick}
-				className="flex flex-col items-center justify-center mt-6 mb-2"
+				className="flex flex-col items-center justify-center mt-8 mb-4"
 			>
 				<img src={hamburger} alt="menu" />
 			</button>
