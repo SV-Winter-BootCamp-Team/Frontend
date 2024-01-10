@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 export type UserKeyType = {
 	[index: string]: string | undefined
@@ -20,8 +21,13 @@ export default function SignUpPage() {
 		})
 	}
 
-	const onSubmit = () => {
+	const onSubmit = async () => {
 		console.log(userKey)
+		const response = await axios.post(
+			'http://localhost:8000/api/v1/users/register/',
+			userKey,
+		)
+		console.log(response)
 	}
 
 	return (
