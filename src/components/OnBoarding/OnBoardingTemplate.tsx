@@ -14,8 +14,8 @@ export default function OnBoardingTemplate() {
 	]
 
 	return (
-		<div className="scrollbar-hide">
-			<section className="w-[100vw] h-fit flex-col bg-gradient-to-b from-[#CB96EF] to-[#7AA1CD]">
+		<div className="w-full overflow-hidden">
+			<section className="w-full h-fit flex-col bg-gradient-to-b from-[#CB96EF] to-[#7AA1CD]">
 				<div className="w-fit pt-[358px] mx-auto text-[#514958] text-[60px]">
 					<h1>꾸며Zoom에서 당신만의 배경을 꾸며보세요</h1>
 				</div>
@@ -24,8 +24,8 @@ export default function OnBoardingTemplate() {
 						<Link to="/signup">시작하기</Link>
 					</button>
 				</div>
-				<div className="px-auto">
-					<div className="flex flex-row-reverse gap-[10px] mt-80">
+				<div className="w-full">
+					<div className="flex flex-row-reverse gap-[10px] mt-80 overflow-hidden">
 						{images.map((image) => (
 							<img
 								className="w-[300px] animate-slider"
@@ -41,7 +41,7 @@ export default function OnBoardingTemplate() {
 							/>
 						))}
 					</div>
-					<div className="flex flex-row gap-[10px] mt-4">
+					<div className="flex flex-row gap-[10px] mt-4 overflow-hidden">
 						{images.map((image) => (
 							<img
 								className="w-[300px] animate-reverse_slider"
@@ -57,7 +57,7 @@ export default function OnBoardingTemplate() {
 							/>
 						))}
 					</div>
-					<div className="flex flex-row-reverse gap-[10px] mt-4">
+					<div className="flex flex-row-reverse gap-[10px] mt-4 overflow-hidden">
 						{images.map((image) => (
 							<img
 								className="w-[300px] animate-slider"
