@@ -1,6 +1,18 @@
 import { Link } from 'react-router-dom'
 
 export default function OnBoardingTemplate() {
+	const images: string[] = [
+		'onBoarding1',
+		'onBoarding2',
+		'onBoarding2',
+		'onBoarding2',
+		'onBoarding2',
+		'onBoarding2',
+		'onBoarding2',
+		'onBoarding2',
+		'onBoarding2',
+	]
+
 	return (
 		<div className="scrollbar-hide">
 			<section className="w-[100vw] h-fit flex-col bg-gradient-to-b from-[#CB96EF] to-[#7AA1CD]">
@@ -12,69 +24,55 @@ export default function OnBoardingTemplate() {
 						<Link to="/signup">시작하기</Link>
 					</button>
 				</div>
-				<div className="flex flex-row gap-4 px-32 h-[250px] mt-80 animate-slider">
-					<img
-						className="rounded-[25px]"
-						alt={'onBoarding1'}
-						src={'public/images/svg/onBoarding1.svg'}
-					/>
-					<img
-						className="rounded-[25px]"
-						alt={'onBoarding2'}
-						src={'public/images/svg/onBoarding2.svg'}
-					/>
-					<img
-						className="rounded-[25px]"
-						alt={'onBoarding1'}
-						src={'public/images/svg/onBoarding1.svg'}
-					/>
-					<img
-						className="rounded-[25px]"
-						alt={'onBoarding2'}
-						src={'public/images/svg/onBoarding2.svg'}
-					/>
-					<img
-						className="rounded-[25px]"
-						alt={'onBoarding1'}
-						src={'public/images/svg/onBoarding1.svg'}
-					/>
-					<img
-						className="rounded-[25px]"
-						alt={'onBoarding2'}
-						src={'public/images/svg/onBoarding2.svg'}
-					/>
-				</div>
-				<div className="flex flex-row gap-4 px-32 h-[250px] mt-4 animate-reverse_slider">
-					<img
-						className="bg-[#ddd] rounded-[25px]"
-						alt={'onBoarding1'}
-						src={'public/images/svg/onBoarding1.svg'}
-					/>
-					<img
-						className="bg-[#ddd] rounded-[25px]"
-						alt={'onBoarding2'}
-						src={'public/images/svg/onBoarding2.svg'}
-					/>
-					<img
-						className="bg-[#ddd] rounded-[25px]"
-						alt={'onBoarding1'}
-						src={'public/images/svg/onBoarding1.svg'}
-					/>
-					<img
-						className="bg-[#ddd] rounded-[25px]"
-						alt={'onBoarding2'}
-						src={'public/images/svg/onBoarding2.svg'}
-					/>
-					<img
-						className="bg-[#ddd] rounded-[25px]"
-						alt={'onBoarding1'}
-						src={'public/images/svg/onBoarding1.svg'}
-					/>
-					<img
-						className="bg-[#ddd] rounded-[25px]"
-						alt={'onBoarding2'}
-						src={'public/images/svg/onBoarding2.svg'}
-					/>
+				<div className="px-auto">
+					<div className="flex flex-row-reverse gap-[10px] mt-80">
+						{images.map((image) => (
+							<img
+								className="w-[300px] animate-slider"
+								alt={image}
+								src={`public/images/svg/${image}.svg`}
+							/>
+						))}
+						{images.map((image) => (
+							<img
+								className="w-[300px] animate-slider"
+								alt={image}
+								src={`public/images/svg/${image}.svg`}
+							/>
+						))}
+					</div>
+					<div className="flex flex-row gap-[10px] mt-4">
+						{images.map((image) => (
+							<img
+								className="w-[300px] animate-reverse_slider"
+								alt={image}
+								src={`public/images/svg/${image}.svg`}
+							/>
+						))}
+						{images.map((image) => (
+							<img
+								className="w-[300px] animate-reverse_slider"
+								alt={image}
+								src={`public/images/svg/${image}.svg`}
+							/>
+						))}
+					</div>
+					<div className="flex flex-row-reverse gap-[10px] mt-4">
+						{images.map((image) => (
+							<img
+								className="w-[300px] animate-slider"
+								alt={image}
+								src={`public/images/svg/${image}.svg`}
+							/>
+						))}
+						{images.map((image) => (
+							<img
+								className="w-[300px] animate-slider"
+								alt={image}
+								src={`public/images/svg/${image}.svg`}
+							/>
+						))}
+					</div>
 				</div>
 				<div className="pt-24 w-fit mx-auto text-[#514958] text-5xl">
 					<div>
