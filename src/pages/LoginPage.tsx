@@ -11,8 +11,8 @@ const mockData = {
 
 export type UserKeyType = {
 	[index: string]: string | undefined
-	email?: string | undefined
-	password?: string | undefined
+	user_email?: string | undefined
+	user_password?: string | undefined
 }
 
 export default function LoginPage() {
@@ -50,7 +50,7 @@ export default function LoginPage() {
 						<input
 							className="w-[450px] border-[1px] border-[#000000] rounded"
 							onChange={onChange}
-							name="email"
+							name="user_email"
 						/>
 					</div>
 					<div>
@@ -59,7 +59,7 @@ export default function LoginPage() {
 							className="w-[450px] border-[1px] border-[#000000] rounded"
 							type="password"
 							onChange={onChange}
-							name="password"
+							name="user_password"
 						/>
 					</div>
 					<button
