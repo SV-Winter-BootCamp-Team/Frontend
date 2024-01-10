@@ -2,19 +2,21 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 export type UserKeyType = {
-	name: string
-	email: string
-	password: string
+	[index: string]: string | undefined
+	user_name?: string | undefined
+	user_email?: string | undefined
+	user_password?: string | undefined
 }
 
 export default function SignUpPage() {
-	const [userKey, setUserKey] = useState<UserKeyType[]>([])
+	const [userKey, setUserKey] = useState<UserKeyType>()
 
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target
-		setUserKey({
-			...userKey,
-			[name]: value,
+		setUserKey((current) => {
+			let newState = { ...current }
+			newState[name] = value
+			return newState
 		})
 	}
 
@@ -35,7 +37,7 @@ export default function SignUpPage() {
 						<input
 							className="w-[450px] border-[1px] border-[#000000] rounded"
 							onChange={onChange}
-							name="name"
+							name="user_name"
 						/>
 					</div>
 					<div>
@@ -43,7 +45,7 @@ export default function SignUpPage() {
 						<input
 							className="w-[450px] border-[1px] border-[#000000] rounded"
 							onChange={onChange}
-							name="email"
+							name="user_email"
 						/>
 					</div>
 					<div>
@@ -52,7 +54,7 @@ export default function SignUpPage() {
 							className="w-[450px] border-[1px] border-[#000000] rounded"
 							type="password"
 							onChange={onChange}
-							name="password"
+							name="user_password"
 						/>
 					</div>
 					<button

@@ -10,24 +10,27 @@ const mockData = {
 }
 
 export type UserKeyType = {
-	email: string
-	password: string
+	[index: string]: string | undefined
+	email?: string | undefined
+	password?: string | undefined
 }
 
 export default function LoginPage() {
 	const nav = useNavigate()
 
-	const [userKey, setUserKey] = useState<UserKeyType[]>([])
+	const [userKey, setUserKey] = useState<UserKeyType>()
 
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target
-		setUserKey({
-			...userKey,
-			[name]: value,
+		setUserKey((current) => {
+			let newState = { ...current }
+			newState[name] = value
+			return newState
 		})
 	}
 
 	const onSubmit = () => {
+		console.log(userKey)
 		alert(`${mockData.result.user_name}, ${mockData.message}`)
 		nav({
 			pathname: `/main/:${mockData.result.user_id}`,
