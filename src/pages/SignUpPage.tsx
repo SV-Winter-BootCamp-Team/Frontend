@@ -13,7 +13,6 @@ export default function SignUpPage() {
 	const nav = useNavigate()
 
 	const [userKey, setUserKey] = useState<UserKeyType>()
-	const [signUpTried, setSignUpTried] = useState(false)
 	const [signUpSuccess, setSignUpSuccess] = useState(false)
 
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,7 +36,7 @@ export default function SignUpPage() {
 				})
 			})
 			.catch((error) => {
-				setSignUpTried(true)
+				setSignUpSuccess(true)
 			})
 	}
 
@@ -61,7 +60,7 @@ export default function SignUpPage() {
 						<h1 className="mt-[20px] mb-[20px]">이메일</h1>
 						<input
 							className={`w-[450px] ${
-								!signUpTried
+								!signUpSuccess
 									? 'border-[1px] border-[#000000]'
 									: 'border-[2px] border-[#eb683f]'
 							} rounded`}
@@ -70,7 +69,7 @@ export default function SignUpPage() {
 						/>
 						<div
 							className={`text-[15px] text-[#eb683f] ${
-								!signUpTried && 'hidden'
+								!signUpSuccess && 'hidden'
 							}`}
 						>
 							이메일을 정확히 입력해주세요
