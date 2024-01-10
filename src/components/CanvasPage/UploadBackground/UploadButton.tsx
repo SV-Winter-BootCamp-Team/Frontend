@@ -1,6 +1,6 @@
 import { ChangeEvent, useRef } from 'react'
 import upload from '/images/svg/upload.svg'
-import { UploadProps } from './Upload'
+import { UploadProps } from './UploadBackground'
 
 export default function UploadButton({ setImageURL }: UploadProps) {
 	const fileInputRef = useRef<HTMLInputElement>(null)
@@ -18,7 +18,7 @@ export default function UploadButton({ setImageURL }: UploadProps) {
 	return (
 		<button
 			onClick={handleButtonClick}
-			className="flex items-center justify-center h-10 mt-8 bg-blue-400 rounded-lg w-[340px]"
+			className="flex items-center justify-center h-10 mt-8 bg-[#7062D5] rounded-lg w-[335px]"
 		>
 			<input
 				type="file"

@@ -16,8 +16,8 @@ export default function CanvasPage() {
 	return (
 		<div className="flex flex-col min-h-screen">
 			<CanvasNavBar />
-			<div className="flex flex-grow bg-slate-400">
-				<div className="flex bg-[#C897EE]">
+			<div className="flex flex-grow h-full bg-slate-400">
+				<div className="flex h-full bg-white">
 					<MenuBar
 						isOpen={isOpen}
 						handleMenuBarClick={handleMenuBarClick}

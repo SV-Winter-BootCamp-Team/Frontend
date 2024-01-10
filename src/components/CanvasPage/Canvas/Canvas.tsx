@@ -33,9 +33,7 @@ export default function Canvas({ isOpen, backgroundImage }: CanvasProps) {
 					id="board"
 					onDragOver={onDragOver}
 					onDrop={onDrop}
-					className={`bg-white relative ${
-						isOpen ? 'w-[880px] h-[495px]' : 'w-[960px] h-[540px]'
-					}`}
+					className="bg-white relative w-[960px] h-[540px]"
 				>
 					<img
 						src={backgroundImage}
@@ -48,9 +46,7 @@ export default function Canvas({ isOpen, backgroundImage }: CanvasProps) {
 					id="board"
 					onDragOver={onDragOver}
 					onDrop={onDrop}
-					className={`bg-white relative ${
-						isOpen ? 'w-[700px] h-[500px]' : 'w-[900px] h-[600px]'
-					}`}
+					className="bg-white relative w-[912px] h-[513px]"
 				>
 					드롭 영역
 				</div>
