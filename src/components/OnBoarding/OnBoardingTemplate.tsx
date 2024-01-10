@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 export default function OnBoardingTemplate() {
 	return (
-		<div>
+		<div className="scrollbar-hide">
 			<section className="w-[100vw] h-fit flex-col bg-gradient-to-b from-[#CB96EF] to-[#7AA1CD]">
 				<div className="w-fit pt-[358px] mx-auto text-[#514958] text-[60px]">
 					<h1>꾸며Zoom에서 당신만의 배경을 꾸며보세요</h1>
@@ -12,13 +12,69 @@ export default function OnBoardingTemplate() {
 						<Link to="/signup">시작하기</Link>
 					</button>
 				</div>
-				<div className="grid grid-cols-3 gap-4 px-32 h-[60vh] mt-80">
-					<div className="bg-[#ddd] rounded-[25px]" />
-					<div className="bg-[#ddd] rounded-[25px]" />
-					<div className="bg-[#ddd] rounded-[25px]" />
-					<div className="bg-[#ddd] rounded-[25px]" />
-					<div className="bg-[#ddd] rounded-[25px]" />
-					<div className="bg-[#ddd] rounded-[25px]" />
+				<div className="flex flex-row gap-4 px-32 h-[250px] mt-80 animate-slider">
+					<img
+						className="rounded-[25px]"
+						alt={'onBoarding1'}
+						src={'public/images/svg/onBoarding1.svg'}
+					/>
+					<img
+						className="rounded-[25px]"
+						alt={'onBoarding2'}
+						src={'public/images/svg/onBoarding2.svg'}
+					/>
+					<img
+						className="rounded-[25px]"
+						alt={'onBoarding1'}
+						src={'public/images/svg/onBoarding1.svg'}
+					/>
+					<img
+						className="rounded-[25px]"
+						alt={'onBoarding2'}
+						src={'public/images/svg/onBoarding2.svg'}
+					/>
+					<img
+						className="rounded-[25px]"
+						alt={'onBoarding1'}
+						src={'public/images/svg/onBoarding1.svg'}
+					/>
+					<img
+						className="rounded-[25px]"
+						alt={'onBoarding2'}
+						src={'public/images/svg/onBoarding2.svg'}
+					/>
+				</div>
+				<div className="flex flex-row gap-4 px-32 h-[250px] mt-4 animate-reverse_slider">
+					<img
+						className="bg-[#ddd] rounded-[25px]"
+						alt={'onBoarding1'}
+						src={'public/images/svg/onBoarding1.svg'}
+					/>
+					<img
+						className="bg-[#ddd] rounded-[25px]"
+						alt={'onBoarding2'}
+						src={'public/images/svg/onBoarding2.svg'}
+					/>
+					<img
+						className="bg-[#ddd] rounded-[25px]"
+						alt={'onBoarding1'}
+						src={'public/images/svg/onBoarding1.svg'}
+					/>
+					<img
+						className="bg-[#ddd] rounded-[25px]"
+						alt={'onBoarding2'}
+						src={'public/images/svg/onBoarding2.svg'}
+					/>
+					<img
+						className="bg-[#ddd] rounded-[25px]"
+						alt={'onBoarding1'}
+						src={'public/images/svg/onBoarding1.svg'}
+					/>
+					<img
+						className="bg-[#ddd] rounded-[25px]"
+						alt={'onBoarding2'}
+						src={'public/images/svg/onBoarding2.svg'}
+					/>
 				</div>
 				<div className="pt-24 w-fit mx-auto text-[#514958] text-5xl">
 					<div>
