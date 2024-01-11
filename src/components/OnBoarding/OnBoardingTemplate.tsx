@@ -79,10 +79,10 @@ export default function OnBoardingTemplate() {
 						이미 수많은 사용자들이 매일 창의적인 작품들을 만들어내고 있습니다!
 					</div>
 				</div>
-				<div className="w-fit pt-[163px] mx-auto text-[#514958] text-6xl mt-32">
+				<div className="w-fit pt-[143px] mx-auto text-[#514958] text-6xl mt-32">
 					<div className="border-2 border-[#000000] border-dotted rounded-[25px] w-[700px] h-[600px]" />
 				</div>
-				<div className="w-fit mx-auto text-[#514958] text-5xl">
+				<div className="w-fit py-16 mx-auto text-[#514958] text-5xl">
 					<div>나만의 개성을 담은 배경을 직접 디자인할 수 있습니다</div>
 				</div>
 			</section>
