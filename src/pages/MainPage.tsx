@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom'
 import CanvasPreview from '../components/MainPage/CanvasPreview'
 import { useEffect, useState } from 'react'
 import NavBar from '../components/NavBar'
+import axios from 'axios'
 
 export type CanvasPreviewProps = {
 	canvas_id: number
@@ -10,9 +11,19 @@ export type CanvasPreviewProps = {
 	update_at: string
 }
 
+export type AddCanvasType = {
+	[index: string]: string | number
+	canvas_name: string
+	user_id: number
+}
+
 export default function MainPage() {
-	const user_id = useParams()
+	const { user_id } = useParams()
 	const [canvasData, setCanvasData] = useState<CanvasPreviewProps[]>([])
+	const [newCanvas, setNewCanvas] = useState<AddCanvasType>({
+		canvas_name: '',
+		user_id: Number(user_id),
+	})
 
 	// TODO: fetch user data from server
 
@@ -60,6 +71,22 @@ export default function MainPage() {
 		},
 	}
 
+	function onClick() {
+		setNewCanvas((current) => {
+			let nextState = current
+			nextState['canvas_name'] = 'Untitled'
+			return nextState
+		})
+		axios
+			.post('http://localhost:8000/api/v1/canvases/', newCanvas)
+			.then((response) => {
+				alert(response.data.message)
+			})
+			.catch((error) => {
+				alert(error.response.message)
+			})
+	}
+
 	useEffect(() => {
 		setCanvasData(response.result.canvases)
 	}, [])
@@ -75,7 +102,10 @@ export default function MainPage() {
 					<CanvasPreview key={canvas.canvas_id} {...canvas} />
 				))}
 				<Link to="/canvas" className="flex-col">
-					<div className="bg-purple-100 flex justify-center px-32 py-32 border-2 sm:py-[100px]">
+					<div
+						className="bg-purple-100 flex justify-center px-32 py-32 border-2 sm:py-[100px]"
+						onClick={onClick}
+					>
 						<p>+</p>
 					</div>
 				</Link>
@@ -86,7 +116,10 @@ export default function MainPage() {
 					<CanvasPreview key={canvas.canvas_id} {...canvas} />
 				))}
 				<Link to="/canvas" className="flex-col">
-					<div className="bg-purple-100 flex justify-center px-32 py-32 border-2 sm:py-[100px]">
+					<div
+						className="bg-purple-100 flex justify-center px-32 py-32 border-2 sm:py-[100px]"
+						onClick={onClick}
+					>
 						<p>+</p>
 					</div>
 				</Link>
