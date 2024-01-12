@@ -4,7 +4,7 @@ import backarrow from '/images/svg/backarrow.svg'
 import frontarrow from '/images/svg/frontarrow.svg'
 import download from '/images/svg/download.svg'
 
-export default function CanvasNavBar() {
+export default function NavBar() {
 	return (
 		<div className="flex items-center justify-between h-[50px] px-3.5 border-solid border-b-[1px] border-[#E7E8EA]">
 			<div className="flex items-center">

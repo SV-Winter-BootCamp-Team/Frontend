@@ -4,12 +4,15 @@ import Theme from './Theme'
 import Color from './Color'
 import palette from '/images/svg/palette.svg'
 import brush from '/images/svg/brush.svg'
-import history from '/images/svg/history.svg'
 import Button from './Button'
 
 export default function AIBackgroundGenerator() {
 	const [color, setColor] = useState<string>('#FFFFFF')
 	const [theme, setTheme] = useState<string>('')
+
+	const handleClickButton = () => {
+		
+	}
 
 	//TODO: color, theme를 이용해서 AI 배경을 생성을 요청하는 API 호출
 
@@ -60,7 +63,7 @@ export default function AIBackgroundGenerator() {
 			</div>
 			{/* 버튼 영역 */}
 			<div className="flex flex-col justify-end grow">
-				<Button />
+				<Button handleClickButton={handleClickButton} />
 			</div>
 		</div>
 	)

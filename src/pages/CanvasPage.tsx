@@ -1,4 +1,4 @@
-import CanvasNavBar from '../components/CanvasPage/CanvasNavBar'
+import NavBar from '../components/CanvasPage/NavBar'
 import Canvas from '../components/CanvasPage/Canvas'
 import MenuBar from '../components/CanvasPage/MenuBar'
 import { useState } from 'react'
@@ -15,9 +15,9 @@ export default function CanvasPage() {
 
 	return (
 		<div className="flex flex-col min-h-screen">
-			<CanvasNavBar />
+			<NavBar />
 			<div className="flex flex-grow h-full bg-slate-400">
-				<div className="flex h-full bg-white">
+				<div className="flex bg-white">
 					<MenuBar
 						isOpen={isOpen}
 						handleMenuBarClick={handleMenuBarClick}

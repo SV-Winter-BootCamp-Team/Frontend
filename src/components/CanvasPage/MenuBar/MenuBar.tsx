@@ -28,7 +28,7 @@ export default function MenuBar({
 	}
 
 	return (
-		<div className="flex flex-col items-center w-16 border-r-[1px] border-solid border-[#E7E8EA]">
+		<div className="grow flex flex-col items-center w-16 border-r-[1px] border-solid border-[#E7E8EA]">
 			<button
 				onClick={handleMenuBarClick}
 				className="flex flex-col items-center justify-center mt-8 mb-4"
