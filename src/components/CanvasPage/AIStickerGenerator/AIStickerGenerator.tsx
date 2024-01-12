@@ -1,7 +1,6 @@
 import { useState, ChangeEvent } from 'react'
 import Button, { ButtonProps } from '../AIBackgroundGenerator/Button'
 import Theme from '../AIBackgroundGenerator/Theme'
-import brush from '/images/svg/brush.svg'
 
 export default function AIStickerGenerator({
 	handleGenerateButtonClick,
@@ -23,7 +22,7 @@ export default function AIStickerGenerator({
 			<div className="flex flex-col">
 				{/* 스티커 묘사 영역 */}
 				<div className="mt-8 ml-8">
-					<h2 className="mb-2 font-semibold">스티커 묘사</h2>
+					<h2 className="mb-2 font-medium">스티커 묘사</h2>
 					<p className="text-sm text-gray-500">
 						만들고 싶은 스티커를 자세히 설명해 보세요.
 					</p>
@@ -43,25 +42,25 @@ export default function AIStickerGenerator({
 						</div>
 					</div>
 				</div>
-				{/* 테마 영역 */}
+				{/* 스타일 영역 */}
 				<div className="mt-8 ml-6 mr-8">
-					<p className="ml-2 font-semibold">테마</p>
+					<p className="ml-2 font-medium">스타일</p>
 					<div className="flex flex-wrap">
-						<Theme theme="힐링되는" setTheme={setTheme} selectedTheme={theme} />
-						<Theme theme="깔끔한" setTheme={setTheme} selectedTheme={theme} />
-						<Theme theme="귀여운" setTheme={setTheme} selectedTheme={theme} />
-						<Theme theme="아늑한" setTheme={setTheme} selectedTheme={theme} />
+						<Theme theme="3D" setTheme={setTheme} selectedTheme={theme} />
+						<Theme theme="일러스트" setTheme={setTheme} selectedTheme={theme} />
+						<Theme theme="픽셀아트" setTheme={setTheme} selectedTheme={theme} />
+						<Theme theme="수채화" setTheme={setTheme} selectedTheme={theme} />
+						<Theme theme="만화" setTheme={setTheme} selectedTheme={theme} />
+						<Theme theme="파스텔" setTheme={setTheme} selectedTheme={theme} />
 						<Theme
-							theme="사랑스러운"
+							theme="애니메이션"
 							setTheme={setTheme}
 							selectedTheme={theme}
 						/>
-						<Theme theme="밝은" setTheme={setTheme} selectedTheme={theme} />
-						<Theme theme="어두운" setTheme={setTheme} selectedTheme={theme} />
-						<Theme theme="차분한" setTheme={setTheme} selectedTheme={theme} />
-						<Theme theme="깔끔한" setTheme={setTheme} selectedTheme={theme} />
-						<Theme theme="깔끔한" setTheme={setTheme} selectedTheme={theme} />
-						<Theme theme="깔끔한" setTheme={setTheme} selectedTheme={theme} />
+						<Theme theme="파스텔" setTheme={setTheme} selectedTheme={theme} />
+						<Theme theme="파스텔" setTheme={setTheme} selectedTheme={theme} />
+						<Theme theme="파스텔" setTheme={setTheme} selectedTheme={theme} />
+						<Theme theme="파스텔" setTheme={setTheme} selectedTheme={theme} />
 					</div>
 				</div>
 			</div>

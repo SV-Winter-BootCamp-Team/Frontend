@@ -4,7 +4,7 @@ import avator from '/images/svg/avator.svg'
 import palette from '/images/svg/palette.svg'
 
 export default function AISticker() {
-	const imgList = [aisticker, home, avator, palette]
+	const imgList: string[] = [aisticker, home, avator, palette]
 
 	const onDragStart = (event: React.DragEvent<HTMLDivElement>) => {
 		const { clientX, clientY } = event
@@ -37,6 +37,10 @@ export default function AISticker() {
 				element.style.left = `${centerX}px`
 				element.style.top = `${centerY}px`
 
+				element.style.resize = 'both'
+				element.style.overflow = 'auto'
+				element.style.aspectRatio = '1 / 1' // Ensure 1:1 aspect ratio during resizing
+
 				element.addEventListener('dragstart', (e) => {
 					onDragStart(e as unknown as React.DragEvent<HTMLDivElement>)
 				})
@@ -47,14 +51,14 @@ export default function AISticker() {
 	return (
 		<>
 			<div className="grid grid-cols-2 gap-6 my-7 mx-7">
-				{Array.from({ length: 8 }).map((_, index) => (
+				{imgList.map((img, index) => (
 					<img
-						src={imgList[index]}
+						src={img}
 						key={index}
 						id={`draggable-${index}`}
 						draggable="false"
 						onClick={handleClick}
-						className="overflow-auto w-36 h-36 cursor-grab resize-both"
+						className="overflow-auto w-36 h-36 cursor-grab resize-both aspect-square"
 					/>
 				))}
 			</div>
