@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* 스크롤바와 트랙을 흰색으로 설정 */
+.textarea-scrollbar::-webkit-scrollbar {
+	width: 5px; /* 스크롤바의 너비 */
+	margin-left: 5px; /* 스크롤바 왼쪽 마진 */
+}
+
+.textarea-scrollbar::-webkit-scrollbar-track {
+	background-color: white; /* 스크롤바 트랙의 색상 */
+}
+
+.textarea-scrollbar::-webkit-scrollbar-thumb {
+	background-color: lightgray; /* 스크롤바 자체의 색상 */
+	border-radius: 15px; /* 스크롤바의 모서리 둥글기 */
+}

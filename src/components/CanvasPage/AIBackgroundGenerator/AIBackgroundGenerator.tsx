@@ -10,21 +10,16 @@ export default function AIBackgroundGenerator() {
 	const [color, setColor] = useState<string>('#FFFFFF')
 	const [theme, setTheme] = useState<string>('')
 
-	const handleClickButton = () => {
-		
-	}
+	const handleGenerateButtonClick = () => {}
 
 	//TODO: color, theme를 이용해서 AI 배경을 생성을 요청하는 API 호출
 
 	return (
 		<div className="flex flex-col grow">
 			{/* 색상 영역 */}
-			<div className="mt-2 ml-6">
-				<div className="flex">
-					<img src={palette} alt="palette" className="w-5" />
-					<p className="my-4 ml-1">색상</p>
-				</div>
-				<div className="grid grid-cols-7 gap-3 w-72">
+			<div className="mt-2 ml-8">
+				<p className="my-4 font-semibold">색상</p>
+				<div className="grid grid-cols-7 gap-x-3 gap-y-2 w-72">
 					<ColorPicker color={color} setColor={setColor} />
 					<Color color="#EC5F59" setColor={setColor} selectedColor={color} />
 					<Color color="#F1A259" setColor={setColor} selectedColor={color} />
@@ -42,11 +37,8 @@ export default function AIBackgroundGenerator() {
 				</div>
 			</div>
 			{/* 테마 영역 */}
-			<div className="mt-8 ml-4">
-				<div className="flex items-center ml-2">
-					<img src={brush} alt="theme" className="w-5" />
-					<p className="ml-1">테마</p>
-				</div>
+			<div className="mt-8 ml-6 mr-8">
+				<p className="ml-2">테마</p>
 				<div className="flex flex-wrap">
 					<Theme theme="힐링되는" setTheme={setTheme} selectedTheme={theme} />
 					<Theme theme="깔끔한" setTheme={setTheme} selectedTheme={theme} />
@@ -63,7 +55,7 @@ export default function AIBackgroundGenerator() {
 			</div>
 			{/* 버튼 영역 */}
 			<div className="flex flex-col justify-end grow">
-				<Button handleClickButton={handleClickButton} />
+				<Button handleGenerateButtonClick={handleGenerateButtonClick} />
 			</div>
 		</div>
 	)

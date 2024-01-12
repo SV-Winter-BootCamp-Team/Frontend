@@ -7,20 +7,20 @@ export type UploadProps = {
 
 export default function UploadBackground({ setImageURL }: UploadProps) {
 	return (
-		<div className="flex flex-col items-center">
+		<div className="flex flex-col">
 			<div>
 				<UploadButton setImageURL={setImageURL} />
 			</div>
-			<div className="flex flex-col mt-8">
-				<div className="flex items-center mb-4">
+			<div className="flex flex-col mt-8 ml-8">
+				<div className="flex mb-4">
 					<img src={history} alt="background" className="w-4" />
 					<p className="ml-1">내 배경들</p>
 				</div>
-				<div className="flex flex-col items-center">
-					<div className="w-[320px] bg-blue-300 h-[180px] mb-4">grid1</div>
-					<div className="w-[320px] bg-blue-300 h-[180px] mb-4">grid1</div>
-					<div className="w-[320px] bg-blue-300 h-[180px] mb-4">grid1</div>
-					<div className="w-[320px] bg-blue-300 h-[180px] mb-4">grid1</div>
+				<div className="flex flex-col">
+					<div className="w-[304px] bg-blue-300 h-[171px] mb-4">grid1</div>
+					<div className="w-[304px] bg-blue-300 h-[171px] mb-4">grid1</div>
+					<div className="w-[304px] bg-blue-300 h-[171px] mb-4">grid1</div>
+					<div className="w-[304px] bg-blue-300 h-[171px] mb-4">grid1</div>
 				</div>
 			</div>
 		</div>

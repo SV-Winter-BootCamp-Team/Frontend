@@ -19,7 +19,7 @@ export default function Theme({ theme, setTheme, selectedTheme }: ThemeProps) {
 		<button
 			type="button"
 			onClick={handleClick}
-			className={`flex items-center justify-center mx-2 mt-4 ${borderColor} rounded-md border-solid`}
+			className={`flex items-center justify-center mx-1.5 mt-4 ${borderColor} rounded-md border-solid`}
 		>
 			<p className="px-3 py-1.5 text-sm">{theme}</p>
 		</button>

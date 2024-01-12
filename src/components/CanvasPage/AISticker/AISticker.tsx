@@ -18,7 +18,7 @@ export default function AISticker() {
 
 	const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
 		const element = event.currentTarget.cloneNode(true) as HTMLDivElement
-		const newId = `copy-${new Date().getTime()}` // 고유한 ID 생성
+		const newId = `copy-${new Date().getTime()}`
 		element.id = newId
 		element.setAttribute('draggable', 'true')
 

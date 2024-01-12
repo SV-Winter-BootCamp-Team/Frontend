@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import MyCanvas from '../MyCanvas'
 import Invite from '../Invite'
 import AISticker from '../AISticker'
@@ -7,6 +7,8 @@ import RecommendBackground from '../RecommendBackground'
 import UploadBackground from '../UploadBackground'
 import History from '../History'
 import Text from '../Text'
+import AIStickerLoading from '../AIStickerLoading'
+import AIStickerGenerator from '../AIStickerGenerator'
 
 type MenuSectionProps = {
 	isOpen: boolean
@@ -19,18 +21,31 @@ export default function MenuSection({
 	menu,
 	setImageURL,
 }: MenuSectionProps) {
-	const [isLoadingAI, setIsLoadingAI] = useState(false)
+	const [stickerStatus, setStickerStatus] = useState('generator')
+	// Mock 데이터를 정의합니다 (예시)
+	const mockStickerData = {
+		sticker: 'Generated AI Sticker',
+	}
 
-	// 클릭 이벤트 핸들러를 추가하여 AI 배경을 클릭했을 때 로딩 상태를 설정하도록 합니다.
-	const handleAIClick = () => {
-		setIsLoadingAI(true)
+	// Mock 데이터를 반환하는 비동기 함수
+	const fetchStickerData = () => {
+		return new Promise((resolve) => {
+			setTimeout(() => {
+				resolve(mockStickerData)
+			}, 1000) // 3초 후에 mock 데이터 반환
+		})
+	}
 
-		// 실제로 AI 작업을 수행하거나 데이터를 불러오는 코드를 추가하세요.
-
-		// 예시: setTimeout을 사용하여 3초 후 로딩 상태를 false로 변경합니다.
-		setTimeout(() => {
-			setIsLoadingAI(false)
-		}, 3000) // 3초
+	const handleGenerateSticker = async () => {
+		setStickerStatus('loading')
+		try {
+			const data = await fetchStickerData()
+			// 데이터 처리 (예: 스티커 설정)
+			setStickerStatus('completed')
+		} catch (error) {
+			console.error('Error fetching sticker data: ', error)
+			// 에러 처리
+		}
 	}
 
 	return (
@@ -43,11 +58,18 @@ export default function MenuSection({
 			{menu === '내 캔버스' && <MyCanvas />}
 			{menu === '초대하기' && <Invite />}
 			{menu === '배경 업로드' && <UploadBackground setImageURL={setImageURL} />}
-			{menu === 'AI 배경' &&
-				// isLoadingAI 상태에 따라 AI 배경 또는 AI Loading을 렌더링합니다.
-				(isLoadingAI ? <div>Loading AI...</div> : <AIBackgroundGenerator />)}
+			{menu === 'AI 배경' && <AIBackgroundGenerator />}
 			{menu === '추천 배경' && <RecommendBackground />}
-			{menu === 'AI 스티커' && <AISticker />}
+			{menu === 'AI 스티커' && (
+				<Suspense fallback={<AIStickerLoading />}>
+					{stickerStatus === 'generator' && (
+						<AIStickerGenerator
+							handleGenerateButtonClick={handleGenerateSticker}
+						/>
+					)}
+					{stickerStatus === 'completed' && <AISticker />}
+				</Suspense>
+			)}
 			{menu === '히스토리' && <History />}
 			{menu === '텍스트' && <Text />}
 		</div>
