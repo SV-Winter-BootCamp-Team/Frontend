@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import ColorPicker from './ColorPicker'
 import Theme from './Theme'
 import Color from './Color'
 import palette from '/images/svg/palette.svg'
@@ -20,7 +19,7 @@ export default function AIBackgroundGenerator() {
 			<div className="mt-2 ml-8">
 				<p className="my-4 font-semibold">색상</p>
 				<div className="grid grid-cols-7 gap-x-3 gap-y-2 w-72">
-					<ColorPicker color={color} setColor={setColor} />
+					<Color color="#FFFFFF" setColor={setColor} selectedColor={color} />
 					<Color color="#EC5F59" setColor={setColor} selectedColor={color} />
 					<Color color="#F1A259" setColor={setColor} selectedColor={color} />
 					<Color color="#FAE74F" setColor={setColor} selectedColor={color} />
@@ -31,7 +30,7 @@ export default function AIBackgroundGenerator() {
 					<Color color="#3340EF" setColor={setColor} selectedColor={color} />
 					<Color color="#9161F6" setColor={setColor} selectedColor={color} />
 					<Color color="#EF8BE5" setColor={setColor} selectedColor={color} />
-					<Color color="#FFFFFF" setColor={setColor} selectedColor={color} />
+					<Color color="#976D5" setColor={setColor} selectedColor={color} />
 					<Color color="#BFBFBF" setColor={setColor} selectedColor={color} />
 					<Color color="#000000" setColor={setColor} selectedColor={color} />
 				</div>
