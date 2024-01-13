@@ -20,7 +20,7 @@ export default function AISticker({ handleAddComponent }: AIStickerProps) {
 						src={componentURL}
 						key={index}
 						onClick={() => handleClick(componentURL)}
-						className="bg-red-400 w-36 h-36"
+						className="w-36 h-36"
 					/>
 				))}
 			</div>

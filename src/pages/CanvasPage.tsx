@@ -9,7 +9,6 @@ export type MoveableElement = {
 	src: string
 	x: number
 	y: number
-	// Add other properties like width, height, rotation, etc.
 }
 
 export default function CanvasPage() {
@@ -24,8 +23,8 @@ export default function CanvasPage() {
 		const newElement: MoveableElement = {
 			id: `element-${Date.now()}`,
 			src: componentURL,
-			x: 0, // Initial position, update as needed
-			y: 0, // Initial position, update as needed
+			x: 406,
+			y: 206,
 		}
 		setComponentList([...componentList, newElement])
 	}
@@ -37,7 +36,7 @@ export default function CanvasPage() {
 	return (
 		<div className="flex flex-col min-h-screen">
 			<NavBar />
-			<div className="flex flex-grow h-full bg-slate-400">
+			<div className="flex flex-grow h-full">
 				<div className="flex bg-white">
 					<MenuBar
 						isOpen={isOpen}
@@ -53,7 +52,11 @@ export default function CanvasPage() {
 						/>
 					)}
 				</div>
-				<Canvas backgroundURL={backgroundURL} componentList={componentList} />
+				<Canvas
+					backgroundURL={backgroundURL}
+					componentList={componentList}
+					setComponentList={setComponentList}
+				/>
 			</div>
 		</div>
 	)

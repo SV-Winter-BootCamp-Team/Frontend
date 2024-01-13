@@ -5,23 +5,36 @@ import Moveable from 'react-moveable'
 type CanvasProps = {
 	backgroundURL?: string
 	componentList: MoveableElement[]
+	setComponentList: (componentList: MoveableElement[]) => void
 }
 
-export default function Canvas({ backgroundURL, componentList }: CanvasProps) {
+export default function Canvas({
+	backgroundURL,
+	componentList,
+	setComponentList,
+}: CanvasProps) {
 	const [selectedElement, setSelectedElement] = useState<string | null>(null)
-	const boardRef = useRef<HTMLDivElement>(null)
 
-	useEffect(() => {
-		// Add any necessary effect logic here
-	}, [selectedElement, componentList])
+	useEffect(() => {}, [selectedElement, componentList])
 
 	const handleElementClick = (elementId: string) => {
 		setSelectedElement(elementId)
 	}
 
+	const handleDeselect = (e: React.MouseEvent) => {
+		// 클릭된 요소가 board가 아니면 아무 것도 하지 않음
+		if (e.target !== e.currentTarget) return
+
+		setSelectedElement(null) // 선택 해제
+	}
+
 	return (
 		<div className="flex items-center justify-center w-screen">
-			<div id="board" className="bg-white relative w-[912px] h-[513px]">
+			<div
+				id="board"
+				className="bg-white relative w-[912px] h-[513px] border-solid border-[1px] border-[#E7E8EA]"
+				onClick={handleDeselect} // board 클릭 이벤트 핸들러 추가
+			>
 				{backgroundURL && (
 					<img
 						src={backgroundURL}
@@ -41,9 +54,19 @@ export default function Canvas({ backgroundURL, componentList }: CanvasProps) {
 								position: 'absolute',
 								left: element.x,
 								top: element.y,
-								// Add more styles as needed
 							}}
 						/>
+						<button
+							onClick={(e) => {
+								e.stopPropagation() // Prevents the click event from bubbling up to the parent div
+								setComponentList(
+									componentList.filter((item) => item.id !== element.id),
+								)
+							}}
+							className="absolute top-0 right-0 w-6 h-6 text-white bg-red-500"
+						>
+							x
+						</button>
 						{selectedElement === element.id && (
 							<Moveable
 								target={`#${element.id}`}
@@ -51,7 +74,6 @@ export default function Canvas({ backgroundURL, componentList }: CanvasProps) {
 								resizable={true}
 								rotatable={true}
 								onDrag={({ target, left, top }) => {
-									// 각 축에 대해 범위를 별도로 확인합니다.
 									if (0 <= left && left <= 813 && 0 <= top && top <= 413) {
 										target.style.left = `${left}px`
 										target.style.top = `${top}px`
@@ -80,7 +102,6 @@ export default function Canvas({ backgroundURL, componentList }: CanvasProps) {
 											newWidth = newHeight * ratio
 										}
 									}
-
 									target.style.width = `${newWidth}px`
 									target.style.height = `${newHeight}px`
 									target.style.transform = `translate(${beforeTranslate[0]}px, ${beforeTranslate[1]}px)`

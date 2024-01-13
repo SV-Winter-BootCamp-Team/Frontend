@@ -53,7 +53,7 @@ export default function MenuSection({
 	return (
 		<div
 			style={{ height: 'calc(100vh - 50px)' }}
-			className={`overflow-y-auto flex flex-col w-[380px] bg-white ${
+			className={`overflow-y-auto flex flex-col w-[380px] bg-white border-r-[1px] border-[#E7E8EA] ${
 				!isOpen && 'hidden'
 			} `}
 		>
