@@ -16,3 +16,15 @@
 	background-color: lightgray; /* 스크롤바 자체의 색상 */
 	border-radius: 15px; /* 스크롤바의 모서리 둥글기 */
 }
+
+.moveable-control.moveable-origin {
+	display: none;
+}
+
+.moveable-control.moveable-rotation-control {
+	display: none;
+}
+
+.moveable-rotation {
+	display: none;
+}

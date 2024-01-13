@@ -29,7 +29,7 @@ export default function Canvas({ backgroundURL, componentList }: CanvasProps) {
 						className="object-cover w-full h-full"
 					/>
 				)}
-				{!backgroundURL && '드롭 영역'}
+				{!backgroundURL}
 				{componentList.map((element) => (
 					<div key={element.id} onClick={() => handleElementClick(element.id)}>
 						<img
