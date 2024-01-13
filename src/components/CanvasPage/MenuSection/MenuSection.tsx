@@ -13,13 +13,15 @@ import AIStickerGenerator from '../AIStickerGenerator'
 type MenuSectionProps = {
 	isOpen: boolean
 	menu: string
-	setImageURL: (imageURL: string) => void
+	setBackgroundURL: (backgroundURL: string) => void
+	handleAddComponent: (componentURL: string) => void
 }
 
 export default function MenuSection({
 	isOpen,
 	menu,
-	setImageURL,
+	setBackgroundURL,
+	handleAddComponent,
 }: MenuSectionProps) {
 	const [stickerStatus, setStickerStatus] = useState('generator')
 	// Mock 데이터를 정의합니다 (예시)
@@ -57,7 +59,9 @@ export default function MenuSection({
 		>
 			{menu === '내 캔버스' && <MyCanvas />}
 			{menu === '초대하기' && <Invite />}
-			{menu === '배경 업로드' && <UploadBackground setImageURL={setImageURL} />}
+			{menu === '배경 업로드' && (
+				<UploadBackground setBackgroundURL={setBackgroundURL} />
+			)}
 			{menu === 'AI 배경' && <AIBackgroundGenerator />}
 			{menu === '추천 배경' && <RecommendBackground />}
 			{menu === 'AI 스티커' && (
@@ -67,7 +71,9 @@ export default function MenuSection({
 							handleGenerateButtonClick={handleGenerateSticker}
 						/>
 					)}
-					{stickerStatus === 'completed' && <AISticker />}
+					{stickerStatus === 'completed' && (
+						<AISticker handleAddComponent={handleAddComponent} />
+					)}
 				</Suspense>
 			)}
 			{menu === '히스토리' && <History />}

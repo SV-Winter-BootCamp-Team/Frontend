@@ -2,7 +2,7 @@ import { ChangeEvent, useRef } from 'react'
 import upload from '/images/svg/upload.svg'
 import { UploadProps } from './UploadBackground'
 
-export default function UploadButton({ setImageURL }: UploadProps) {
+export default function UploadButton({ setBackgroundURL }: UploadProps) {
 	const fileInputRef = useRef<HTMLInputElement>(null)
 
 	const handleButtonClick = () => {
@@ -11,7 +11,7 @@ export default function UploadButton({ setImageURL }: UploadProps) {
 
 	const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files) {
-			setImageURL(URL.createObjectURL(e.target.files[0]))
+			setBackgroundURL(URL.createObjectURL(e.target.files[0]))
 		}
 	}
 

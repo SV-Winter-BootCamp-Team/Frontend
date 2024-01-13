@@ -4,10 +4,31 @@ import MenuBar from '../components/CanvasPage/MenuBar'
 import { useState } from 'react'
 import MenuSection from '../components/CanvasPage/MenuSection'
 
+export type MoveableElement = {
+	id: string
+	src: string
+	x: number
+	y: number
+	// Add other properties like width, height, rotation, etc.
+}
+
 export default function CanvasPage() {
 	const [isOpen, setIsOpen] = useState(false)
 	const [selectedMenu, setSelectedMenu] = useState<string>('내 캔버스')
-	const [imageURL, setImageURL] = useState<string>('')
+
+	const [backgroundURL, setBackgroundURL] = useState<string>('')
+
+	const [componentList, setComponentList] = useState<MoveableElement[]>([])
+
+	const handleAddComponent = (componentURL: string) => {
+		const newElement: MoveableElement = {
+			id: `element-${Date.now()}`,
+			src: componentURL,
+			x: 0, // Initial position, update as needed
+			y: 0, // Initial position, update as needed
+		}
+		setComponentList([...componentList, newElement])
+	}
 
 	const handleMenuBarClick = () => {
 		setIsOpen(!isOpen)
@@ -27,11 +48,12 @@ export default function CanvasPage() {
 						<MenuSection
 							isOpen={isOpen}
 							menu={selectedMenu}
-							setImageURL={setImageURL}
+							setBackgroundURL={setBackgroundURL}
+							handleAddComponent={handleAddComponent}
 						/>
 					)}
 				</div>
-				<Canvas isOpen={isOpen} backgroundImage={imageURL} />
+				<Canvas backgroundURL={backgroundURL} componentList={componentList} />
 			</div>
 		</div>
 	)

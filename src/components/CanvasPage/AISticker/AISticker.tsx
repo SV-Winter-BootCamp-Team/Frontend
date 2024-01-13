@@ -1,64 +1,26 @@
-import aisticker from '/images/svg/aisticker.svg'
-import home from '/images/svg/home.svg'
-import avator from '/images/svg/avator.svg'
-import palette from '/images/svg/palette.svg'
+import mm1 from '/images/png/mm1.png'
+import mm2 from '/images/png/mm2.png'
 
-export default function AISticker() {
-	const imgList: string[] = [aisticker, home, avator, palette]
+interface AIStickerProps {
+	handleAddComponent: (componentURL: string) => void
+}
 
-	const onDragStart = (event: React.DragEvent<HTMLDivElement>) => {
-		const { clientX, clientY } = event
-		const offsetX = clientX - event.currentTarget.getBoundingClientRect().left
-		const offsetY = clientY - event.currentTarget.getBoundingClientRect().top
-		event.dataTransfer.setData(
-			'text/plain',
-			JSON.stringify({ id: event.currentTarget.id, offsetX, offsetY }),
-		)
-	}
+export default function AISticker({ handleAddComponent }: AIStickerProps) {
+	const imgList: string[] = [mm1, mm2]
 
-	const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
-		const element = event.currentTarget.cloneNode(true) as HTMLDivElement
-		const newId = `copy-${new Date().getTime()}`
-		element.id = newId
-		element.setAttribute('draggable', 'true')
-
-		const board = document.getElementById('board')
-		if (board) {
-			board.appendChild(element)
-
-			setTimeout(() => {
-				const elementWidth = element.offsetWidth
-				const elementHeight = element.offsetHeight
-
-				const centerX = board.offsetWidth / 2 - elementWidth / 2
-				const centerY = board.offsetHeight / 2 - elementHeight / 2
-
-				element.style.position = 'absolute'
-				element.style.left = `${centerX}px`
-				element.style.top = `${centerY}px`
-
-				element.style.resize = 'both'
-				element.style.overflow = 'auto'
-				element.style.aspectRatio = '1 / 1' // Ensure 1:1 aspect ratio during resizing
-
-				element.addEventListener('dragstart', (e) => {
-					onDragStart(e as unknown as React.DragEvent<HTMLDivElement>)
-				})
-			}, 0)
-		}
+	const handleClick = (componentURL: string) => {
+		handleAddComponent(componentURL)
 	}
 
 	return (
 		<>
 			<div className="grid grid-cols-2 gap-6 my-7 mx-7">
-				{imgList.map((img, index) => (
+				{imgList.map((componentURL, index) => (
 					<img
-						src={img}
+						src={componentURL}
 						key={index}
-						id={`draggable-${index}`}
-						draggable="false"
-						onClick={handleClick}
-						className="overflow-auto w-36 h-36 cursor-grab resize-both aspect-square"
+						onClick={() => handleClick(componentURL)}
+						className="bg-red-400 w-36 h-36"
 					/>
 				))}
 			</div>
