@@ -1,10 +1,12 @@
-export type ButtonProps = {
+export type GenerateButtonProps = {
 	handleGenerateButtonClick: () => void
 }
 
-export default function Button({ handleGenerateButtonClick }: ButtonProps) {
+export default function GenerateButton({
+	handleGenerateButtonClick,
+}: GenerateButtonProps) {
 	return (
-		<div className="flex justify-center mb-6">
+		<div className="flex justify-center mb-7">
 			<button className="flex items-center justify-center px-5 py-3 mr-2 bg-[rgba(202,198,239,0.35)] rounded-[10px]">
 				<p className="text-[#7062D5]">초기화</p>
 			</button>

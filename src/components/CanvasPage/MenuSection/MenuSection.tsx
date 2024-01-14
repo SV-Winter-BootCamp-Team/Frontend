@@ -76,7 +76,9 @@ export default function MenuSection({
 					)}
 				</Suspense>
 			)}
-			{menu === '히스토리' && <History />}
+			{menu === '히스토리' && (
+				<History handleAddComponent={handleAddComponent} />
+			)}
 			{menu === '텍스트' && <Text />}
 		</div>
 	)

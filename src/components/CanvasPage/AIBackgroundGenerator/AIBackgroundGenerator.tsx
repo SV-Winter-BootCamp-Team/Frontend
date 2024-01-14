@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from 'react'
 import Theme from './Theme'
 import Color from './Color'
-import Button from './Button'
+import GenerateButton from '../../GenearateButton/'
 
 export default function AIBackgroundGenerator() {
 	const [color, setColor] = useState<string>('#FFFFFF')
@@ -89,7 +89,7 @@ export default function AIBackgroundGenerator() {
 			</div>
 			{/* 버튼 영역 */}
 			<div className="flex flex-col justify-end grow">
-				<Button handleGenerateButtonClick={handleGenerateButtonClick} />
+				<GenerateButton handleGenerateButtonClick={handleGenerateButtonClick} />
 			</div>
 		</div>
 	)

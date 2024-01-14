@@ -1,10 +1,12 @@
 import { useState, ChangeEvent } from 'react'
-import Button, { ButtonProps } from '../AIBackgroundGenerator/Button'
+import Button, {
+	GenerateButtonProps,
+} from '../../GenearateButton/GenerateButton'
 import Theme from '../AIBackgroundGenerator/Theme'
 
 export default function AIStickerGenerator({
 	handleGenerateButtonClick,
-}: ButtonProps) {
+}: GenerateButtonProps) {
 	// 사용자 입력을 추적하는 상태
 	const [inputText, setInputText] = useState<string>('')
 	const [theme, setTheme] = useState<string>('')
