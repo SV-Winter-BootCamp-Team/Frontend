@@ -1,7 +1,9 @@
+import { useState } from 'react'
+import html2canvas from 'html2canvas'
+
 import NavBar from '../components/CanvasPage/NavBar'
 import Canvas from '../components/CanvasPage/Canvas'
 import MenuBar from '../components/CanvasPage/MenuBar'
-import { useState } from 'react'
 import MenuSection from '../components/CanvasPage/MenuSection'
 
 export type MoveableElement = {
@@ -29,26 +31,48 @@ export default function CanvasPage() {
 		setComponentList([...componentList, newElement])
 	}
 
+	const handleApplyBackground = (backgroundURL: string) => {
+		setBackgroundURL(backgroundURL)
+	}
+
 	const handleMenuBarClick = () => {
 		setIsOpen(!isOpen)
 	}
 
+	const captureCanvas = async () => {
+		const canvasElement = document.getElementById('board') // 'board'는 캔버스 엘리먼트의 id라고 가정
+		if (canvasElement) {
+			const canvasImage = await html2canvas(canvasElement, {
+				scale: 4,
+			})
+
+			const image = canvasImage.toDataURL('image/png', 1.0)
+
+			const downloadLink = document.createElement('a')
+			downloadLink.href = image
+			downloadLink.download = 'captured-canvas.png'
+
+			downloadLink.click()
+		}
+	}
+
 	return (
 		<div className="flex flex-col min-h-screen">
-			<NavBar />
+			<NavBar captureCanvas={captureCanvas} />
 			<div className="flex flex-grow h-full">
 				<div className="flex bg-white">
 					<MenuBar
-						isOpen={isOpen}
+						selectedMenu={selectedMenu}
 						handleMenuBarClick={handleMenuBarClick}
 						setSelectedMenu={setSelectedMenu}
 					/>
 					{selectedMenu && (
 						<MenuSection
 							isOpen={isOpen}
-							menu={selectedMenu}
+							seletedMenu={selectedMenu}
 							setBackgroundURL={setBackgroundURL}
 							handleAddComponent={handleAddComponent}
+							handleApplyBackground={handleApplyBackground}
 						/>
 					)}
 				</div>

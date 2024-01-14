@@ -12,7 +12,7 @@ export default function Theme({ theme, setTheme, selectedTheme }: ThemeProps) {
 	// 선택된 테마일 경우 테두리 색상을 파란색으로 설정
 	const borderColor =
 		theme === selectedTheme
-			? 'border-[1px] border-[#7062D5] bg-[rgba(202,198,239,0.35)]'
+			? 'border-[1px] border-[#66cae1] bg-cyan-50'
 			: 'border-[1px] border-gray-300 bg-white'
 
 	return (

@@ -6,7 +6,7 @@ export default function Invite() {
 				placeholder="이메일"
 				className="w-52 pl-2.5 py-1 mr-2 text-sm border-solid border-[1px] border-gray-300 rounded-sm"
 			/>
-			<button className="px-2.5 py-1 bg-[#7062D5] rounded-[4px] text-sm text-white">
+			<button className="px-2.5 py-1 bg-[#66cae1] rounded-[4px] text-sm text-white">
 				초대하기
 			</button>
 		</div>

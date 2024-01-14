@@ -4,9 +4,13 @@ import Button, {
 } from '../../GenearateButton/GenerateButton'
 import Theme from '../AIBackgroundGenerator/Theme'
 
+type AIStickerGeneratorProps = {
+	handleGenerateSticker: () => void
+}
+
 export default function AIStickerGenerator({
-	handleGenerateButtonClick,
-}: GenerateButtonProps) {
+	handleGenerateSticker,
+}: AIStickerGeneratorProps) {
 	// 사용자 입력을 추적하는 상태
 	const [inputText, setInputText] = useState<string>('')
 	const [theme, setTheme] = useState<string>('')
@@ -68,7 +72,7 @@ export default function AIStickerGenerator({
 			</div>
 			{/* 버튼 영역 */}
 			<div className="flex flex-col justify-end grow">
-				<Button handleGenerateButtonClick={handleGenerateButtonClick} />
+				<Button handleGenerateButtonClick={handleGenerateSticker} />
 			</div>
 		</>
 	)

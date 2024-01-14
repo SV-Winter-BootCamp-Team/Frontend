@@ -8,21 +8,26 @@ import UploadBackground from '../UploadBackground'
 import History from '../History'
 import AIStickerLoading from '../AIStickerLoading'
 import AIStickerGenerator from '../AIStickerGenerator'
+import AIBackground from '../AIBackground'
+import AIBackgroundLoading from '../AIBackgroundLoading'
 
 type MenuSectionProps = {
 	isOpen: boolean
-	menu: string
+	seletedMenu: string
 	setBackgroundURL: (backgroundURL: string) => void
 	handleAddComponent: (componentURL: string) => void
+	handleApplyBackground: (backgroundURL: string) => void
 }
 
 export default function MenuSection({
 	isOpen,
-	menu,
+	seletedMenu,
 	setBackgroundURL,
 	handleAddComponent,
+	handleApplyBackground,
 }: MenuSectionProps) {
 	const [stickerStatus, setStickerStatus] = useState('generator')
+	const [backgroundStatus, setBackgroundStatus] = useState('generator')
 	// Mock 데이터를 정의합니다 (예시)
 	const mockStickerData = {
 		sticker: 'Generated AI Sticker',
@@ -30,6 +35,14 @@ export default function MenuSection({
 
 	// Mock 데이터를 반환하는 비동기 함수
 	const fetchStickerData = () => {
+		return new Promise((resolve) => {
+			setTimeout(() => {
+				resolve(mockStickerData)
+			}, 1000) // 3초 후에 mock 데이터 반환
+		})
+	}
+
+	const fetchBackgroundData = () => {
 		return new Promise((resolve) => {
 			setTimeout(() => {
 				resolve(mockStickerData)
@@ -49,6 +62,18 @@ export default function MenuSection({
 		}
 	}
 
+	const handleGenerateBackground = async () => {
+		setBackgroundStatus('loading')
+		try {
+			const data = await fetchBackgroundData()
+			// 데이터 처리 (예: 배경 설정)
+			setBackgroundStatus('completed')
+		} catch (error) {
+			console.error('Error fetching background data: ', error)
+			// 에러 처리
+		}
+	}
+
 	return (
 		<div
 			style={{ height: 'calc(100vh - 50px)' }}
@@ -56,29 +81,38 @@ export default function MenuSection({
 				!isOpen && 'hidden'
 			} `}
 		>
-			{menu === '내 캔버스' && <MyCanvas />}
-			{menu === '초대하기' && <Invite />}
-			{menu === '배경 업로드' && (
+			{seletedMenu === '내 캔버스' && <MyCanvas />}
+			{seletedMenu === '초대하기' && <Invite />}
+			{seletedMenu === '배경 업로드' && (
 				<UploadBackground setBackgroundURL={setBackgroundURL} />
 			)}
-			{menu === 'AI 배경' && <AIBackgroundGenerator />}
-			{menu === '추천 배경' && <RecommendBackground />}
-			{menu === 'AI 스티커' && (
+			{seletedMenu === 'AI 배경' && (
+				<Suspense fallback={<AIBackgroundLoading />}>
+					{backgroundStatus === 'generator' && (
+						<AIBackgroundGenerator
+							handleGenerateBackground={handleGenerateBackground}
+						/>
+					)}
+					{backgroundStatus === 'completed' && (
+						<AIBackground handleApplyBackground={handleApplyBackground} handleGenerateBackground={handleGenerateBackground}/>
+					)}
+				</Suspense>
+			)}
+			{seletedMenu === '추천 배경' && <RecommendBackground />}
+			{seletedMenu === 'AI 스티커' && (
 				<Suspense fallback={<AIStickerLoading />}>
 					{stickerStatus === 'generator' && (
-						<AIStickerGenerator
-							handleGenerateButtonClick={handleGenerateSticker}
-						/>
+						<AIStickerGenerator handleGenerateSticker={handleGenerateSticker} />
 					)}
 					{stickerStatus === 'completed' && (
 						<AISticker handleAddComponent={handleAddComponent} />
 					)}
 				</Suspense>
 			)}
-			{menu === '히스토리' && (
+			{seletedMenu === '히스토리' && (
 				<History handleAddComponent={handleAddComponent} />
 			)}
-			{menu === '텍스트'}
+			{seletedMenu === '텍스트'}
 		</div>
 	)
 }

@@ -18,7 +18,7 @@ export default function UploadButton({ setBackgroundURL }: UploadProps) {
 	return (
 		<button
 			onClick={handleButtonClick}
-			className="flex items-center justify-center h-10 mt-8 ml-8 bg-[#7062D5] rounded-lg w-[302px]"
+			className="flex items-center justify-center h-10 mt-8 ml-8 bg-[#66cae1] rounded-lg w-[302px]"
 		>
 			<input
 				type="file"

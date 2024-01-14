@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Moveable from 'react-moveable'
 import { MoveableElement } from '../../../pages/CanvasPage'
 import x from '/images/svg/x.svg'
@@ -15,6 +15,7 @@ export default function Canvas({
 	setComponentList,
 }: CanvasProps) {
 	const [selectedElement, setSelectedElement] = useState<string | null>(null)
+	const canvasRef = useRef(null) // 캔버스 참조를 위한 ref
 
 	const handleElementClick = (elementId: string) => {
 		setSelectedElement(elementId)
@@ -28,7 +29,10 @@ export default function Canvas({
 	}
 
 	return (
-		<div className="flex items-center justify-center w-screen bg-[#F1F2F4]">
+		<div
+			ref={canvasRef}
+			className="flex items-center justify-center w-screen bg-[#F1F2F4]"
+		>
 			<div
 				id="board"
 				className="overflow-hidden bg-white relative w-[912px] h-[513px] border-solid border-[1px] border-[#E7E8EA]"

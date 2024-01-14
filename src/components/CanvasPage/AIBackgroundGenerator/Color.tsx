@@ -14,7 +14,7 @@ export default function Color({ color, setColor, selectedColor }: ColorProps) {
 		? 'border-2 border-white'
 		: 'border-2 border-transparent hover:border-2 hover:border-white'
 	const divClasses = isSelected
-		? 'border-blue-300'
+		? 'border-[#66cae1]'
 		: 'border-transparent hover:border-gray-300'
 
 	return (

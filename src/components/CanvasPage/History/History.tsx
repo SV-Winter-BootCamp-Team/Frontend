@@ -20,7 +20,7 @@ export default function History({ handleAddComponent }: HistoryProps) {
 						src={componentURL}
 						key={index}
 						onClick={() => handleClick(componentURL)}
-						className="bg-[#f6f8fa] w-40 h-40 rounded-lg p-4"
+						className="w-40 h-40 p-4 bg-gray-100 rounded-lg"
 					/>
 				))}
 			</div>

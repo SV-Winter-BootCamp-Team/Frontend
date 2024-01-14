@@ -16,7 +16,7 @@ export default function AISticker({ handleAddComponent }: AIStickerProps) {
 
 	return (
 		<div className="flex flex-col items-center grow">
-			<div className="flex items-center justify-center py-4 px-7 mt-8 mb-4 bg-[#EBF1FC] rounded-lg">
+			<div className="flex items-center justify-center py-4 mt-8 mb-4 bg-gray-100 rounded-lg px-7">
 				<img src={info} className="w-5 h-5 mr-2" />
 				<div>
 					<h3 className="text-[14px] text-[#413f3f] font-medium">

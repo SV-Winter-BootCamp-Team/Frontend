@@ -32,3 +32,7 @@
 .moveable-control.moveable-direction.moveable-ne.moveable-resizable {
 	display: none;
 }
+
+.icon {
+	filter: invert(100%);
+}

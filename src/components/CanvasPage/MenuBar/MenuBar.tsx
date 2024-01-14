@@ -14,12 +14,13 @@ enum Menu {
 }
 
 type MenuBarProps = {
-	isOpen: boolean
+	selectedMenu: string
 	handleMenuBarClick: () => void
 	setSelectedMenu: (menu: string) => void
 }
 
 export default function MenuBar({
+	selectedMenu,
 	handleMenuBarClick,
 	setSelectedMenu,
 }: MenuBarProps) {
@@ -28,7 +29,6 @@ export default function MenuBar({
 
 	const handleButtonClick = (menu: string) => {
 		setSelectedMenu(menu)
-		
 	}
 
 	const handleExitClick = () => {
@@ -36,12 +36,12 @@ export default function MenuBar({
 	}
 
 	return (
-		<div className="grow flex flex-col items-center w-16 border-r-[1px] border-solid border-[#E7E8EA]">
+		<div className="grow flex flex-col items-center w-[70px] border-r-[1px] border-solid border-[#E7E8EA]">
 			<button
 				onClick={handleMenuBarClick}
-				className="flex flex-col items-center justify-center mt-8 mb-3"
+				className="flex flex-col items-center justify-center mb-5 mt-[33px]"
 			>
-				<img src={hamburger} alt="menu" />
+				<img src={hamburger} alt="menu" className="w-5" />
 			</button>
 			{Object.values(Menu).map((menu, index) => {
 				if (typeof menu === 'string') {
@@ -49,6 +49,7 @@ export default function MenuBar({
 						<Button
 							key={index}
 							name={menu}
+							selectedMenu={selectedMenu}
 							handleButtonClick={handleButtonClick}
 						/>
 					)
@@ -56,11 +57,11 @@ export default function MenuBar({
 			})}
 			<button
 				type="button"
-				className="flex flex-col items-center my-4"
+				className="flex flex-col items-center my-2 hover:bg-slate-100 py-[8px] w-[90%] rounded-xl"
 				onClick={handleExitClick}
 			>
-				<img src={exit} alt="exit" className="w-6" />
-				<p className="text-[12px] mt-[6px]">나가기</p>
+				<img src={exit} alt="exit" className="w-5" />
+				<p className="text-[12px] mt-[10px]">나가기</p>
 			</button>
 		</div>
 	)

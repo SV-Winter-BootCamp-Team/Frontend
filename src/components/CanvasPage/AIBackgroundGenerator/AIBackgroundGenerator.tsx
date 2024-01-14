@@ -3,7 +3,13 @@ import Theme from './Theme'
 import Color from './Color'
 import GenerateButton from '../../GenearateButton/'
 
-export default function AIBackgroundGenerator() {
+type AIBackgroundGeneratorProps = {
+	handleGenerateBackground: () => void
+}
+
+export default function AIBackgroundGenerator({
+	handleGenerateBackground,
+}: AIBackgroundGeneratorProps) {
 	const [color, setColor] = useState<string>('#FFFFFF')
 	const [style, setStyle] = useState<string>('')
 
@@ -21,8 +27,6 @@ export default function AIBackgroundGenerator() {
 
 	// 남은 문자 수 계산
 	const remainingCharacters = 20 - inputText.length
-
-	const handleGenerateButtonClick = () => {}
 
 	//TODO: color, theme를 이용해서 AI 배경을 생성을 요청하는 API 호출
 
@@ -89,7 +93,7 @@ export default function AIBackgroundGenerator() {
 			</div>
 			{/* 버튼 영역 */}
 			<div className="flex flex-col justify-end grow">
-				<GenerateButton handleGenerateButtonClick={handleGenerateButtonClick} />
+				<GenerateButton handleGenerateButtonClick={handleGenerateBackground} />
 			</div>
 		</div>
 	)
