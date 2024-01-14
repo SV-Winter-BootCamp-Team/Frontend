@@ -32,53 +32,52 @@ export default function Canvas({
 		<div className="flex items-center justify-center w-screen">
 			<div
 				id="board"
-				className="bg-white relative w-[912px] h-[513px] border-solid border-[1px] border-[#E7E8EA]"
+				className="overflow-hidden bg-white relative w-[912px] h-[513px] border-solid border-[1px] border-[#E7E8EA]"
 				onClick={handleDeselect} // board 클릭 이벤트 핸들러 추가
+				style={{
+					backgroundImage: `url(${backgroundURL})`,
+					backgroundSize: 'cover',
+				}}
 			>
-				{backgroundURL && (
-					<img
-						src={backgroundURL}
-						alt="background"
-						className="object-cover w-full h-full"
-					/>
-				)}
 				{!backgroundURL}
 				{componentList.map((element) => (
-					<div key={element.id} onClick={() => handleElementClick(element.id)}>
-						<img
+					<div className="absolute ">
+						<div
 							id={element.id}
-							src={element.src}
+							key={element.id}
+							onClick={() => handleElementClick(element.id)}
+							className=""
 							style={{
 								width: '100px',
 								height: '100px',
-								position: 'absolute',
+								position: 'relative',
 								left: element.x,
 								top: element.y,
 							}}
-						/>
-						<button
-							onClick={(e) => {
-								e.stopPropagation() // Prevents the click event from bubbling up to the parent div
-								setComponentList(
-									componentList.filter((item) => item.id !== element.id),
-								)
-							}}
-							className="absolute top-0 right-0 w-6 h-6 text-white bg-red-500"
 						>
-							x
-						</button>
+							<img src={element.src} className="w-full h-full" />
+							<button
+								onClick={(e) => {
+									e.stopPropagation() // Prevents the click event from bubbling up to the parent div
+									setComponentList(
+										componentList.filter((item) => item.id !== element.id),
+									)
+								}}
+								className="absolute top-[-10px] right-[-10px] w-6 h-6 text-white bg-red-500"
+							>
+								x
+							</button>
+						</div>
 						{selectedElement === element.id && (
 							<Moveable
 								target={`#${element.id}`}
 								draggable={true}
 								resizable={true}
 								rotatable={true}
-								onDrag={({ target, left, top }) => {
-									if (0 <= left && left <= 813 && 0 <= top && top <= 413) {
-										target.style.left = `${left}px`
-										target.style.top = `${top}px`
-										console.log('onDrag', left, top)
-									}
+								onDrag={({ target, left, right, top, bottom }) => {
+									target.style.left = `${left}px`
+									target.style.top = `${top}px`
+									console.log('onDrag', left, right, top, bottom)
 								}}
 								onResize={({ target, width, height, drag, direction }) => {
 									const beforeTranslate = drag.beforeTranslate
