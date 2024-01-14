@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom'
 import { Canvas } from '@react-three/fiber'
 import ThreeTest from './ThreeTest'
+import { useEffect } from 'react'
 
 export default function OnBoardingTemplate() {
 	const images: string[] = [
@@ -15,6 +15,16 @@ export default function OnBoardingTemplate() {
 		'onBoarding2',
 	]
 
+	useEffect(() => {
+		const div = document.querySelectorAll('div')
+		const observer = new IntersectionObserver(() => {})
+		observer.observe(div[8])
+		observer.observe(div[9])
+		observer.observe(div[11])
+	}, [])
+
+	// observer.observe(div)
+
 	return (
 		<div className="w-full overflow-x-hidden">
 			<div className="z-10 fixed w-full h-full">
@@ -22,17 +32,13 @@ export default function OnBoardingTemplate() {
 					<ThreeTest />
 				</Canvas>
 			</div>
-			<section className="w-full h-fit flex-col justify-center bg-gradient-to-b from-[#CB96EF] to-[#7AA1CD]">
-				<div className="w-fit pt-[358px] mx-auto text-[#514958] text-[60px]">
-					{/* <h1>꾸며Zoom에서 당신만의 배경을 꾸며보세요</h1> */}
+			<section className="w-full h-fit flex-col justify-center bg-gradient-to-b from-[#ffffff] to-[#7Ac1eD]">
+				<div id="box" className="h-screen mb-4"></div>
+				<div className="bg-[#000] h-screen p-20">
+					<div className="f-full h-full bg-gradient-to-b from-[#c7d] to-[#7Ac1eD]"></div>
 				</div>
-				<div className="mt-28 w-fit mx-auto">
-					{/* <button className="bg-[#FFFFFF66] p-4 text-[#514958] text-5xl rounded-[25px]">
-						<Link to="/signup">시작하기</Link>
-					</button> */}
-				</div>
-				<div className="w-full h-[3100px] pt-[1400px]">
-					<div className="flex flex-row-reverse gap-[10px] mt-80 overflow-hidden">
+				<div className="w-full h-screen">
+					<div className="flex flex-row-reverse gap-[10px] mt-32 overflow-hidden">
 						{images.map((image) => (
 							<img
 								className="w-[300px] animate-slider"
@@ -81,17 +87,6 @@ export default function OnBoardingTemplate() {
 						))}
 					</div>
 				</div>
-				{/* <div className="pt-24 w-fit mx-auto text-[#514958] text-5xl">
-					<div>
-						이미 수많은 사용자들이 매일 창의적인 작품들을 만들어내고 있습니다!
-					</div>
-				</div>
-				<div className="w-fit pt-[143px] mx-auto text-[#514958] text-6xl mt-32">
-					<div className="border-2 border-[#000000] border-dotted rounded-[25px] w-[700px] h-[600px]" />
-				</div>
-				<div className="w-fit py-16 mx-auto text-[#514958] text-5xl">
-					<div>나만의 개성을 담은 배경을 직접 디자인할 수 있습니다</div>
-				</div> */}
 			</section>
 		</div>
 	)
