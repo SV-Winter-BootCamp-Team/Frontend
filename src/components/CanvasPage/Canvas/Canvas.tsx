@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Moveable from 'react-moveable'
 import { MoveableElement } from '../../../pages/CanvasPage'
 import x from '/images/svg/x.svg'
@@ -15,8 +15,6 @@ export default function Canvas({
 	setComponentList,
 }: CanvasProps) {
 	const [selectedElement, setSelectedElement] = useState<string | null>(null)
-
-	useEffect(() => {}, [selectedElement, componentList])
 
 	const handleElementClick = (elementId: string) => {
 		setSelectedElement(elementId)

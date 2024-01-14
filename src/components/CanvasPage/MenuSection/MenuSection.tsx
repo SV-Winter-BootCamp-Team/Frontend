@@ -6,7 +6,6 @@ import AIBackgroundGenerator from '../AIBackgroundGenerator'
 import RecommendBackground from '../RecommendBackground'
 import UploadBackground from '../UploadBackground'
 import History from '../History'
-import Text from '../Text'
 import AIStickerLoading from '../AIStickerLoading'
 import AIStickerGenerator from '../AIStickerGenerator'
 
@@ -79,7 +78,7 @@ export default function MenuSection({
 			{menu === '히스토리' && (
 				<History handleAddComponent={handleAddComponent} />
 			)}
-			{menu === '텍스트' && <Text />}
+			{menu === '텍스트'}
 		</div>
 	)
 }
