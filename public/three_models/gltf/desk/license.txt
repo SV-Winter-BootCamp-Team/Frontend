@@ -1,0 +1,11 @@
+Model Information:
+* title:	Office Desk With Drawers
+* source:	https://sketchfab.com/3d-models/office-desk-with-drawers-e96769051078452bba7057473eceb587
+* author:	Blaž Mraz (https://sketchfab.com/Mraz3D)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Office Desk With Drawers" (https://sketchfab.com/3d-models/office-desk-with-drawers-e96769051078452bba7057473eceb587) by Blaž Mraz (https://sketchfab.com/Mraz3D) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

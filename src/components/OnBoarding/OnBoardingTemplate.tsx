@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom'
+import { Canvas } from '@react-three/fiber'
+import ThreeTest from './ThreeTest'
 
 export default function OnBoardingTemplate() {
 	const images: string[] = [
@@ -14,17 +16,22 @@ export default function OnBoardingTemplate() {
 	]
 
 	return (
-		<div className="w-full overflow-hidden">
-			<section className="w-full h-fit flex-col bg-gradient-to-b from-[#CB96EF] to-[#7AA1CD]">
+		<div className="w-full overflow-x-hidden">
+			<div className="z-10 fixed w-full h-full">
+				<Canvas>
+					<ThreeTest />
+				</Canvas>
+			</div>
+			<section className="w-full h-fit flex-col justify-center bg-gradient-to-b from-[#CB96EF] to-[#7AA1CD]">
 				<div className="w-fit pt-[358px] mx-auto text-[#514958] text-[60px]">
-					<h1>꾸며Zoom에서 당신만의 배경을 꾸며보세요</h1>
+					{/* <h1>꾸며Zoom에서 당신만의 배경을 꾸며보세요</h1> */}
 				</div>
 				<div className="mt-28 w-fit mx-auto">
-					<button className="bg-[#FFFFFF66] p-4 text-[#514958] text-5xl rounded-[25px]">
+					{/* <button className="bg-[#FFFFFF66] p-4 text-[#514958] text-5xl rounded-[25px]">
 						<Link to="/signup">시작하기</Link>
-					</button>
+					</button> */}
 				</div>
-				<div className="w-full">
+				<div className="w-full h-[3100px] pt-[1400px]">
 					<div className="flex flex-row-reverse gap-[10px] mt-80 overflow-hidden">
 						{images.map((image) => (
 							<img
@@ -74,7 +81,7 @@ export default function OnBoardingTemplate() {
 						))}
 					</div>
 				</div>
-				<div className="pt-24 w-fit mx-auto text-[#514958] text-5xl">
+				{/* <div className="pt-24 w-fit mx-auto text-[#514958] text-5xl">
 					<div>
 						이미 수많은 사용자들이 매일 창의적인 작품들을 만들어내고 있습니다!
 					</div>
@@ -84,7 +91,7 @@ export default function OnBoardingTemplate() {
 				</div>
 				<div className="w-fit py-16 mx-auto text-[#514958] text-5xl">
 					<div>나만의 개성을 담은 배경을 직접 디자인할 수 있습니다</div>
-				</div>
+				</div> */}
 			</section>
 		</div>
 	)
