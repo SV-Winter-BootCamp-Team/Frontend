@@ -28,3 +28,7 @@
 .moveable-rotation {
 	display: none;
 }
+
+.moveable-control.moveable-direction.moveable-ne.moveable-resizable {
+	display: none;
+}

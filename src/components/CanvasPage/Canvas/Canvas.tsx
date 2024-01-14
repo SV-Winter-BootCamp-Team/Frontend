@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { MoveableElement } from '../../../pages/CanvasPage'
+import React, { useState, useEffect } from 'react'
 import Moveable from 'react-moveable'
+import { MoveableElement } from '../../../pages/CanvasPage'
+import x from '/images/svg/x.svg'
 
 type CanvasProps = {
 	backgroundURL?: string
@@ -29,11 +30,11 @@ export default function Canvas({
 	}
 
 	return (
-		<div className="flex items-center justify-center w-screen">
+		<div className="flex items-center justify-center w-screen bg-[#F1F2F4]">
 			<div
 				id="board"
 				className="overflow-hidden bg-white relative w-[912px] h-[513px] border-solid border-[1px] border-[#E7E8EA]"
-				onClick={handleDeselect} // board 클릭 이벤트 핸들러 추가
+				onClick={handleDeselect}
 				style={{
 					backgroundImage: `url(${backgroundURL})`,
 					backgroundSize: 'cover',
@@ -56,17 +57,20 @@ export default function Canvas({
 							}}
 						>
 							<img src={element.src} className="w-full h-full" />
-							<button
-								onClick={(e) => {
-									e.stopPropagation() // Prevents the click event from bubbling up to the parent div
-									setComponentList(
-										componentList.filter((item) => item.id !== element.id),
-									)
-								}}
-								className="absolute top-[-10px] right-[-10px] w-6 h-6 text-white bg-red-500"
-							>
-								x
-							</button>
+							{selectedElement === element.id && (
+								<button
+									onClick={(e) => {
+										e.stopPropagation()
+										setComponentList(
+											componentList.filter((item) => item.id !== element.id),
+										)
+										setSelectedElement(null) // 버튼 클릭 시 선택 해제
+									}}
+									className="absolute top-0 right-0 flex items-center justify-center w-5 h-5 text-white bg-red-400"
+								>
+									<img src={x} className="w-2.5 h-2.5" />
+								</button>
+							)}
 						</div>
 						{selectedElement === element.id && (
 							<Moveable
