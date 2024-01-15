@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from 'react'
+import { ChangeEvent } from 'react'
 import GenerateButton from '../../GenearateButton/GenerateButton'
 import Theme from '../AIBackgroundGenerator/Theme'
 
@@ -6,16 +6,16 @@ type AIStickerGeneratorProps = {
 	fetchStickerData: () => void
 	inputText: string
 	setInputText: (inputText: string) => void
-	theme: string
-	setTheme: (theme: string) => void
+	style: string
+	setStyle: (theme: string) => void
 }
 
 export default function AIStickerGenerator({
 	fetchStickerData,
 	inputText,
 	setInputText,
-	theme,
-	setTheme,
+	style,
+	setStyle,
 }: AIStickerGeneratorProps) {
 	// 남은 문자 수 계산
 	const remainingCharacters = 300 - inputText.length
@@ -26,7 +26,7 @@ export default function AIStickerGenerator({
 
 	const handleResetButtonClick = () => {
 		setInputText('')
-		setTheme('')
+		setStyle('')
 	}
 
 	return (
@@ -58,22 +58,22 @@ export default function AIStickerGenerator({
 				<div className="mt-8 ml-6 mr-8">
 					<p className="ml-2 font-medium">스타일</p>
 					<div className="flex flex-wrap">
-						<Theme theme="2D" setTheme={setTheme} selectedTheme={theme} />
-						<Theme theme="3D" setTheme={setTheme} selectedTheme={theme} />
-						<Theme theme="일러스트" setTheme={setTheme} selectedTheme={theme} />
-						<Theme theme="픽셀아트" setTheme={setTheme} selectedTheme={theme} />
-						<Theme theme="수채화" setTheme={setTheme} selectedTheme={theme} />
-						<Theme theme="만화" setTheme={setTheme} selectedTheme={theme} />
-						<Theme theme="파스텔" setTheme={setTheme} selectedTheme={theme} />
+						<Theme theme="2D" setTheme={setStyle} selectedTheme={style} />
+						<Theme theme="3D" setTheme={setStyle} selectedTheme={style} />
+						<Theme theme="일러스트" setTheme={setStyle} selectedTheme={style} />
+						<Theme theme="픽셀아트" setTheme={setStyle} selectedTheme={style} />
+						<Theme theme="수채화" setTheme={setStyle} selectedTheme={style} />
+						<Theme theme="만화" setTheme={setStyle} selectedTheme={style} />
+						<Theme theme="파스텔" setTheme={setStyle} selectedTheme={style} />
 						<Theme
 							theme="애니메이션"
-							setTheme={setTheme}
-							selectedTheme={theme}
+							setTheme={setStyle}
+							selectedTheme={style}
 						/>
-						<Theme theme="레트로" setTheme={setTheme} selectedTheme={theme} />
-						<Theme theme="로고" setTheme={setTheme} selectedTheme={theme} />
-						<Theme theme="명화" setTheme={setTheme} selectedTheme={theme} />
-						<Theme theme="캐리커쳐" setTheme={setTheme} selectedTheme={theme} />
+						<Theme theme="레트로" setTheme={setStyle} selectedTheme={style} />
+						<Theme theme="로고" setTheme={setStyle} selectedTheme={style} />
+						<Theme theme="명화" setTheme={setStyle} selectedTheme={style} />
+						<Theme theme="캐리커쳐" setTheme={setStyle} selectedTheme={style} />
 					</div>
 				</div>
 			</div>

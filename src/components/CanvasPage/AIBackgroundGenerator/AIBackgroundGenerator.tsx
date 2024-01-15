@@ -4,11 +4,11 @@ import Color from './Color'
 import GenerateButton from '../../GenearateButton/'
 
 type AIBackgroundGeneratorProps = {
-	handleGenerateBackground: () => void
+	fetchBackgroundData: () => void
 }
 
 export default function AIBackgroundGenerator({
-	handleGenerateBackground,
+	fetchBackgroundData,
 }: AIBackgroundGeneratorProps) {
 	const [color, setColor] = useState<string>('')
 	const [style, setTheme] = useState<string>('')
@@ -99,7 +99,7 @@ export default function AIBackgroundGenerator({
 			<div className="flex flex-col justify-end grow">
 				<GenerateButton
 					handleResetButtonClick={handleResetButtonClick}
-					handleGenerateButtonClick={handleGenerateBackground}
+					handleGenerateButtonClick={fetchBackgroundData}
 				/>
 			</div>
 		</div>
