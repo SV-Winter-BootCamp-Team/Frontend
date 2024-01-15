@@ -1,17 +1,46 @@
 import { ChangeEvent, useRef } from 'react'
 import upload from '/images/svg/upload.svg'
 import { UploadProps } from './UploadBackground'
+import axios from 'axios'
+import { useParams } from 'react-router'
 
 export default function UploadButton({ setBackgroundURL }: UploadProps) {
 	const fileInputRef = useRef<HTMLInputElement>(null)
+	const params = useParams<{ canvas_id: string }>()
 
 	const handleButtonClick = () => {
 		fileInputRef.current?.click()
 	}
 
-	const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+	const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files) {
-			setBackgroundURL(URL.createObjectURL(e.target.files[0]))
+			const formData = new FormData()
+			formData.append('file', e.target.files[0])
+
+			try {
+				const response = await axios.post(
+					`http://localhost:8000/api/v1/canvases/${params.canvas_id}/backgrounds/upload/`,
+					formData,
+					{
+						headers: {
+							'Content-Type': 'multipart/form-data',
+						},
+					},
+				)
+				console.log(response.data)
+				setBackgroundURL(URL.createObjectURL(e.target.files[0]))
+			} catch (error) {
+				if (axios.isAxiosError(error)) {
+					const errorMessage = error.response?.data.message || error.message
+					console.log(errorMessage)
+				} else if (error instanceof Error) {
+					// 일반 오류 처리
+					console.log(error.message)
+				} else {
+					// 알 수 없는 오류 처리
+					console.log('An unexpected error occurred.')
+				}
+			}
 		}
 	}
 

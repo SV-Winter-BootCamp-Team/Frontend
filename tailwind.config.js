@@ -11,8 +11,6 @@ export default {
 				horizontal: 'horizontal',
 				vertical: 'vertical',
 			},
-		},
-	},
 			keyframes: {
 				slider: {
 					'0%': {
@@ -24,7 +22,7 @@ export default {
 				},
 				reverse_slider: {
 					'0%': {
-						transformm: 'translateX(0px)',
+						transform: 'translateX(0px)',
 					},
 					'100%': {
 						transform: 'translateX(-2790px)',
@@ -37,6 +35,7 @@ export default {
 			},
 		},
 	},
+
 	plugins: [
 		plugin(function ({ matchUtilities, theme }) {
 			matchUtilities(
@@ -49,5 +48,4 @@ export default {
 			)
 		}),
 	],
-  mode: 'jit',
 }
