@@ -3,15 +3,20 @@ import GenerateButton from '../../GenearateButton/GenerateButton'
 import Theme from '../AIBackgroundGenerator/Theme'
 
 type AIStickerGeneratorProps = {
-	handleGenerateSticker: () => void
+	fetchStickerData: () => void
+	inputText: string
+	setInputText: (inputText: string) => void
+	theme: string
+	setTheme: (theme: string) => void
 }
 
 export default function AIStickerGenerator({
-	handleGenerateSticker,
+	fetchStickerData,
+	inputText,
+	setInputText,
+	theme,
+	setTheme,
 }: AIStickerGeneratorProps) {
-	const [inputText, setInputText] = useState<string>('')
-	const [theme, setTheme] = useState<string>('')
-
 	// 남은 문자 수 계산
 	const remainingCharacters = 300 - inputText.length
 
@@ -76,7 +81,7 @@ export default function AIStickerGenerator({
 			<div className="flex flex-col justify-end grow">
 				<GenerateButton
 					handleResetButtonClick={handleResetButtonClick}
-					handleGenerateButtonClick={handleGenerateSticker}
+					handleGenerateButtonClick={fetchStickerData}
 				/>
 			</div>
 		</>
