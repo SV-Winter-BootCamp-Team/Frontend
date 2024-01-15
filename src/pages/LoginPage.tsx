@@ -1,37 +1,44 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-
-const mockData = {
-	message: '로그인 성공',
-	result: {
-		user_id: 'user_id',
-		user_name: '희은',
-	},
-}
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 export type UserKeyType = {
-	email: string
-	password: string
+	[index: string]: string | undefined
+	user_email?: string | undefined
+	user_password?: string | undefined
 }
 
 export default function LoginPage() {
 	const nav = useNavigate()
 
-	const [userKey, setUserKey] = useState<UserKeyType[]>([])
+	const [userKey, setUserKey] = useState<UserKeyType>()
 
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target
-		setUserKey({
-			...userKey,
-			[name]: value,
+		setUserKey((current) => {
+			let newState = { ...current }
+			newState[name] = value
+			return newState
 		})
 	}
 
 	const onSubmit = () => {
-		alert(`${mockData.result.user_name}, ${mockData.message}`)
-		nav({
-			pathname: `/main/:${mockData.result.user_id}`,
-		})
+		console.log(userKey)
+		axios
+			.post('http://localhost:8000/api/v1/users/login/', userKey)
+			.then((response) => {
+				localStorage.setItem('user_id', response.data.result.user_id)
+				localStorage.setItem('user_name', response.data.result.user_name)
+				alert(response.data.message)
+				nav({
+					pathname: `/main/${response.data.result.user_id}`,
+				})
+			})
+			.catch((error) => {
+				console.log(error.response)
+				alert(error.response.data.message)
+			})
+		console.log('done')
 	}
 
 	return (
@@ -47,7 +54,7 @@ export default function LoginPage() {
 						<input
 							className="w-[450px] border-[1px] border-[#000000] rounded"
 							onChange={onChange}
-							name="email"
+							name="user_email"
 						/>
 					</div>
 					<div>
@@ -56,14 +63,14 @@ export default function LoginPage() {
 							className="w-[450px] border-[1px] border-[#000000] rounded"
 							type="password"
 							onChange={onChange}
-							name="password"
+							name="user_password"
 						/>
 					</div>
 					<button
 						className="bg-[#603DED] w-[450px] rounded mt-12 mb-6 py-[10px] text-[#ffffff]"
 						onClick={onSubmit}
 					>
-						<Link to="/main/:">로그인하기</Link>
+						로그인하기
 					</button>
 				</div>
 			</div>

@@ -1,25 +1,43 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 export type UserKeyType = {
-	name: string
-	email: string
-	password: string
+	[index: string]: string | undefined
+	user_name?: string | undefined
+	user_email?: string | undefined
+	user_password?: string | undefined
 }
 
 export default function SignUpPage() {
-	const [userKey, setUserKey] = useState<UserKeyType[]>([])
+	const nav = useNavigate()
+
+	const [userKey, setUserKey] = useState<UserKeyType>()
+	const [signUpSuccess, setSignUpSuccess] = useState(false)
 
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target
-		setUserKey({
-			...userKey,
-			[name]: value,
+		setUserKey((current) => {
+			let newState = { ...current }
+			newState[name] = value
+			return newState
 		})
 	}
 
 	const onSubmit = () => {
 		console.log(userKey)
+
+		axios
+			.post('http://localhost:8000/api/v1/users/register/', userKey)
+			.then((response) => {
+				console.log(response)
+				nav({
+					pathname: '/login',
+				})
+			})
+			.catch((error) => {
+				setSignUpSuccess(true)
+			})
 	}
 
 	return (
@@ -35,16 +53,27 @@ export default function SignUpPage() {
 						<input
 							className="w-[450px] border-[1px] border-[#000000] rounded"
 							onChange={onChange}
-							name="name"
+							name="user_name"
 						/>
 					</div>
 					<div>
 						<h1 className="mt-[20px] mb-[20px]">이메일</h1>
 						<input
-							className="w-[450px] border-[1px] border-[#000000] rounded"
+							className={`w-[450px] ${
+								!signUpSuccess
+									? 'border-[1px] border-[#000000]'
+									: 'border-[2px] border-[#eb683f]'
+							} rounded`}
 							onChange={onChange}
-							name="email"
+							name="user_email"
 						/>
+						<div
+							className={`text-[15px] text-[#eb683f] ${
+								!signUpSuccess && 'hidden'
+							}`}
+						>
+							이메일을 정확히 입력해주세요
+						</div>
 					</div>
 					<div>
 						<h1 className="mt-[20px] mb-[20px]">비밀번호</h1>
@@ -52,14 +81,14 @@ export default function SignUpPage() {
 							className="w-[450px] border-[1px] border-[#000000] rounded"
 							type="password"
 							onChange={onChange}
-							name="password"
+							name="user_password"
 						/>
 					</div>
 					<button
 						className="bg-[#603DED] w-[450px] rounded mt-12 mb-6 py-[10px] text-[#ffffff]"
 						onClick={onSubmit}
 					>
-						<Link to="/login">가입하기</Link>
+						가입하기
 					</button>
 				</div>
 			</div>
