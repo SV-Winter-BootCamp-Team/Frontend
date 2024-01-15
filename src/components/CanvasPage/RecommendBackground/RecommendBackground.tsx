@@ -6,19 +6,19 @@ export default function RecommendBackground() {
 	const params = useParams<{ canvas_id: string }>()
 	const [backgrounds, setBackgrounds] = useState([])
 
-	useEffect(() => {
-		const fetchRecommendedBackgrounds = async () => {
-			try {
-				const response = await axios.get(
-					`http://localhost:8000/api/v1/canvases/${params.canvas_id}/backgrounds/recommend/`,
-				)
-				console.log('Recommended backgrounds:', response.data)
-				setBackgrounds(response.data.results)
-			} catch (error) {
-				console.error('Error fetching recommended backgrounds:', error)
-			}
+	const fetchRecommendedBackgrounds = async () => {
+		try {
+			const response = await axios.get(
+				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/backgrounds/recommend/`,
+			)
+			console.log('Recommended backgrounds:', response.data)
+			setBackgrounds(response.data.results)
+		} catch (error) {
+			console.error('Error fetching recommended backgrounds:', error)
 		}
+	}
 
+	useEffect(() => {
 		fetchRecommendedBackgrounds()
 	}, [])
 
