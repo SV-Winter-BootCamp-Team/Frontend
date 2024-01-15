@@ -40,7 +40,7 @@ export default function CanvasPage() {
 	}
 
 	const captureCanvas = async () => {
-		const canvasElement = document.getElementById('board') // 'board'는 캔버스 엘리먼트의 id라고 가정
+		const canvasElement = document.getElementById('board')
 		if (canvasElement) {
 			const canvasImage = await html2canvas(canvasElement, {
 				scale: 4,

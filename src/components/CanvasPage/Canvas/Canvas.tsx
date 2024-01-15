@@ -15,7 +15,7 @@ export default function Canvas({
 	setComponentList,
 }: CanvasProps) {
 	const [selectedElement, setSelectedElement] = useState<string | null>(null)
-	const canvasRef = useRef(null) // 캔버스 참조를 위한 ref
+	const canvasRef = useRef(null)
 
 	const handleElementClick = (elementId: string) => {
 		setSelectedElement(elementId)
@@ -49,11 +49,8 @@ export default function Canvas({
 							id={element.id}
 							key={element.id}
 							onClick={() => handleElementClick(element.id)}
-							className=""
+							className="w-[100px] h-[100px] relative"
 							style={{
-								width: '100px',
-								height: '100px',
-								position: 'relative',
 								left: element.x,
 								top: element.y,
 							}}

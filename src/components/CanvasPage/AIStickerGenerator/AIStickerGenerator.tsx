@@ -1,7 +1,5 @@
 import { useState, ChangeEvent } from 'react'
-import Button, {
-	GenerateButtonProps,
-} from '../../GenearateButton/GenerateButton'
+import Button from '../../GenearateButton/GenerateButton'
 import Theme from '../AIBackgroundGenerator/Theme'
 
 type AIStickerGeneratorProps = {
@@ -11,11 +9,9 @@ type AIStickerGeneratorProps = {
 export default function AIStickerGenerator({
 	handleGenerateSticker,
 }: AIStickerGeneratorProps) {
-	// 사용자 입력을 추적하는 상태
 	const [inputText, setInputText] = useState<string>('')
 	const [theme, setTheme] = useState<string>('')
 
-	// 사용자가 입력할 때마다 호출되는 이벤트 핸들러
 	const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
 		setInputText(event.target.value)
 	}

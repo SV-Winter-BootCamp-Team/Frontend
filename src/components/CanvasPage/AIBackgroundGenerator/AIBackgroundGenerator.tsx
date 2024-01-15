@@ -64,9 +64,9 @@ export default function AIBackgroundGenerator({
 					<Theme theme="밝은" setTheme={setStyle} selectedTheme={style} />
 					<Theme theme="어두운" setTheme={setStyle} selectedTheme={style} />
 					<Theme theme="차분한" setTheme={setStyle} selectedTheme={style} />
-					<Theme theme="깔끔한" setTheme={setStyle} selectedTheme={style} />
-					<Theme theme="깔끔한" setTheme={setStyle} selectedTheme={style} />
-					<Theme theme="깔끔한" setTheme={setStyle} selectedTheme={style} />
+					<Theme theme="싱그러운" setTheme={setStyle} selectedTheme={style} />
+					<Theme theme="따뜻한" setTheme={setStyle} selectedTheme={style} />
+					<Theme theme="차가운" setTheme={setStyle} selectedTheme={style} />
 				</div>
 			</div>
 			{/* 배경 묘사 영역 */}

@@ -94,7 +94,10 @@ export default function MenuSection({
 						/>
 					)}
 					{backgroundStatus === 'completed' && (
-						<AIBackground handleApplyBackground={handleApplyBackground} handleGenerateBackground={handleGenerateBackground}/>
+						<AIBackground
+							handleApplyBackground={handleApplyBackground}
+							handleGenerateBackground={handleGenerateBackground}
+						/>
 					)}
 				</Suspense>
 			)}
@@ -112,7 +115,6 @@ export default function MenuSection({
 			{seletedMenu === '히스토리' && (
 				<History handleAddComponent={handleAddComponent} />
 			)}
-			{seletedMenu === '텍스트'}
 		</div>
 	)
 }
