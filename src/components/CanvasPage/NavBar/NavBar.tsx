@@ -1,4 +1,3 @@
-import avator from '/images/svg/avator.svg'
 import download from '/images/svg/download.svg'
 
 type NavBarProps = {

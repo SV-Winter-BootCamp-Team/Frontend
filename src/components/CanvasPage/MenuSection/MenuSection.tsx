@@ -10,6 +10,8 @@ import AIStickerLoading from '../AIStickerLoading'
 import AIStickerGenerator from '../AIStickerGenerator'
 import AIBackground from '../AIBackground'
 import AIBackgroundLoading from '../AIBackgroundLoading'
+import axios from 'axios'
+import { useParams } from 'react-router'
 
 type MenuSectionProps = {
 	isOpen: boolean
@@ -26,51 +28,43 @@ export default function MenuSection({
 	handleAddComponent,
 	handleApplyBackground,
 }: MenuSectionProps) {
+	const params = useParams<{ canvas_id: string }>()
 	const [stickerStatus, setStickerStatus] = useState('generator')
 	const [backgroundStatus, setBackgroundStatus] = useState('generator')
-	// Mock 데이터를 정의합니다 (예시)
-	const mockStickerData = {
-		sticker: 'Generated AI Sticker',
-	}
 
-	// Mock 데이터를 반환하는 비동기 함수
-	const fetchStickerData = () => {
-		return new Promise((resolve) => {
-			setTimeout(() => {
-				resolve(mockStickerData)
-			}, 1000) // 3초 후에 mock 데이터 반환
-		})
-	}
+	const [inputText, setInputText] = useState<string>('')
+	const [theme, setTheme] = useState<string>('')
 
-	const fetchBackgroundData = () => {
-		return new Promise((resolve) => {
-			setTimeout(() => {
-				resolve(mockStickerData)
-			}, 1000) // 3초 후에 mock 데이터 반환
-		})
-	}
+	const [stickerList, setStickerList] = useState<string[]>([])
 
-	const handleGenerateSticker = async () => {
+	const fetchStickerData = async () => {
 		setStickerStatus('loading')
 		try {
-			const data = await fetchStickerData()
-			// 데이터 처리 (예: 스티커 설정)
+			const response = await axios.post(
+				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/stickers/ai/`,
+				{
+					describe: inputText,
+					style: theme,
+				},
+			)
+			console.log(response.data)
 			setStickerStatus('completed')
+			setStickerList(response.data.result.s3_urls)
 		} catch (error) {
-			console.error('Error fetching sticker data: ', error)
-			// 에러 처리
+			console.error('Error fetching AI sticker data:', error)
+			throw error
 		}
 	}
+
+	const fetchBackgroundData = () => {}
 
 	const handleGenerateBackground = async () => {
 		setBackgroundStatus('loading')
 		try {
 			const data = await fetchBackgroundData()
-			// 데이터 처리 (예: 배경 설정)
 			setBackgroundStatus('completed')
 		} catch (error) {
 			console.error('Error fetching background data: ', error)
-			// 에러 처리
 		}
 	}
 
@@ -105,13 +99,22 @@ export default function MenuSection({
 			{seletedMenu === 'AI 스티커' && (
 				<Suspense fallback={<AIStickerLoading />}>
 					{stickerStatus === 'generator' && (
-						<AIStickerGenerator handleGenerateSticker={handleGenerateSticker} />
+						<AIStickerGenerator
+							fetchStickerData={fetchStickerData}
+							inputText={inputText}
+							setInputText={setInputText}
+							theme={theme}
+							setTheme={setTheme}
+						/>
 					)}
 					{stickerStatus === 'completed' && (
 						<AISticker
 							handleAddComponent={handleAddComponent}
 							setStickerStatus={setStickerStatus}
-							handleGenerateSticker={handleGenerateSticker}
+							fetchStickerData={fetchStickerData}
+							stickerList={stickerList}
+							inputText={inputText}
+							style={theme}
 						/>
 					)}
 				</Suspense>

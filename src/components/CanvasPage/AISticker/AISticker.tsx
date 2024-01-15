@@ -1,21 +1,23 @@
 import ReGenerateButton from '../../ReGenerateButton'
-import mm1 from '/images/png/mm1.png'
-import mm2 from '/images/png/mm2.png'
 import info from '/images/svg/info.svg'
 
 type AIStickerProps = {
 	handleAddComponent: (componentURL: string) => void
 	setStickerStatus: (status: string) => void
-	handleGenerateSticker: () => void
+	fetchStickerData: () => void
+	stickerList: string[]
+	inputText: string
+	style: string
 }
 
 export default function AISticker({
 	handleAddComponent,
 	setStickerStatus,
-	handleGenerateSticker,
+	fetchStickerData,
+	stickerList,
+	inputText,
+	style,
 }: AIStickerProps) {
-	const imgList: string[] = [mm1, mm2, mm1, mm2]
-
 	const handleClick = (componentURL: string) => {
 		handleAddComponent(componentURL)
 	}
@@ -34,7 +36,7 @@ export default function AISticker({
 				</div>
 			</div>
 			<div className="grid grid-cols-2 gap-4">
-				{imgList.map((componentURL, index) => (
+				{stickerList.map((componentURL, index) => (
 					<img
 						src={componentURL}
 						key={index}
@@ -43,15 +45,14 @@ export default function AISticker({
 					/>
 				))}
 			</div>
-			<div className="bg-[#F1F2F4] px-5 py-4 rounded-lg mt-8">
-				<p className="text-[14px] font-normal">
-					귀여운 마이멜로디를 애니매이션 스타일로 생성했어요.
-				</p>
+			<div className="bg-[#F1F2F4] px-5 py-4 rounded-lg mt-8 flex text-[14px] font-normal">
+				<p className="text-[#5f9ba9]">{inputText}</p>
+				<p>를 {style} 스타일로 생성했어요.</p>
 			</div>
 			<div className="flex flex-col justify-end grow">
 				<ReGenerateButton
 					handleBackButtonClick={(status) => setStickerStatus(status)}
-					handleGenerateButtonClick={handleGenerateSticker}
+					handleGenerateButtonClick={fetchStickerData}
 				/>
 			</div>
 		</div>
