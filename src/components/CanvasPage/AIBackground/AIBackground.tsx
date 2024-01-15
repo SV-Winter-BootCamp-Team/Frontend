@@ -2,11 +2,13 @@ import ReGenerateButton from '../../ReGenerateButton'
 
 type AIBackgroundProps = {
 	handleApplyBackground: (backgroundURL: string) => void
+	setBackgroundStatus: (status: string) => void
 	handleGenerateBackground: () => void
 }
 
 export default function AIBackground({
 	handleApplyBackground,
+	setBackgroundStatus,
 	handleGenerateBackground,
 }: AIBackgroundProps) {
 	return (
@@ -18,6 +20,7 @@ export default function AIBackground({
 			</div>
 			<div className="flex flex-col justify-end grow">
 				<ReGenerateButton
+					handleBackButtonClick={(status) => setBackgroundStatus(status)}
 					handleGenerateButtonClick={handleGenerateBackground}
 				/>
 			</div>

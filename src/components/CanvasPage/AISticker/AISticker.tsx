@@ -5,9 +5,15 @@ import info from '/images/svg/info.svg'
 
 type AIStickerProps = {
 	handleAddComponent: (componentURL: string) => void
+	setStickerStatus: (status: string) => void
+	handleGenerateSticker: () => void
 }
 
-export default function AISticker({ handleAddComponent }: AIStickerProps) {
+export default function AISticker({
+	handleAddComponent,
+	setStickerStatus,
+	handleGenerateSticker,
+}: AIStickerProps) {
 	const imgList: string[] = [mm1, mm2, mm1, mm2]
 
 	const handleClick = (componentURL: string) => {
@@ -43,7 +49,10 @@ export default function AISticker({ handleAddComponent }: AIStickerProps) {
 				</p>
 			</div>
 			<div className="flex flex-col justify-end grow">
-				<ReGenerateButton handleGenerateButtonClick={() => {}} />
+				<ReGenerateButton
+					handleBackButtonClick={(status) => setStickerStatus(status)}
+					handleGenerateButtonClick={handleGenerateSticker}
+				/>
 			</div>
 		</div>
 	)

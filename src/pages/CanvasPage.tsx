@@ -59,8 +59,8 @@ export default function CanvasPage() {
 	return (
 		<div className="flex flex-col min-h-screen">
 			<NavBar captureCanvas={captureCanvas} />
-			<div className="flex flex-grow h-full">
-				<div className="flex bg-white">
+			<div className="flex flex-grow" style={{ height: 'calc(100vh - 55px)' }}>
+				<div className="flex h-full bg-white">
 					<MenuBar
 						selectedMenu={selectedMenu}
 						handleMenuBarClick={handleMenuBarClick}

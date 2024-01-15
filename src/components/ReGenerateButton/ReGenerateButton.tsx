@@ -1,13 +1,18 @@
 export type ReGenerateButtonProps = {
 	handleGenerateButtonClick: () => void
+	handleBackButtonClick: (status: string) => void
 }
 
 export default function ReGenerateButton({
 	handleGenerateButtonClick,
+	handleBackButtonClick,
 }: ReGenerateButtonProps) {
 	return (
 		<div className="flex justify-center mb-7">
-			<button className="flex items-center justify-center px-[53px] py-3 mr-2 bg-cyan-50 rounded-[10px]">
+			<button
+				onClick={() => handleBackButtonClick('generator')}
+				className="flex items-center justify-center px-[53px] py-3 mr-2 bg-cyan-50 rounded-[10px]"
+			>
 				<p className="text-[#66cae1]">돌아가기</p>
 			</button>
 			<button

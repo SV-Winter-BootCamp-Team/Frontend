@@ -1,5 +1,5 @@
 import { useState, ChangeEvent } from 'react'
-import Button from '../../GenearateButton/GenerateButton'
+import GenerateButton from '../../GenearateButton/GenerateButton'
 import Theme from '../AIBackgroundGenerator/Theme'
 
 type AIStickerGeneratorProps = {
@@ -12,12 +12,17 @@ export default function AIStickerGenerator({
 	const [inputText, setInputText] = useState<string>('')
 	const [theme, setTheme] = useState<string>('')
 
+	// 남은 문자 수 계산
+	const remainingCharacters = 300 - inputText.length
+
 	const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
 		setInputText(event.target.value)
 	}
 
-	// 남은 문자 수 계산
-	const remainingCharacters = 300 - inputText.length
+	const handleResetButtonClick = () => {
+		setInputText('')
+		setTheme('')
+	}
 
 	return (
 		<>
@@ -48,6 +53,7 @@ export default function AIStickerGenerator({
 				<div className="mt-8 ml-6 mr-8">
 					<p className="ml-2 font-medium">스타일</p>
 					<div className="flex flex-wrap">
+						<Theme theme="2D" setTheme={setTheme} selectedTheme={theme} />
 						<Theme theme="3D" setTheme={setTheme} selectedTheme={theme} />
 						<Theme theme="일러스트" setTheme={setTheme} selectedTheme={theme} />
 						<Theme theme="픽셀아트" setTheme={setTheme} selectedTheme={theme} />
@@ -59,16 +65,19 @@ export default function AIStickerGenerator({
 							setTheme={setTheme}
 							selectedTheme={theme}
 						/>
-						<Theme theme="파스텔" setTheme={setTheme} selectedTheme={theme} />
-						<Theme theme="파스텔" setTheme={setTheme} selectedTheme={theme} />
-						<Theme theme="파스텔" setTheme={setTheme} selectedTheme={theme} />
-						<Theme theme="파스텔" setTheme={setTheme} selectedTheme={theme} />
+						<Theme theme="레트로" setTheme={setTheme} selectedTheme={theme} />
+						<Theme theme="로고" setTheme={setTheme} selectedTheme={theme} />
+						<Theme theme="명화" setTheme={setTheme} selectedTheme={theme} />
+						<Theme theme="캐리커쳐" setTheme={setTheme} selectedTheme={theme} />
 					</div>
 				</div>
 			</div>
 			{/* 버튼 영역 */}
 			<div className="flex flex-col justify-end grow">
-				<Button handleGenerateButtonClick={handleGenerateSticker} />
+				<GenerateButton
+					handleResetButtonClick={handleResetButtonClick}
+					handleGenerateButtonClick={handleGenerateSticker}
+				/>
 			</div>
 		</>
 	)

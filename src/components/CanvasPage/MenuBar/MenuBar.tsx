@@ -36,7 +36,7 @@ export default function MenuBar({
 	}
 
 	return (
-		<div className="grow flex flex-col items-center w-[70px] border-r-[1px] border-solid border-[#E7E8EA]">
+		<div className="h-full grow flex flex-col items-center w-[70px] border-r-[1px] border-solid border-[#E7E8EA]">
 			<button
 				onClick={handleMenuBarClick}
 				className="flex flex-col items-center justify-center mb-5 mt-[33px]"

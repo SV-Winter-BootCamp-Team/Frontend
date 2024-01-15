@@ -31,7 +31,7 @@ export default function Canvas({
 	return (
 		<div
 			ref={canvasRef}
-			className="flex items-center justify-center w-screen bg-[#F1F2F4]"
+			className="flex items-center h-full justify-center w-screen bg-[#F1F2F4]"
 		>
 			<div
 				id="board"

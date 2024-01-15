@@ -1,13 +1,18 @@
 export type GenerateButtonProps = {
 	handleGenerateButtonClick: () => void
+	handleResetButtonClick: () => void
 }
 
 export default function GenerateButton({
 	handleGenerateButtonClick,
+	handleResetButtonClick,
 }: GenerateButtonProps) {
 	return (
 		<div className="flex justify-center mb-7">
-			<button className="flex items-center justify-center px-5 py-3 mr-2 bg-cyan-50 rounded-[10px]">
+			<button
+				onClick={handleResetButtonClick}
+				className="flex items-center justify-center px-5 py-3 mr-2 bg-cyan-50 rounded-[10px]"
+			>
 				<p className="text-[#66cae1]">초기화</p>
 			</button>
 			<button

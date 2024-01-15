@@ -76,8 +76,7 @@ export default function MenuSection({
 
 	return (
 		<div
-			style={{ height: 'calc(100vh - 50px)' }}
-			className={`overflow-y-auto flex flex-col w-[380px] bg-white border-r-[1px] border-[#E7E8EA] ${
+			className={`h-full overflow-y-auto flex flex-col w-[380px] bg-white border-r-[1px] border-[#E7E8EA] ${
 				!isOpen && 'hidden'
 			} `}
 		>
@@ -96,6 +95,7 @@ export default function MenuSection({
 					{backgroundStatus === 'completed' && (
 						<AIBackground
 							handleApplyBackground={handleApplyBackground}
+							setBackgroundStatus={setBackgroundStatus}
 							handleGenerateBackground={handleGenerateBackground}
 						/>
 					)}
@@ -108,7 +108,11 @@ export default function MenuSection({
 						<AIStickerGenerator handleGenerateSticker={handleGenerateSticker} />
 					)}
 					{stickerStatus === 'completed' && (
-						<AISticker handleAddComponent={handleAddComponent} />
+						<AISticker
+							handleAddComponent={handleAddComponent}
+							setStickerStatus={setStickerStatus}
+							handleGenerateSticker={handleGenerateSticker}
+						/>
 					)}
 				</Suspense>
 			)}

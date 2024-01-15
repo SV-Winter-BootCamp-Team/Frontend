@@ -10,8 +10,8 @@ type AIBackgroundGeneratorProps = {
 export default function AIBackgroundGenerator({
 	handleGenerateBackground,
 }: AIBackgroundGeneratorProps) {
-	const [color, setColor] = useState<string>('#FFFFFF')
-	const [style, setStyle] = useState<string>('')
+	const [color, setColor] = useState<string>('')
+	const [style, setTheme] = useState<string>('')
 
 	const [inputText, setInputText] = useState<string>('')
 
@@ -23,7 +23,11 @@ export default function AIBackgroundGenerator({
 		}
 	}
 
-	console.log(inputText)
+	const handleResetButtonClick = () => {
+		setColor('')
+		setInputText('')
+		setTheme('')
+	}
 
 	// 남은 문자 수 계산
 	const remainingCharacters = 20 - inputText.length
@@ -56,17 +60,17 @@ export default function AIBackgroundGenerator({
 			<div className="mt-8 ml-6 mr-8">
 				<p className="ml-2 font-medium">테마</p>
 				<div className="flex flex-wrap">
-					<Theme theme="힐링되는" setTheme={setStyle} selectedTheme={style} />
-					<Theme theme="깔끔한" setTheme={setStyle} selectedTheme={style} />
-					<Theme theme="귀여운" setTheme={setStyle} selectedTheme={style} />
-					<Theme theme="아늑한" setTheme={setStyle} selectedTheme={style} />
-					<Theme theme="사랑스러운" setTheme={setStyle} selectedTheme={style} />
-					<Theme theme="밝은" setTheme={setStyle} selectedTheme={style} />
-					<Theme theme="어두운" setTheme={setStyle} selectedTheme={style} />
-					<Theme theme="차분한" setTheme={setStyle} selectedTheme={style} />
-					<Theme theme="싱그러운" setTheme={setStyle} selectedTheme={style} />
-					<Theme theme="따뜻한" setTheme={setStyle} selectedTheme={style} />
-					<Theme theme="차가운" setTheme={setStyle} selectedTheme={style} />
+					<Theme theme="힐링되는" setTheme={setTheme} selectedTheme={style} />
+					<Theme theme="깔끔한" setTheme={setTheme} selectedTheme={style} />
+					<Theme theme="귀여운" setTheme={setTheme} selectedTheme={style} />
+					<Theme theme="아늑한" setTheme={setTheme} selectedTheme={style} />
+					<Theme theme="사랑스러운" setTheme={setTheme} selectedTheme={style} />
+					<Theme theme="밝은" setTheme={setTheme} selectedTheme={style} />
+					<Theme theme="어두운" setTheme={setTheme} selectedTheme={style} />
+					<Theme theme="차분한" setTheme={setTheme} selectedTheme={style} />
+					<Theme theme="싱그러운" setTheme={setTheme} selectedTheme={style} />
+					<Theme theme="따뜻한" setTheme={setTheme} selectedTheme={style} />
+					<Theme theme="차가운" setTheme={setTheme} selectedTheme={style} />
 				</div>
 			</div>
 			{/* 배경 묘사 영역 */}
@@ -93,7 +97,10 @@ export default function AIBackgroundGenerator({
 			</div>
 			{/* 버튼 영역 */}
 			<div className="flex flex-col justify-end grow">
-				<GenerateButton handleGenerateButtonClick={handleGenerateBackground} />
+				<GenerateButton
+					handleResetButtonClick={handleResetButtonClick}
+					handleGenerateButtonClick={handleGenerateBackground}
+				/>
 			</div>
 		</div>
 	)
