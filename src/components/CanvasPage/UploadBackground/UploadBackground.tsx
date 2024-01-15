@@ -51,12 +51,11 @@ export default function UploadBackground({ setBackgroundURL }: UploadProps) {
 			</div>
 			<div className="flex flex-col mt-8 ml-8">
 				{backgrounds.map((background) => (
-					<div
-						className="w-[304px] bg-blue-300 h-[171px] mb-4"
+					<img
+						src={background.component_url}
+						className="w-[304px] h-[171px] mb-4"
 						key={background.id}
-					>
-						<img src={background.component_url} alt="background" />
-					</div>
+					></img>
 				))}
 			</div>
 		</div>
