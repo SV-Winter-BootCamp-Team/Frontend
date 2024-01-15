@@ -1,12 +1,12 @@
 import React, { useRef, useState } from 'react'
 import Moveable from 'react-moveable'
-import { MoveableElement } from '../../../pages/CanvasPage'
+import { Component } from '../../../pages/CanvasPage'
 import x from '/images/svg/x.svg'
 
 type CanvasProps = {
 	backgroundURL?: string
-	componentList: MoveableElement[]
-	setComponentList: (componentList: MoveableElement[]) => void
+	componentList: Component[]
+	setComponentList: (componentList: Component[]) => void
 }
 
 export default function Canvas({
@@ -27,6 +27,7 @@ export default function Canvas({
 
 		setSelectedElement(null) // 선택 해제
 	}
+	console.log('backgroundURL', backgroundURL)
 
 	return (
 		<div
@@ -37,11 +38,11 @@ export default function Canvas({
 				id="board"
 				className="overflow-hidden bg-white relative w-[912px] h-[513px] border-solid border-[1px] border-[#E7E8EA]"
 				onClick={handleDeselect}
-				style={{
-					backgroundImage: `url(${backgroundURL})`,
-					backgroundSize: 'cover',
-				}}
 			>
+				<img
+					src={backgroundURL}
+					className="min-w-[912px] min-h-[513px] object-cover"
+				/>
 				{!backgroundURL}
 				{componentList.map((element) => (
 					<div className="absolute ">
@@ -51,11 +52,11 @@ export default function Canvas({
 							onClick={() => handleElementClick(element.id)}
 							className="w-[100px] h-[100px] relative"
 							style={{
-								left: element.x,
-								top: element.y,
+								left: element.position_x,
+								top: element.position_y,
 							}}
 						>
-							<img src={element.src} className="w-full h-full" />
+							<img src={element.component_url} className="w-full h-full" />
 							{selectedElement === element.id && (
 								<button
 									onClick={(e) => {

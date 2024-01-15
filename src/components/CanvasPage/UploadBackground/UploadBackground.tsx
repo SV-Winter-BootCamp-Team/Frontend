@@ -16,27 +16,28 @@ export default function UploadBackground({ setBackgroundURL }: UploadProps) {
 	const params = useParams<{ canvas_id: string }>()
 	const [backgrounds, setBackgrounds] = useState<Background[]>([])
 
-	useEffect(() => {
-		const fetchBackgrounds = async () => {
-			try {
-				const response = await axios.get(
-					`http://localhost:8000/api/v1/canvases/${params.canvas_id}/backgrounds/upload/`,
-				)
-				console.log(response.data.result.component)
-				setBackgrounds(response.data.result.component)
-			} catch (error) {
-				if (axios.isAxiosError(error)) {
-					const errorMessage = error.response?.data.message || error.message
-					console.log(errorMessage)
-				} else if (error instanceof Error) {
-					// 일반 오류 처리
-					console.log(error.message)
-				} else {
-					// 알 수 없는 오류 처리
-					console.log('An unexpected error occurred.')
-				}
+	const fetchBackgrounds = async () => {
+		try {
+			const response = await axios.get(
+				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/backgrounds/upload/`,
+			)
+			console.log(response.data.result.component)
+			setBackgrounds(response.data.result.component)
+		} catch (error) {
+			if (axios.isAxiosError(error)) {
+				const errorMessage = error.response?.data.message || error.message
+				console.log(errorMessage)
+			} else if (error instanceof Error) {
+				// 일반 오류 처리
+				console.log(error.message)
+			} else {
+				// 알 수 없는 오류 처리
+				console.log('An unexpected error occurred.')
 			}
 		}
+	}
+
+	useEffect(() => {
 		fetchBackgrounds()
 	}, [])
 

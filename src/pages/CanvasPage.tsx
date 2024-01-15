@@ -8,11 +8,14 @@ import MenuSection from '../components/CanvasPage/MenuSection'
 import axios from 'axios'
 import { useParams } from 'react-router'
 
-export type MoveableElement = {
+export type Component = {
 	id: string
-	src: string
-	x: number
-	y: number
+	component_type: 'Background' | 'Component'
+	component_url: string
+	position_x: number
+	position_y: number
+	width: number
+	height: number
 }
 
 export default function CanvasPage() {
@@ -22,16 +25,19 @@ export default function CanvasPage() {
 
 	const [backgroundURL, setBackgroundURL] = useState<string>('')
 
-	const [componentList, setComponentList] = useState<MoveableElement[]>([])
+	const [componentList, setComponentList] = useState<Component[]>([])
 
 	const [canvasName, setCanvasName] = useState<string>('')
 
 	const handleAddComponent = (componentURL: string) => {
-		const newElement: MoveableElement = {
+		const newElement: Component = {
+			component_type: 'Component',
+			component_url: componentURL,
 			id: `element-${Date.now()}`,
-			src: componentURL,
-			x: 406,
-			y: 206,
+			position_x: 406,
+			position_y: 206,
+			width: 100,
+			height: 100,
 		}
 		setComponentList([...componentList, newElement])
 	}
@@ -61,23 +67,31 @@ export default function CanvasPage() {
 		}
 	}
 
-	useEffect(() => {
-		const fetchCanvasDetails = async () => {
-			try {
-				const response = await axios.get(
-					`http://localhost:8000/api/v1/canvases/detail/${params.canvas_id}/`,
-				)
-				setCanvasName(response.data.result.canvas_name)
-				setComponentList(response.data.result.components)
-				console.log(response.data.result.canvas_name)
-				console.log(response.data.result.components)
-			} catch (error) {
-				console.error('Error fetching canvas details:', error)
-			}
-		}
+	const fetchCanvasDetails = async () => {
+		try {
+			const response = await axios.get(
+				`http://localhost:8000/api/v1/canvases/detail/${params.canvas_id}/`,
+			)
+			const fetchedCanvasData = response.data.result
+			setCanvasName(fetchedCanvasData.canvas_name)
 
+			setComponentList(fetchedCanvasData.sticker)
+
+			if (fetchedCanvasData.background) {
+				setBackgroundURL(fetchedCanvasData.background.component_url)
+			}
+		} catch (error) {
+			console.error('Error fetching canvas details:', error)
+		}
+	}
+
+	useEffect(() => {
 		fetchCanvasDetails()
 	}, [])
+
+	console.log(canvasName)
+	console.log('back!!', backgroundURL)
+	console.log(componentList)
 
 	return (
 		<div className="flex flex-col min-h-screen">
