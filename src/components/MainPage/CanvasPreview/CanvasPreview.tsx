@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { CanvasPreviewProps } from '../../../pages/MainPage'
 import axios from 'axios'
 
 export type EditNameType = {
-	[index: string]: string | number
 	canvas_id: number
 	canvas_name: string
 }
@@ -14,6 +14,7 @@ export default function CanvasPreview({
 	canvas_name,
 	update_at,
 }: CanvasPreviewProps) {
+	const nav = useNavigate()
 	const [hide, setHide] = useState(false)
 	const [newName, setNewName] = useState(canvas_name)
 	const [editName, setEditName] = useState<EditNameType>({
@@ -21,15 +22,11 @@ export default function CanvasPreview({
 		canvas_name: canvas_name,
 	})
 
-	function onClick() {
+	function deleteCanvas() {
 		axios
-			.delete('http://localhost:8000/api/v1/canvases/{canvas_id}', {
-				data: {
-					canvas_id: canvas_id,
-				},
-			})
-			.then((response) => {
-				alert(response.data.message)
+			.delete(`http://localhost:8000/api/v1/canvases/${canvas_id}`)
+			.then(() => {
+				window.location.reload()
 			})
 			.catch((error) => {
 				alert(error.response.data.message)
@@ -43,14 +40,17 @@ export default function CanvasPreview({
 			nextState['canvas_name'] = newName
 			return nextState
 		})
-		console.log(editName)
 		axios
-			.put('http://localhost:8000/api/v1/canvases/{canvas_id}', editName)
-			.then((response) => {
-				alert(response.data.message)
+			.put(`http://localhost:8000/api/v1/canvases/${canvas_id}`, {
+				canvas_name: newName,
+			})
+			.then(() => {
+				window.location.reload()
 			})
 			.catch((error) => {
 				alert(error.response.data.message)
+				console.log(error)
+				console.log(editName)
 			})
 	}
 
@@ -66,17 +66,29 @@ export default function CanvasPreview({
 				}}
 			>
 				<p>{content}</p>
+				<div
+					className="absolute top-0 left-0 h-full w-full "
+					onClick={() =>
+						nav({
+							pathname: `/canvas/${canvas_id}`,
+						})
+					}
+				/>
 				<button
 					className={`absolute top-0 right-0 ml-44 text-white ${
 						!hide && 'hidden'
 					}`}
-					onClick={onClick}
+					onClick={deleteCanvas}
 				>
 					❌
 				</button>
 			</div>
 			<form onSubmit={onSubmit}>
-				<input onChange={(e) => setNewName(e.target.value)} value={newName} />
+				<input
+					className="text-ellipsis"
+					onChange={(e) => setNewName(e.target.value)}
+					value={newName}
+				/>
 			</form>
 			<div>{update_at}</div>
 		</div>
