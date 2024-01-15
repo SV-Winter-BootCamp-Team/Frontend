@@ -43,7 +43,7 @@ export default function LoginPage() {
 
 	return (
 		<div className="h-[100vh] flex flex-col">
-			<div className="basis-2/12 flex flex-row justify-center sm:pt-16">
+			<div className="flex flex-row justify-center basis-2/12 sm:pt-16">
 				<div className="h-fit text-5xl font-bold mr-[8px]">Log in to</div>
 				<div className="h-fit text-5xl font-bold text-[#603DED]">꾸며Zoom</div>
 			</div>
