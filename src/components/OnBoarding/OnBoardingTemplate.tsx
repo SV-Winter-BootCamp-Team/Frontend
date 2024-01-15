@@ -27,15 +27,11 @@ export default function OnBoardingTemplate() {
 
 	return (
 		<div className="w-full overflow-x-hidden">
-			<div className="z-10 fixed w-full h-full">
-				<Canvas>
-					<ThreeTest />
-				</Canvas>
-			</div>
 			<section className="w-full h-fit flex-col justify-center bg-gradient-to-b from-[#ffffff] to-[#7Ac1eD]">
-				<div id="box" className="h-screen mb-4"></div>
-				<div className="bg-[#000] h-screen p-20">
-					<div className="f-full h-full bg-gradient-to-b from-[#c7d] to-[#7Ac1eD]"></div>
+				<div className="z-10 h-screen mb-4">
+					<Canvas>
+						<ThreeTest />
+					</Canvas>
 				</div>
 				<div className="w-full h-screen">
 					<div className="flex flex-row-reverse gap-[10px] mt-32 overflow-hidden">
