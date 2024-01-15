@@ -45,9 +45,11 @@ export default function AISticker({
 					/>
 				))}
 			</div>
-			<div className="bg-[#F1F2F4] px-5 py-4 rounded-lg mt-8 flex text-[14px] font-normal">
-				<p className="text-[#5f9ba9]">{inputText}</p>
-				<p>를 {style} 스타일로 생성했어요.</p>
+			<div className="bg-[#F1F2F4] px-5 py-4 rounded-lg mt-8 flex text-[14px] font-normal w-[335px]">
+				<p>
+					<span style={{ color: '#5f9ba9' }}>{inputText}</span>를{' '}
+					<span style={{ color: '#5f9ba9' }}>{style}</span> 스타일로 생성했어요.
+				</p>
 			</div>
 			<div className="flex flex-col justify-end grow">
 				<ReGenerateButton
