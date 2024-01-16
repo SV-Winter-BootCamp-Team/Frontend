@@ -41,7 +41,7 @@ export default function Canvas({
 			>
 				<img
 					src={backgroundURL}
-					className="absolute w-full h-full w-[912px] h-[513px]"
+					className="absolute w-[912px] h-[513px]"
 					onClick={handleDeselect}
 				/>
 				{!backgroundURL}
