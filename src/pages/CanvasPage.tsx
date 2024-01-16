@@ -9,8 +9,7 @@ import axios from 'axios'
 import { useParams } from 'react-router'
 
 export type Component = {
-	id: string
-	component_type: 'Background' | 'Component'
+	component_id: string
 	component_url: string
 	position_x: number
 	position_y: number
@@ -29,21 +28,36 @@ export default function CanvasPage() {
 
 	const [canvasName, setCanvasName] = useState<string>('')
 
+	const [canvasPreviewURL, setCanvasPreviewURL] = useState<string>('')
+
+	const handleSaveCanvas = async () => {
+		try {
+			console.log('componentList', componentList)
+			console.log('canvasPreviewURL', canvasPreviewURL)
+			const response = await axios.put(
+				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/save/`,
+				{
+					components: componentList,
+					canvas_preview_url: canvasPreviewURL,
+				},
+			)
+			console.log(response.data)
+		} catch (error) {
+			console.error('Error saving canvas:', error)
+		}
+	}
+
 	const handleAddComponent = (componentURL: string) => {
 		const newElement: Component = {
-			component_type: 'Component',
+			component_id: `element-${Date.now()}`,
 			component_url: componentURL,
-			id: `element-${Date.now()}`,
 			position_x: 406,
 			position_y: 206,
 			width: 100,
 			height: 100,
 		}
+		console.log('new!!!!!!', newElement.component_id)
 		setComponentList([...componentList, newElement])
-	}
-
-	const handleApplyBackground = (backgroundURL: string) => {
-		setBackgroundURL(backgroundURL)
 	}
 
 	const handleMenuBarClick = () => {
@@ -59,7 +73,8 @@ export default function CanvasPage() {
 			})
 
 			const image = canvasImage.toDataURL('image/png', 1.0)
-
+			setCanvasPreviewURL(image)
+			console.log(image)
 			const downloadLink = document.createElement('a')
 			downloadLink.href = image
 			downloadLink.download = 'captured-canvas.png'
@@ -96,7 +111,11 @@ export default function CanvasPage() {
 
 	return (
 		<div className="flex flex-col min-h-screen">
-			<NavBar captureCanvas={captureCanvas} canvasName={canvasName} />
+			<NavBar
+				captureCanvas={captureCanvas}
+				canvasName={canvasName}
+				handleSaveCanvas={handleSaveCanvas}
+			/>
 			<div className="flex flex-grow" style={{ height: 'calc(100vh - 55px)' }}>
 				<div className="flex h-full bg-white">
 					<MenuBar
