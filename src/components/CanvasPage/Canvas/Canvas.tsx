@@ -48,9 +48,9 @@ export default function Canvas({
 				{componentList.map((element) => (
 					<div className="absolute">
 						<div
-							id={element.id}
-							key={element.id}
-							onClick={() => handleElementClick(element.id)}
+							key={element.component_id.toString()}
+							id={element.component_id.toString()}
+							onClick={() => handleElementClick(element.component_id)}
 							className="w-[100px] h-[100px] relative"
 							style={{
 								left: element.position_x,
@@ -58,12 +58,14 @@ export default function Canvas({
 							}}
 						>
 							<img src={element.component_url} className="w-full h-full" />
-							{selectedElement === element.id && (
+							{selectedElement === element.component_id && (
 								<button
 									onClick={(e) => {
 										e.stopPropagation()
 										setComponentList(
-											componentList.filter((item) => item.id !== element.id),
+											componentList.filter(
+												(item) => item.component_id !== element.component_id,
+											),
 										)
 										setSelectedElement(null) // 버튼 클릭 시 선택 해제
 									}}
@@ -73,9 +75,9 @@ export default function Canvas({
 								</button>
 							)}
 						</div>
-						{selectedElement === element.id && (
+						{selectedElement === element.component_id && (
 							<Moveable
-								target={`#${element.id}`}
+								target={`#${element.component_id.toString()}`}
 								draggable={true}
 								resizable={true}
 								rotatable={true}
