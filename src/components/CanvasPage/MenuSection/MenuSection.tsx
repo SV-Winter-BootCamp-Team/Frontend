@@ -108,6 +108,7 @@ export default function MenuSection({
 							setBackgroundStatus={setBackgroundStatus}
 							fetchBackgroundData={fetchBackgroundData}
 							backgroundList={backgroundList}
+							setBackgroundURL={setBackgroundURL}
 						/>
 					)}
 				</Suspense>

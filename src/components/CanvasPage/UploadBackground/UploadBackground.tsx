@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import UploadButton from './UploadButton'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
