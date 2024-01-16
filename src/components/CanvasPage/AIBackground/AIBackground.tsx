@@ -15,13 +15,15 @@ export default function AIBackground({
 		<div className="flex flex-col items-center mt-8 grow">
 			<div className="flex flex-col">
 				{backgroundList.map((background, index) => (
-					<div
+					<img
 						key={index}
-						onClick={() => setBackgroundStatus(background)}
-						className="w-[320px] h-[180px] mb-4"
-					>
-						<img src={background} alt="background" />
-					</div>
+						src={background}
+						alt="background"
+						onClick={() => {
+							setBackgroundStatus(background)
+						}}
+						className="w-[320px] h-[180px] mb-4 cursor-pointer"
+					/>
 				))}
 			</div>
 			<div className="flex flex-col justify-end grow">

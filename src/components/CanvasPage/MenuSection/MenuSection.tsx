@@ -71,8 +71,8 @@ export default function MenuSection({
 				},
 			)
 			console.log(response.data)
-			setBackgroundList(response.data.result.s3_urls)
 			setBackgroundStatus('completed')
+			setBackgroundList(response.data.result.s3_urls)
 		} catch (error) {
 			console.error('Error fetching AI background data:', error)
 			throw error
@@ -112,7 +112,9 @@ export default function MenuSection({
 					)}
 				</Suspense>
 			)}
-			{seletedMenu === '추천 배경' && <RecommendBackground />}
+			{seletedMenu === '추천 배경' && (
+				<RecommendBackground setBackgroundURL={setBackgroundURL} />
+			)}
 			{seletedMenu === 'AI 스티커' && (
 				<Suspense fallback={<AIStickerLoading />}>
 					{stickerStatus === 'generator' && (
