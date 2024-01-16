@@ -54,6 +54,7 @@ export default function CanvasPage() {
 		const canvasElement = document.getElementById('board')
 		if (canvasElement) {
 			const canvasImage = await html2canvas(canvasElement, {
+				useCORS: true,
 				scale: 4,
 			})
 
@@ -109,7 +110,6 @@ export default function CanvasPage() {
 							seletedMenu={selectedMenu}
 							setBackgroundURL={setBackgroundURL}
 							handleAddComponent={handleAddComponent}
-							handleApplyBackground={handleApplyBackground}
 						/>
 					)}
 				</div>

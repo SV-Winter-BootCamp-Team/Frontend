@@ -1,22 +1,28 @@
 import ReGenerateButton from '../../ReGenerateButton'
 
 type AIBackgroundProps = {
-	handleApplyBackground: (backgroundURL: string) => void
 	setBackgroundStatus: (status: string) => void
 	fetchBackgroundData: () => void
+	backgroundList: string[]
 }
 
 export default function AIBackground({
-	handleApplyBackground,
 	setBackgroundStatus,
 	fetchBackgroundData,
+	backgroundList,
 }: AIBackgroundProps) {
 	return (
 		<div className="flex flex-col items-center mt-8 grow">
 			<div className="flex flex-col">
-				<div className="w-[320px] bg-blue-300 h-[180px] mb-4">grid1</div>
-				<div className="w-[320px] bg-blue-300 h-[180px] mb-4">grid1</div>
-				<div className="w-[320px] bg-blue-300 h-[180px] mb-4">grid1</div>
+				{backgroundList.map((background, index) => (
+					<div
+						key={index}
+						onClick={() => setBackgroundStatus(background)}
+						className="w-[320px] h-[180px] mb-4"
+					>
+						<img src={background} alt="background" />
+					</div>
+				))}
 			</div>
 			<div className="flex flex-col justify-end grow">
 				<ReGenerateButton
