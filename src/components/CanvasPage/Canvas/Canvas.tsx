@@ -36,16 +36,22 @@ export default function Canvas({
 		>
 			<div
 				id="board"
+				// key={backgroundURL}
 				className="overflow-hidden bg-white relative w-[912px] h-[513px] border-solid border-[1px] border-[#E7E8EA]"
 				onClick={handleDeselect}
-				style={{
-					backgroundImage: `url(${backgroundURL})`,
-					backgroundSize: 'cover',
-				}}
+				// style={{
+				// 	backgroundImage: `url(${backgroundURL})`,
+				// 	backgroundSize: 'cover',
+				// }}
 			>
+				<img
+					src={backgroundURL}
+					className="absolute w-full h-full w-[912px] h-[513px]"
+					onClick={handleDeselect}
+				/>
 				{!backgroundURL}
 				{componentList.map((element) => (
-					<div className="absolute ">
+					<div className="absolute">
 						<div
 							id={element.id}
 							key={element.id}
@@ -56,10 +62,7 @@ export default function Canvas({
 								top: element.position_y,
 							}}
 						>
-							<img
-								src={element.component_url}
-								className="w-[100px] h-[100px]"
-							/>
+							<img src={element.component_url} className="w-full h-full" />
 							{selectedElement === element.id && (
 								<button
 									onClick={(e) => {

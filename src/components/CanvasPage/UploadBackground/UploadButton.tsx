@@ -1,10 +1,13 @@
 import { ChangeEvent, useRef } from 'react'
 import upload from '/images/svg/upload.svg'
-import { UploadProps } from './UploadBackground'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 
-export default function UploadButton({ setBackgroundURL }: UploadProps) {
+type UploadButtonProps = {
+	setBackgroundURL: (backgroundURL: string) => void
+}
+
+export default function UploadButton({ setBackgroundURL }: UploadButtonProps) {
 	const fileInputRef = useRef<HTMLInputElement>(null)
 	const params = useParams<{ canvas_id: string }>()
 

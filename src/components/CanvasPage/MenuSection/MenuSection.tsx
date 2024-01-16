@@ -18,7 +18,6 @@ type MenuSectionProps = {
 	seletedMenu: string
 	setBackgroundURL: (backgroundURL: string) => void
 	handleAddComponent: (componentURL: string) => void
-	handleApplyBackground: (backgroundURL: string) => void
 }
 
 export default function MenuSection({
@@ -26,16 +25,20 @@ export default function MenuSection({
 	seletedMenu,
 	setBackgroundURL,
 	handleAddComponent,
-	handleApplyBackground,
 }: MenuSectionProps) {
 	const params = useParams<{ canvas_id: string }>()
 	const [stickerStatus, setStickerStatus] = useState('generator')
 	const [backgroundStatus, setBackgroundStatus] = useState('generator')
 
-	const [inputText, setInputText] = useState<string>('')
+	const [stickerInputText, setStickerInputText] = useState<string>('')
 	const [style, setStyle] = useState<string>('')
 
+	const [color, setColor] = useState<string>('')
+	const [theme, setTheme] = useState<string>('')
+	const [backgroundInputText, setBackgroundInputText] = useState<string>('')
+
 	const [stickerList, setStickerList] = useState<string[]>([])
+	const [backgroundList, setBackgroundList] = useState<string[]>([])
 
 	const fetchStickerData = async () => {
 		setStickerStatus('loading')
@@ -43,7 +46,7 @@ export default function MenuSection({
 			const response = await axios.post(
 				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/stickers/ai/`,
 				{
-					describe: inputText,
+					describe: stickerInputText,
 					style: style,
 				},
 			)
@@ -62,12 +65,13 @@ export default function MenuSection({
 			const response = await axios.post(
 				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/backgrounds/ai/`,
 				{
-					color: '#FFFFFF',
-					style: 'dark',
-					place: 'room',
+					color: color,
+					theme: theme,
+					place: backgroundInputText,
 				},
 			)
 			console.log(response.data)
+			setBackgroundList(response.data.result.s3_urls)
 			setBackgroundStatus('completed')
 		} catch (error) {
 			console.error('Error fetching AI background data:', error)
@@ -89,13 +93,21 @@ export default function MenuSection({
 			{seletedMenu === 'AI 배경' && (
 				<Suspense fallback={<AIBackgroundLoading />}>
 					{backgroundStatus === 'generator' && (
-						<AIBackgroundGenerator fetchBackgroundData={fetchBackgroundData} />
+						<AIBackgroundGenerator
+							fetchBackgroundData={fetchBackgroundData}
+							color={color}
+							setColor={setColor}
+							theme={theme}
+							setTheme={setTheme}
+							InputText={backgroundInputText}
+							setBackgroundInputText={setBackgroundInputText}
+						/>
 					)}
 					{backgroundStatus === 'completed' && (
 						<AIBackground
-							handleApplyBackground={handleApplyBackground}
 							setBackgroundStatus={setBackgroundStatus}
 							fetchBackgroundData={fetchBackgroundData}
+							backgroundList={backgroundList}
 						/>
 					)}
 				</Suspense>
@@ -106,8 +118,8 @@ export default function MenuSection({
 					{stickerStatus === 'generator' && (
 						<AIStickerGenerator
 							fetchStickerData={fetchStickerData}
-							inputText={inputText}
-							setInputText={setInputText}
+							inputText={stickerInputText}
+							setInputText={setStickerInputText}
 							style={style}
 							setStyle={setStyle}
 						/>
@@ -118,7 +130,7 @@ export default function MenuSection({
 							setStickerStatus={setStickerStatus}
 							fetchStickerData={fetchStickerData}
 							stickerList={stickerList}
-							inputText={inputText}
+							inputText={stickerInputText}
 							style={style}
 						/>
 					)}
