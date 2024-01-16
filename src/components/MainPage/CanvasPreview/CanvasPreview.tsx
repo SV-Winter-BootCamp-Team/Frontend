@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { CanvasPreviewProps } from '../../../pages/MainPage'
 import axios from 'axios'
@@ -24,7 +24,7 @@ export default function CanvasPreview({
 
 	function deleteCanvas() {
 		axios
-			.delete(`http://localhost:8000/api/v1/canvases/${canvas_id}`)
+			.delete(`http://localhost:8000/api/v1/canvases/${canvas_id}/`)
 			.then(() => {
 				window.location.reload()
 			})
@@ -41,7 +41,7 @@ export default function CanvasPreview({
 			return nextState
 		})
 		axios
-			.put(`http://localhost:8000/api/v1/canvases/${canvas_id}`, {
+			.put(`http://localhost:8000/api/v1/canvases/${canvas_id}/`, {
 				canvas_name: newName,
 			})
 			.then(() => {
@@ -49,7 +49,7 @@ export default function CanvasPreview({
 			})
 			.catch((error) => {
 				alert(error.response.data.message)
-				console.log(error)
+				console.error(error)
 				console.log(editName)
 			})
 	}

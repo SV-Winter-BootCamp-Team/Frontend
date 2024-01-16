@@ -49,7 +49,7 @@ export default function MainPage() {
 	useEffect(() => {
 		axios
 			.get(
-				`http://localhost:8000/api/v1/canvases/personal/${Number(user_id)}`,
+				`http://localhost:8000/api/v1/canvases/personal/${Number(user_id)}/`,
 				{
 					user_id: Number(user_id),
 				},
@@ -63,7 +63,7 @@ export default function MainPage() {
 			})
 			.catch(() => {})
 		axios
-			.get(`http://localhost:8000/api/v1/canvases/share/${Number(user_id)}`, {
+			.get(`http://localhost:8000/api/v1/canvases/share/${Number(user_id)}/`, {
 				user_id: Number(user_id),
 			})
 			.then((response) => {
