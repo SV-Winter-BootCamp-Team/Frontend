@@ -39,8 +39,6 @@ export default function AIBackgroundGenerator({
 	// 남은 문자 수 계산
 	const remainingCharacters = 20 - InputText.length
 
-	//TODO: color, theme를 이용해서 AI 배경을 생성을 요청하는 API 호출
-
 	return (
 		<div className="flex flex-col grow">
 			{/* 색상 영역 */}

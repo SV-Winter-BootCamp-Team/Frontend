@@ -85,8 +85,6 @@ export default function UploadBackground({ setBackgroundURL }: UploadProps) {
 				{backgrounds.map((background) => (
 					<img
 						onClick={() => {
-							console.log('Check!!!!!!!!!!!!!!')
-							console.log(background.component_url)
 							setBackgroundURL(background.component_url)
 							changeBackground(background.component_url)
 						}}

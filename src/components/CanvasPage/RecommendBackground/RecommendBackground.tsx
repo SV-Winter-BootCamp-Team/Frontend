@@ -2,7 +2,13 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 
-export default function RecommendBackground() {
+type RecommendBackgroundProps = {
+	setBackgroundURL: (backgroundURL: string) => void
+}
+
+export default function RecommendBackground({
+	setBackgroundURL,
+}: RecommendBackgroundProps) {
 	const params = useParams<{ canvas_id: string }>()
 	const [backgrounds, setBackgrounds] = useState([])
 
@@ -26,9 +32,12 @@ export default function RecommendBackground() {
 		<div className="flex flex-col items-center mt-8">
 			{backgrounds.map((background, index) => (
 				<img
+					onClick={() => {
+						setBackgroundURL(background)
+					}}
 					key={index}
 					src={background}
-					className="w-[304px] h-[171px] mb-2"
+					className="w-[304px] h-[171px] mb-2 cursor-pointer"
 				/>
 			))}
 		</div>

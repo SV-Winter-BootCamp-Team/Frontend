@@ -36,13 +36,8 @@ export default function Canvas({
 		>
 			<div
 				id="board"
-				// key={backgroundURL}
 				className="overflow-hidden bg-white relative w-[912px] h-[513px] border-solid border-[1px] border-[#E7E8EA]"
 				onClick={handleDeselect}
-				// style={{
-				// 	backgroundImage: `url(${backgroundURL})`,
-				// 	backgroundSize: 'cover',
-				// }}
 			>
 				<img
 					src={backgroundURL}
