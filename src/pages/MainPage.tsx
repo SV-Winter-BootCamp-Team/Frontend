@@ -46,14 +46,25 @@ export default function MainPage() {
 			})
 	}
 
+	function onClick() {
+		setNewCanvas((current) => {
+			let nextState = current
+			nextState['canvas_name'] = 'Untitled'
+			return nextState
+		})
+		axios
+			.post('http://localhost:8000/api/v1/canvases/', newCanvas)
+			.then((response) => {
+				alert(response.data.message)
+			})
+			.catch((error) => {
+				alert(error.response.message)
+			})
+	}
+
 	useEffect(() => {
 		axios
-			.get(
-				`http://localhost:8000/api/v1/canvases/personal/${Number(user_id)}/`,
-				{
-					user_id: Number(user_id),
-				},
-			)
+			.get(`http://localhost:8000/api/v1/canvases/personal/${Number(user_id)}/`)
 			.then((response) => {
 				const loadedCanvas = response.data.result.canvases
 				loadedCanvas.forEach((item: CanvasPreviewProps) => {
@@ -63,9 +74,7 @@ export default function MainPage() {
 			})
 			.catch(() => {})
 		axios
-			.get(`http://localhost:8000/api/v1/canvases/share/${Number(user_id)}/`, {
-				user_id: Number(user_id),
-			})
+			.get(`http://localhost:8000/api/v1/canvases/share/${Number(user_id)}/`)
 			.then((response) => {
 				const loadedCanvas = response.data.result.canvases
 				loadedCanvas.forEach((item: CanvasPreviewProps) => {

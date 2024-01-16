@@ -4,6 +4,7 @@ import { CanvasPreviewProps } from '../../../pages/MainPage'
 import axios from 'axios'
 
 export type EditNameType = {
+	[index: string]: string | number
 	canvas_id: number
 	canvas_name: string
 }
