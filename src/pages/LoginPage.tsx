@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 export type UserKeyType = {
@@ -12,6 +12,9 @@ export default function LoginPage() {
 	const nav = useNavigate()
 
 	const [userKey, setUserKey] = useState<UserKeyType>()
+	const [emailCheck, setEmailCheck] = useState(false)
+	const [passwordCheck, setPasswordCheck] = useState(false)
+	const [logInReady, setLogInReady] = useState(false)
 
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target
@@ -20,6 +23,9 @@ export default function LoginPage() {
 			newState[name] = value
 			return newState
 		})
+		if (emailCheck && passwordCheck) {
+			setLogInReady(true)
+		}
 	}
 
 	const onSubmit = () => {
@@ -42,36 +48,60 @@ export default function LoginPage() {
 	}
 
 	return (
-		<div className="h-[100vh] flex flex-col">
-			<div className="flex flex-row justify-center basis-2/12 sm:pt-16">
-				<div className="h-fit text-5xl font-bold mr-[8px]">Log in to</div>
-				<div className="h-fit text-5xl font-bold text-[#603DED]">꾸며Zoom</div>
+		<div className="h-screen flex justify-left items-center">
+			<div className="absolute bg-[#66CAE1] w-screen h-screen">
+				<img
+					className="object-cover w-screen h-screen"
+					src="src/components/SignupPage/img/background.jpg"
+					alt="background"
+				/>
 			</div>
-			<div className="basis-10/12">
-				<div className="w-fit h-fit text-[30px] my-4 mx-auto py-12 px-16 flex flex-col shadow-lg shadow-gray-400 rounded">
-					<div>
-						<h1 className="mt-[20px] mb-[20px]">이메일</h1>
-						<input
-							className="w-[450px] border-[1px] border-[#000000] rounded"
-							onChange={onChange}
-							name="user_email"
-						/>
+			<div className="flex ml-[10%] flex-col z-10">
+				<div className="bg-[#ffffff35] text-[12px] text-white my-4 mx-auto py-2 px-9 flex flex-col border rounded-lg">
+					<div className="mt-10 mb-5 flex flex-row justify-center">
+						<div className="h-fit text-xl font-bold mr-1">Join</div>
+						<div className="h-fit text-xl font-bold text-[#54ACBC]">
+							꾸며Zoom
+						</div>
 					</div>
-					<div>
-						<h1 className="mt-[20px] mb-[20px]">비밀번호</h1>
-						<input
-							className="w-[450px] border-[1px] border-[#000000] rounded"
-							type="password"
-							onChange={onChange}
-							name="user_password"
-						/>
-					</div>
+					<input
+						className="w-68 py-2.5 px-4 mt-6 border border-opacity-60 border-white rounded-3xl bg-transparent placeholder-opacity-50 placeholder-white"
+						onChange={(e) => {
+							onChange(e)
+							setEmailCheck(true)
+						}}
+						name="user_email"
+						placeholder="이메일"
+					/>
+					<input
+						className="w-68 py-2.5 px-4 mt-6 border border-opacity-60 border-white rounded-3xl bg-transparent placeholder-opacity-50 placeholder-white"
+						type="password"
+						onChange={(e) => {
+							onChange(e)
+							setPasswordCheck(true)
+						}}
+						name="user_password"
+						placeholder="비밀번호"
+					/>
 					<button
-						className="bg-[#603DED] w-[450px] rounded mt-12 mb-6 py-[10px] text-[#ffffff]"
+						className={`w-[240px] font-thin rounded-3xl mt-6 mb-4 py-3 ${
+							logInReady
+								? 'bg-[#60B0C0] text-[#ffffff] pointer-events-auto'
+								: 'bg-[#54ACBC70] text-[#ffffff] pointer-events-none'
+						}`}
 						onClick={onSubmit}
 					>
 						로그인하기
 					</button>
+					<div className="mt-2 mb-10 flex flex-row justify-center text-xs">
+						<div className="h-fit font-thin mr-[8px]">계정이 없으신가요? </div>
+						<Link
+							to="/signup"
+							className="h-fit font-medium text-[#60B0C0] underline"
+						>
+							회원가입 하러 가기
+						</Link>
+					</div>
 				</div>
 			</div>
 		</div>

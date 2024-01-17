@@ -11,8 +11,6 @@ export default {
 				horizontal: 'horizontal',
 				vertical: 'vertical',
 			},
-		},
-	},
 			keyframes: {
 				slider: {
 					'0%': {
@@ -49,5 +47,5 @@ export default {
 			)
 		}),
 	],
-  mode: 'jit',
+	mode: 'jit',
 }
