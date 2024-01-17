@@ -51,21 +51,21 @@ export default function LoginPage() {
 		<div className="h-screen flex justify-left items-center">
 			<div className="absolute bg-[#66CAE1] w-screen h-screen">
 				<img
-					className="object-cover w-screen h-screen"
-					src="src/components/SignupPage/img/background.jpg"
-					alt="background"
+					className="absolute w-full h-full"
+					src="src/components/SignupPage/img/background.png"
 				/>
+				<div className="absolute right-0 w-3/5 h-full flex items-end">
+					<img src="src/components/SignupPage/img/object.png" />
+				</div>
 			</div>
-			<div className="flex ml-[10%] flex-col z-10">
-				<div className="bg-[#ffffff35] text-[12px] text-white my-4 mx-auto py-2 px-9 flex flex-col border rounded-lg">
-					<div className="mt-10 mb-5 flex flex-row justify-center">
-						<div className="h-fit text-xl font-bold mr-1">Join</div>
-						<div className="h-fit text-xl font-bold text-[#54ACBC]">
-							꾸며Zoom
-						</div>
+			<div className="flex ml-[11%] flex-col z-10">
+				<div className="bg-[#ffffff35] text-[12px] text-white my-4 mx-auto py-4 px-11 flex flex-col border rounded-lg">
+					<div className="mt-11 mb-7 flex flex-row justify-center">
+						<div className="h-fit text-xl font-bold mr-1">Login</div>
+						<div className="h-fit text-6xl font-jua">꾸며Zoom</div>
 					</div>
 					<input
-						className="w-68 py-2.5 px-4 mt-6 border border-opacity-60 border-white rounded-3xl bg-transparent placeholder-opacity-50 placeholder-white"
+						className="w-[300px] py-3 px-4 mt-7 border border-white border-opacity-60 rounded-3xl bg-transparent placeholder-opacity-50 placeholder-white"
 						onChange={(e) => {
 							onChange(e)
 							setEmailCheck(true)
@@ -74,7 +74,7 @@ export default function LoginPage() {
 						placeholder="이메일"
 					/>
 					<input
-						className="w-68 py-2.5 px-4 mt-6 border border-opacity-60 border-white rounded-3xl bg-transparent placeholder-opacity-50 placeholder-white"
+						className="w-[300px] py-3 px-4 mt-7 border border-white border-opacity-60 rounded-3xl bg-transparent placeholder-opacity-50 placeholder-white"
 						type="password"
 						onChange={(e) => {
 							onChange(e)
@@ -84,7 +84,7 @@ export default function LoginPage() {
 						placeholder="비밀번호"
 					/>
 					<button
-						className={`w-[240px] font-thin rounded-3xl mt-6 mb-4 py-3 ${
+						className={`w-[300px] font-thin rounded-3xl mt-7 mb-6 py-3.5 ${
 							logInReady
 								? 'bg-[#60B0C0] text-[#ffffff] pointer-events-auto'
 								: 'bg-[#54ACBC70] text-[#ffffff] pointer-events-none'
