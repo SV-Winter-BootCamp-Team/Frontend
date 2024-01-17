@@ -1,3 +1,3 @@
 export default function AIBackgroundLoading() {
-	return <div>AIBackgroundLoading</div>
+	return <div className="bg-blue-500">AIBackgroundLoading</div>
 }

@@ -12,6 +12,7 @@ import AIBackground from '../AIBackground'
 import AIBackgroundLoading from '../AIBackgroundLoading'
 import axios from 'axios'
 import { useParams } from 'react-router'
+import { Component } from '../../../pages/CanvasPage'
 
 type MenuSectionProps = {
 	isOpen: boolean

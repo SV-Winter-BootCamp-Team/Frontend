@@ -1,6 +1,7 @@
 import axios from 'axios'
 import ReGenerateButton from '../../ReGenerateButton'
 import { useParams } from 'react-router-dom'
+import { useEffect } from 'react'
 
 type AIBackgroundProps = {
 	setBackgroundStatus: (status: string) => void
@@ -54,7 +55,7 @@ export default function AIBackground({
 						src={background}
 						alt="background"
 						onClick={() => {
-							setBackgroundStatus(background)
+							setBackgroundURL(background)
 							changeBackground(background)
 						}}
 						className="w-[320px] h-[180px] mb-4 cursor-pointer"
