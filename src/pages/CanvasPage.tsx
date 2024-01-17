@@ -32,15 +32,48 @@ export default function CanvasPage() {
 
 	const handleSaveCanvas = async () => {
 		try {
-			console.log('componentList', componentList)
-			console.log('canvasPreviewURL', canvasPreviewURL)
+			// 캔버스 캡처
+			const canvasElement = document.getElementById('board')
+			if (canvasElement) {
+				const canvasImage = await html2canvas(canvasElement, {
+					useCORS: true,
+					scale: 2,
+				})
+				const image = canvasImage.toDataURL('image/png', 1.0)
+				setCanvasPreviewURL(image)
+			}
+
+			// componentList 업데이트
+			const updatedComponents = componentList.map((component) => {
+				const element = document.getElementById(
+					`component-${component.component_id}`,
+				)
+				if (element) {
+					const rect = element.getBoundingClientRect()
+					return {
+						...component,
+						position_x: rect.left,
+						position_y: rect.top,
+						width: rect.width,
+						height: rect.height,
+					}
+				}
+				return component
+			})
+
+			setComponentList(updatedComponents)
+
+			console.log('updatedComponents!!!!!!!!!', updatedComponents)
+			console.log('canvasPreview!!!!!!!!!', canvasPreviewURL)
+
 			const response = await axios.put(
 				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/save/`,
 				{
-					components: componentList,
+					components: updatedComponents,
 					canvas_preview_url: canvasPreviewURL,
 				},
 			)
+
 			console.log(response.data)
 		} catch (error) {
 			console.error('Error saving canvas:', error)
@@ -103,7 +136,21 @@ export default function CanvasPage() {
 			const fetchedCanvasData = response.data.result
 			setCanvasName(fetchedCanvasData.canvas_name)
 
-			setComponentList(fetchedCanvasData.sticker)
+			setComponentList(
+				fetchedCanvasData.sticker.map(
+					({
+						id,
+						component_type,
+						...rest
+					}: {
+						id: string
+						component_type: string
+					}) => ({
+						component_id: id,
+						...rest,
+					}),
+				),
+			)
 
 			if (fetchedCanvasData.background) {
 				setBackgroundURL(fetchedCanvasData.background.component_url)
@@ -115,7 +162,7 @@ export default function CanvasPage() {
 
 	useEffect(() => {
 		fetchCanvasDetails()
-	}, [])
+	}, [params.canvas_id])
 
 	console.log(canvasName)
 	console.log('back!!', backgroundURL)

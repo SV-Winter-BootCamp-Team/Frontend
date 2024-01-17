@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 type Canvas = {
 	canvas_id: number
@@ -11,6 +11,7 @@ type Canvas = {
 
 export default function MyCanvas() {
 	const params = useParams<{ canvas_id: string }>()
+	const navigate = useNavigate()
 	const [canvases, setCanvases] = useState<Canvas[]>([])
 	const user_id = localStorage.getItem('user_id')
 
@@ -39,8 +40,11 @@ export default function MyCanvas() {
 							className="flex flex-col items-center mb-4"
 						>
 							<img
+								onClick={() => {
+									navigate(`/canvas/${canvas.canvas_id}`)
+								}}
 								src={canvas.canvas_preview_url}
-								className="w-[304px] h-[171px] mb-2"
+								className="w-[304px] h-[171px] mb-2 cursor-pointer"
 							></img>
 							<p className="text-sm">{canvas.canvas_name}</p>
 						</div>
