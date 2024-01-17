@@ -51,10 +51,12 @@ export default function SignUpPage() {
 		<div className="h-screen flex justify-left items-center">
 			<div className="absolute bg-[#66CAE1] w-screen h-screen">
 				<img
-					className="object-cover w-screen h-screen"
-					src="src/components/SignupPage/img/background.jpg"
-					alt="background"
+					className="absolute w-full h-full"
+					src="src/components/SignupPage/img/background.png"
 				/>
+				<div className="absolute right-0 w-2/3 h-full flex items-end">
+					<img src="src/components/SignupPage/img/object.png" />
+				</div>
 			</div>
 			<div className="flex ml-[10%] flex-col z-10">
 				<div className="bg-[#ffffff35] text-[12px] text-white my-4 mx-auto py-2 px-9 flex flex-col border rounded-lg">
