@@ -9,7 +9,7 @@ import axios from 'axios'
 import { useParams } from 'react-router'
 
 export type Component = {
-	component_id: string
+	component_id: number
 	component_url: string
 	position_x: number
 	position_y: number
@@ -47,17 +47,29 @@ export default function CanvasPage() {
 		}
 	}
 
-	const handleAddComponent = (componentURL: string) => {
-		const newElement: Component = {
-			component_id: `element-${Date.now()}`,
-			component_url: componentURL,
-			position_x: 406,
-			position_y: 206,
-			width: 100,
-			height: 100,
+	const handleAddComponent = async (componentURL: string) => {
+		try {
+			const response = await axios.post(
+				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/stickers/ai/select/`,
+				{
+					selected_url: componentURL,
+				},
+			)
+			console.log(response.data)
+			const component = response.data.result.component
+			console.log(component)
+			const newComponent = {
+				component_id: component.component_id,
+				component_url: componentURL,
+				position_x: 406,
+				position_y: 206,
+				width: 100,
+				height: 100,
+			}
+			setComponentList([...componentList, newComponent])
+		} catch (error) {
+			console.error('Error saving sticker:', error)
 		}
-		console.log('new!!!!!!', newElement.component_id)
-		setComponentList([...componentList, newElement])
 	}
 
 	const handleMenuBarClick = () => {
