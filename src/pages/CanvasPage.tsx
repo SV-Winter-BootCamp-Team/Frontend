@@ -30,6 +30,26 @@ export default function CanvasPage() {
 
 	const [canvasPreviewURL, setCanvasPreviewURL] = useState<string>('')
 
+	const [position_x, setPosition_x] = useState<number>(406)
+	const [position_y, setPosition_y] = useState<number>(206)
+	const [width, setWidth] = useState<number>(100)
+	const [height, setHeight] = useState<number>(100)
+
+	console.log('left', position_x)
+	console.log('top', position_y)
+	console.log('width', width)
+	console.log('height', height)
+
+	const updateComponent = (updatedComponent: Component) => {
+		setComponentList((prevList) =>
+			prevList.map((component) =>
+				component.component_id === updatedComponent.component_id
+					? { ...component, ...updatedComponent }
+					: component,
+			),
+		)
+	}
+
 	const handleSaveCanvas = async () => {
 		try {
 			// 캔버스 캡처
@@ -43,34 +63,30 @@ export default function CanvasPage() {
 				setCanvasPreviewURL(image)
 			}
 
-			// componentList 업데이트
-			const updatedComponents = componentList.map((component) => {
-				const element = document.getElementById(
-					`component-${component.component_id}`,
-				)
-				if (element) {
-					const rect = element.getBoundingClientRect()
-					return {
-						...component,
-						position_x: rect.left,
-						position_y: rect.top,
-						width: rect.width,
-						height: rect.height,
-					}
-				}
-				return component
-			})
+			const res = await fetch(canvasPreviewURL)
+			const blob = await res.blob()
 
-			setComponentList(updatedComponents)
+			const formData = new FormData()
+			formData.append('components', JSON.stringify(componentList))
 
-			console.log('updatedComponents!!!!!!!!!', updatedComponents)
+			formData.append('canvas_preview_url', blob)
+
+			console.log(formData)
+			let entries = formData.entries()
+			for (const pair of entries) {
+				console.log(pair[0] + ', ' + pair[1])
+			}
+
+			https: console.log('updatedComponents!!!!!!!!!', componentList)
 			console.log('canvasPreview!!!!!!!!!', canvasPreviewURL)
 
 			const response = await axios.put(
 				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/save/`,
+				formData,
 				{
-					components: updatedComponents,
-					canvas_preview_url: canvasPreviewURL,
+					headers: {
+						'Content-Type': 'multipart/form-data',
+					},
 				},
 			)
 
@@ -94,10 +110,10 @@ export default function CanvasPage() {
 			const newComponent = {
 				component_id: component.component_id,
 				component_url: componentURL,
-				position_x: 406,
-				position_y: 206,
-				width: 100,
-				height: 100,
+				position_x: position_x,
+				position_y: position_y,
+				width: width,
+				height: height,
 			}
 			setComponentList([...componentList, newComponent])
 		} catch (error) {
@@ -134,6 +150,7 @@ export default function CanvasPage() {
 				`http://localhost:8000/api/v1/canvases/detail/${params.canvas_id}/`,
 			)
 			const fetchedCanvasData = response.data.result
+
 			setCanvasName(fetchedCanvasData.canvas_name)
 
 			setComponentList(
@@ -141,16 +158,30 @@ export default function CanvasPage() {
 					({
 						id,
 						component_type,
+						position_x,
+						position_y,
+						width,
+						height,
 						...rest
 					}: {
 						id: string
 						component_type: string
+						position_x: number
+						position_y: number
+						width: number
+						height: number
 					}) => ({
 						component_id: id,
+						position_x,
+						position_y,
+						width, // 이 부분 확인
+						height, // 이 부분 확인
 						...rest,
 					}),
 				),
 			)
+
+			console.log('fetchedCanvasData', componentList)
 
 			if (fetchedCanvasData.background) {
 				setBackgroundURL(fetchedCanvasData.background.component_url)
@@ -195,6 +226,11 @@ export default function CanvasPage() {
 					backgroundURL={backgroundURL}
 					componentList={componentList}
 					setComponentList={setComponentList}
+					setPosition_x={setPosition_x}
+					setPosition_y={setPosition_y}
+					setWidth={setWidth}
+					setHeight={setHeight}
+					updateComponent={updateComponent} // New prop
 				/>
 			</div>
 		</div>

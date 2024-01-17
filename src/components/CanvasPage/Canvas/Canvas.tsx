@@ -9,12 +9,22 @@ type CanvasProps = {
 	backgroundURL?: string
 	componentList: Component[]
 	setComponentList: (componentList: Component[]) => void
+	setPosition_x: (position_x: number) => void
+	setPosition_y: (position_y: number) => void
+	setWidth: (width: number) => void
+	setHeight: (height: number) => void
+	updateComponent: (component: Component) => void
 }
 
 export default function Canvas({
 	backgroundURL,
 	componentList,
 	setComponentList,
+	setPosition_x,
+	setPosition_y,
+	setWidth,
+	setHeight,
+	updateComponent,
 }: CanvasProps) {
 	const params = useParams<{ canvas_id: string }>()
 	const [selectedElement, setSelectedElement] = useState<number | null>(null)
@@ -80,8 +90,10 @@ export default function Canvas({
 								<div
 									data-component-id={`element-${element.component_id}`}
 									onClick={() => handleElementClick(element.component_id)}
-									className="w-[100px] h-[100px] relative"
+									className="relative"
 									style={{
+										width: element.width,
+										height: element.height,
 										left: element.position_x,
 										top: element.position_y,
 									}}
@@ -104,10 +116,14 @@ export default function Canvas({
 										draggable={true}
 										resizable={true}
 										rotatable={true}
-										onDrag={({ target, left, right, top, bottom }) => {
+										onDrag={({ target, left, top }) => {
 											target.style.left = `${left}px`
 											target.style.top = `${top}px`
-											console.log('onDrag', left, right, top, bottom)
+											updateComponent({
+												...element,
+												position_x: left,
+												position_y: top,
+											})
 										}}
 										onResize={({ target, width, height, drag, direction }) => {
 											const beforeTranslate = drag.beforeTranslate
@@ -134,6 +150,14 @@ export default function Canvas({
 											target.style.width = `${newWidth}px`
 											target.style.height = `${newHeight}px`
 											target.style.transform = `translate(${beforeTranslate[0]}px, ${beforeTranslate[1]}px)`
+											setWidth(newWidth)
+											setHeight(newHeight)
+
+											updateComponent({
+												...element,
+												width,
+												height,
+											})
 										}}
 									/>
 								)}
