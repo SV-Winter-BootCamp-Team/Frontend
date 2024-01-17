@@ -43,7 +43,7 @@ export default function History({ handleAddComponent }: HistoryProps) {
 						src={component.component_url}
 						key={index}
 						onClick={() => handleClick(component.component_url)}
-						className="w-40 h-40 p-4 bg-gray-100 rounded-lg"
+						className="w-40 h-40 p-4 bg-gray-100 rounded-lg cursor-pointer"
 					/>
 				))}
 			</div>

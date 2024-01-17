@@ -41,7 +41,7 @@ export default function AISticker({
 						src={componentURL}
 						key={index}
 						onClick={() => handleClick(componentURL)}
-						className="bg-[#f6f8fa] w-40 h-40 rounded-lg p-4"
+						className="bg-[#f6f8fa] w-40 h-40 rounded-lg p-4 cursor-pointer"
 					/>
 				))}
 			</div>

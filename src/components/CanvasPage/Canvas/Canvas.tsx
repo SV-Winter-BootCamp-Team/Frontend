@@ -2,6 +2,8 @@ import React, { useRef, useState } from 'react'
 import Moveable from 'react-moveable'
 import { Component } from '../../../pages/CanvasPage'
 import x from '/images/svg/x.svg'
+import axios from 'axios'
+import { useParams } from 'react-router-dom'
 
 type CanvasProps = {
 	backgroundURL?: string
@@ -14,6 +16,7 @@ export default function Canvas({
 	componentList,
 	setComponentList,
 }: CanvasProps) {
+	const params = useParams<{ canvas_id: string }>()
 	const [selectedElement, setSelectedElement] = useState<number | null>(null)
 	const canvasRef = useRef(null)
 
@@ -28,6 +31,31 @@ export default function Canvas({
 		setSelectedElement(null) // 선택 해제
 	}
 	console.log('backgroundURL', backgroundURL)
+
+	const handleDeleteComponent = async (
+		e: React.MouseEvent,
+		componentId: number,
+	) => {
+		e.stopPropagation()
+
+		// componentList에서 요소 제거
+		const updatedComponentList = componentList.filter(
+			(item) => item.component_id !== componentId,
+		)
+		setComponentList(updatedComponentList)
+
+		// API 요청을 통해 서버에서 요소 삭제
+		try {
+			const response = await axios.delete(
+				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/${componentId}/`,
+			)
+			console.log('Delete response:', response.data)
+		} catch (error) {
+			console.error('Error deleting component:', error)
+		}
+
+		setSelectedElement(null) // 선택 해제
+	}
 
 	return (
 		<div
@@ -61,16 +89,9 @@ export default function Canvas({
 									<img src={element.component_url} className="w-full h-full" />
 									{selectedElement === element.component_id && (
 										<button
-											onClick={(e) => {
-												e.stopPropagation()
-												setComponentList(
-													componentList.filter(
-														(item) =>
-															item.component_id !== element.component_id,
-													),
-												)
-												setSelectedElement(null) // 버튼 클릭 시 선택 해제
-											}}
+											onClick={(e) =>
+												handleDeleteComponent(e, element.component_id)
+											}
 											className="absolute top-0 right-0 flex items-center justify-center w-5 h-5 text-white bg-red-400"
 										>
 											<img src={x} className="w-2.5 h-2.5" />
