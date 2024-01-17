@@ -62,9 +62,7 @@ export default function SignUpPage() {
 				<div className="bg-[#ffffff35] text-[12px] text-white my-4 mx-auto py-2 px-9 flex flex-col border rounded-lg">
 					<div className="mt-10 mb-5 flex flex-row justify-center">
 						<div className="h-fit text-xl font-bold mr-1">Join</div>
-						<div className="h-fit text-xl font-bold text-[#54ACBC]">
-							꾸며Zoom
-						</div>
+						<div className="h-fit text-6xl font-jua">꾸며Zoom</div>
 					</div>
 					<input
 						className="w-68 py-2.5 px-4 mt-6 border border-white border-opacity-60 rounded-3xl bg-transparent placeholder-opacity-50 placeholder-white"
