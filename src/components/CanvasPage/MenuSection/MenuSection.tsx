@@ -10,13 +10,15 @@ import AIStickerLoading from '../AIStickerLoading'
 import AIStickerGenerator from '../AIStickerGenerator'
 import AIBackground from '../AIBackground'
 import AIBackgroundLoading from '../AIBackgroundLoading'
+import axios from 'axios'
+import { useParams } from 'react-router'
+import { Component } from '../../../pages/CanvasPage'
 
 type MenuSectionProps = {
 	isOpen: boolean
 	seletedMenu: string
 	setBackgroundURL: (backgroundURL: string) => void
 	handleAddComponent: (componentURL: string) => void
-	handleApplyBackground: (backgroundURL: string) => void
 }
 
 export default function MenuSection({
@@ -24,53 +26,55 @@ export default function MenuSection({
 	seletedMenu,
 	setBackgroundURL,
 	handleAddComponent,
-	handleApplyBackground,
 }: MenuSectionProps) {
+	const params = useParams<{ canvas_id: string }>()
 	const [stickerStatus, setStickerStatus] = useState('generator')
 	const [backgroundStatus, setBackgroundStatus] = useState('generator')
-	// Mock 데이터를 정의합니다 (예시)
-	const mockStickerData = {
-		sticker: 'Generated AI Sticker',
-	}
 
-	// Mock 데이터를 반환하는 비동기 함수
-	const fetchStickerData = () => {
-		return new Promise((resolve) => {
-			setTimeout(() => {
-				resolve(mockStickerData)
-			}, 1000) // 3초 후에 mock 데이터 반환
-		})
-	}
+	const [stickerInputText, setStickerInputText] = useState<string>('')
+	const [style, setStyle] = useState<string>('')
 
-	const fetchBackgroundData = () => {
-		return new Promise((resolve) => {
-			setTimeout(() => {
-				resolve(mockStickerData)
-			}, 1000) // 3초 후에 mock 데이터 반환
-		})
-	}
+	const [color, setColor] = useState<string>('')
+	const [theme, setTheme] = useState<string>('')
+	const [backgroundInputText, setBackgroundInputText] = useState<string>('')
 
-	const handleGenerateSticker = async () => {
+	const [stickerList, setStickerList] = useState<string[]>([])
+	const [backgroundList, setBackgroundList] = useState<string[]>([])
+
+	const fetchStickerData = async () => {
 		setStickerStatus('loading')
 		try {
-			const data = await fetchStickerData()
-			// 데이터 처리 (예: 스티커 설정)
+			const response = await axios.post(
+				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/stickers/ai/`,
+				{
+					describe: stickerInputText,
+					style: style,
+				},
+			)
 			setStickerStatus('completed')
+			setStickerList(response.data.result.s3_urls)
 		} catch (error) {
-			console.error('Error fetching sticker data: ', error)
-			// 에러 처리
+			console.error('Error fetching AI sticker data:', error)
+			throw error
 		}
 	}
 
-	const handleGenerateBackground = async () => {
+	const fetchBackgroundData = async () => {
 		setBackgroundStatus('loading')
 		try {
-			const data = await fetchBackgroundData()
-			// 데이터 처리 (예: 배경 설정)
+			const response = await axios.post(
+				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/backgrounds/ai/`,
+				{
+					color: color,
+					theme: theme,
+					place: backgroundInputText,
+				},
+			)
 			setBackgroundStatus('completed')
+			setBackgroundList(response.data.result.s3_urls)
 		} catch (error) {
-			console.error('Error fetching background data: ', error)
-			// 에러 처리
+			console.error('Error fetching AI background data:', error)
+			throw error
 		}
 	}
 
@@ -89,29 +93,47 @@ export default function MenuSection({
 				<Suspense fallback={<AIBackgroundLoading />}>
 					{backgroundStatus === 'generator' && (
 						<AIBackgroundGenerator
-							handleGenerateBackground={handleGenerateBackground}
+							fetchBackgroundData={fetchBackgroundData}
+							color={color}
+							setColor={setColor}
+							theme={theme}
+							setTheme={setTheme}
+							InputText={backgroundInputText}
+							setBackgroundInputText={setBackgroundInputText}
 						/>
 					)}
 					{backgroundStatus === 'completed' && (
 						<AIBackground
-							handleApplyBackground={handleApplyBackground}
 							setBackgroundStatus={setBackgroundStatus}
-							handleGenerateBackground={handleGenerateBackground}
+							fetchBackgroundData={fetchBackgroundData}
+							backgroundList={backgroundList}
+							setBackgroundURL={setBackgroundURL}
 						/>
 					)}
 				</Suspense>
 			)}
-			{seletedMenu === '추천 배경' && <RecommendBackground />}
+			{seletedMenu === '추천 배경' && (
+				<RecommendBackground setBackgroundURL={setBackgroundURL} />
+			)}
 			{seletedMenu === 'AI 스티커' && (
 				<Suspense fallback={<AIStickerLoading />}>
 					{stickerStatus === 'generator' && (
-						<AIStickerGenerator handleGenerateSticker={handleGenerateSticker} />
+						<AIStickerGenerator
+							fetchStickerData={fetchStickerData}
+							inputText={stickerInputText}
+							setInputText={setStickerInputText}
+							style={style}
+							setStyle={setStyle}
+						/>
 					)}
 					{stickerStatus === 'completed' && (
 						<AISticker
 							handleAddComponent={handleAddComponent}
 							setStickerStatus={setStickerStatus}
-							handleGenerateSticker={handleGenerateSticker}
+							fetchStickerData={fetchStickerData}
+							stickerList={stickerList}
+							inputText={stickerInputText}
+							style={style}
 						/>
 					)}
 				</Suspense>
