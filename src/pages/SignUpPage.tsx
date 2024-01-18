@@ -54,18 +54,18 @@ export default function SignUpPage() {
 					className="absolute w-full h-full"
 					src="src/components/SignupPage/img/background.png"
 				/>
-				<div className="absolute right-0 w-3/5 h-full flex items-end">
+				<div className="absolute right-[8%] w-3/5 h-full flex items-end">
 					<img src="src/components/SignupPage/img/object.png" />
 				</div>
 			</div>
-			<div className="flex ml-[11%] flex-col z-10">
-				<div className="bg-[#ffffff35] text-[12px] text-white my-4 mx-auto py-4 px-11 flex flex-col border rounded-lg">
-					<div className="mt-11 mb-7 flex flex-row justify-center">
+			<div className="flex ml-[14%] flex-col z-10">
+				<div className="bg-[#ffffff35] text-[14px] text-white py-5 px-12 flex flex-col border rounded-xl">
+					<div className="mt-12 mb-8 flex flex-row justify-center">
 						<div className="h-fit text-xl font-bold mr-1">Join</div>
 						<div className="h-fit text-6xl font-jua">꾸며Zoom</div>
 					</div>
 					<input
-						className="w-[300px] py-3 px-4 mt-7 border border-white border-opacity-60 rounded-3xl bg-transparent placeholder-opacity-50 placeholder-white"
+						className="w-[300px] py-3.5 px-[17px] mt-7 border border-white border-opacity-60 rounded-full bg-transparent placeholder-opacity-50 placeholder-white"
 						onChange={(e) => {
 							onChange(e)
 							setNameCheck(true)
@@ -74,7 +74,7 @@ export default function SignUpPage() {
 						placeholder="이름"
 					/>
 					<input
-						className={`w-[300px] py-3 px-4 mt-7 ${
+						className={`w-[300px] py-3.5 px-[17px] mt-7 ${
 							signUpSuccess
 								? 'border border-[#2C67ED]'
 								: 'border border-opacity-60 border-white'
@@ -94,7 +94,7 @@ export default function SignUpPage() {
 						이메일을 정확히 입력해주세요
 					</div>
 					<input
-						className="w-[300px] py-3 px-4 mt-7 border border-opacity-60 border-white rounded-3xl bg-transparent placeholder-opacity-50 placeholder-white"
+						className="w-[300px] py-3.5 px-[17px] mt-7 border border-opacity-60 border-white rounded-3xl bg-transparent placeholder-opacity-50 placeholder-white"
 						type="password"
 						onChange={(e) => {
 							onChange(e)
@@ -104,20 +104,20 @@ export default function SignUpPage() {
 						placeholder="비밀번호"
 					/>
 					<button
-						className={`w-[300px] font-thin rounded-3xl mt-7 mb-6 py-3.5 ${
+						className={`w-[300px] font-thin rounded-3xl mt-8 mb-6 py-3.5 ${
 							signUpReady
-								? 'bg-[#60B0C0] text-[#ffffff] pointer-events-auto'
+								? 'bg-[#21AFBF] text-[#ffffff] pointer-events-auto hover:bg-[#31BFCF]'
 								: 'bg-[#54ACBC70] text-[#ffffff] pointer-events-none'
 						}`}
 						onClick={onSubmit}
 					>
 						가입하기
 					</button>
-					<div className="mt-2 mb-12 flex flex-row justify-center text-xs">
+					<div className="mt-2 mb-[50px] flex flex-row justify-center text-xs">
 						<div className="h-fit font-thin mr-[8px]">이미 회원이신가요? </div>
 						<Link
 							to="/login"
-							className="h-fit font-medium text-[#60B0C0] underline"
+							className="h-fit font-medium text-[#21AFBF] underline"
 						>
 							로그인 하러 가기
 						</Link>
