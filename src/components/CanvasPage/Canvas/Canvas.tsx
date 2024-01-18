@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Moveable from 'react-moveable'
 import { Component } from '../../../pages/CanvasPage'
 import x from '/images/svg/x.svg'
@@ -9,10 +9,6 @@ type CanvasProps = {
 	backgroundURL?: string
 	componentList: Component[]
 	setComponentList: (componentList: Component[]) => void
-	setPosition_x: (position_x: number) => void
-	setPosition_y: (position_y: number) => void
-	setWidth: (width: number) => void
-	setHeight: (height: number) => void
 	updateComponent: (component: Component) => void
 }
 
@@ -20,15 +16,14 @@ export default function Canvas({
 	backgroundURL,
 	componentList,
 	setComponentList,
-	setPosition_x,
-	setPosition_y,
-	setWidth,
-	setHeight,
 	updateComponent,
 }: CanvasProps) {
 	const params = useParams<{ canvas_id: string }>()
 	const [selectedElement, setSelectedElement] = useState<number | null>(null)
 	const canvasRef = useRef(null)
+
+	const canvasId = params.canvas_id
+	const [chatSocket, setChatSocket] = useState<WebSocket | null>(null)
 
 	const handleElementClick = (elementId: number) => {
 		setSelectedElement(elementId)
@@ -40,7 +35,6 @@ export default function Canvas({
 
 		setSelectedElement(null) // 선택 해제
 	}
-	console.log('backgroundURL', backgroundURL)
 
 	const handleDeleteComponent = async (
 		e: React.MouseEvent,
@@ -59,13 +53,87 @@ export default function Canvas({
 			const response = await axios.delete(
 				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/${componentId}/`,
 			)
-			console.log('Delete response:', response.data)
 		} catch (error) {
 			console.error('Error deleting component:', error)
 		}
 
 		setSelectedElement(null) // 선택 해제
 	}
+
+	const handleMoveableChange = (
+		element: Component,
+		left: number,
+		top: number,
+		width: number,
+		height: number,
+	) => {
+		const updatedComponent = {
+			...element,
+			position_x: left,
+			position_y: top,
+			width: width,
+			height: height,
+		}
+
+		updateComponent(updatedComponent)
+
+		// 변경 사항을 WebSocket을 통해 서버로 전송
+		chatSocket?.send(
+			JSON.stringify({
+				type: 'updateComponent',
+				component: updatedComponent,
+			}),
+		)
+	}
+
+	useEffect(() => {
+		// WebSocket 연결 설정
+		const newSocket = new WebSocket(
+			// 'ws://' + window.location.host + '/ws/canvases/' + canvasId + '/',
+			'ws://' + 'localhost:8000' + '/ws/canvases/' + canvasId + '/',
+		)
+
+		setChatSocket(newSocket)
+	}, [canvasId])
+
+	useEffect(() => {
+		if (chatSocket) {
+			// 메시지 수신 처리
+			chatSocket.onmessage = (e) => {
+				var data = JSON.parse(e.data)
+				// console.log(data.type)
+				if (data.type === 'resize') {
+					const updatedComponentList = componentList.map((component) => {
+						if (component.component_id === data.component_id) {
+							return {
+								...component,
+								width: data.width,
+								height: data.height,
+							}
+						}
+						return component
+					})
+
+					// 컴포넌트 리스트 상태 업데이트
+					setComponentList(updatedComponentList)
+				} else if (data.type === 'position') {
+					const updatedComponentList = componentList.map((component) => {
+						if (component.component_id === data.component_id) {
+							return {
+								...component,
+								position_x: data.position_x,
+								position_y: data.position_y,
+							}
+						}
+						return component
+					})
+
+					// 컴포넌트 리스트 상태 업데이트
+					setComponentList(updatedComponentList)
+				}
+			}
+		}
+	}, [chatSocket, componentList])
 
 	return (
 		<div
@@ -119,11 +187,29 @@ export default function Canvas({
 										onDrag={({ target, left, top }) => {
 											target.style.left = `${left}px`
 											target.style.top = `${top}px`
+
+											handleMoveableChange(
+												element,
+												left,
+												top,
+												element.width,
+												element.height,
+											)
 											updateComponent({
 												...element,
 												position_x: left,
 												position_y: top,
 											})
+
+											chatSocket?.send(
+												JSON.stringify({
+													type: 'position',
+													user_id: localStorage.getItem('user_id'),
+													component_id: element.component_id,
+													position_x: left,
+													position_y: top,
+												}),
+											)
 										}}
 										onResize={({ target, width, height, drag, direction }) => {
 											const beforeTranslate = drag.beforeTranslate
@@ -150,14 +236,30 @@ export default function Canvas({
 											target.style.width = `${newWidth}px`
 											target.style.height = `${newHeight}px`
 											target.style.transform = `translate(${beforeTranslate[0]}px, ${beforeTranslate[1]}px)`
-											setWidth(newWidth)
-											setHeight(newHeight)
+
+											handleMoveableChange(
+												element,
+												element.position_x,
+												element.position_y,
+												newWidth,
+												newHeight,
+											)
 
 											updateComponent({
 												...element,
-												width,
-												height,
+												width: newWidth,
+												height: newHeight,
 											})
+
+											chatSocket?.send(
+												JSON.stringify({
+													type: 'resize',
+													user_id: localStorage.getItem('user_id'),
+													component_id: element.component_id,
+													width: newWidth,
+													height: newHeight,
+												}),
+											)
 										}}
 									/>
 								)}

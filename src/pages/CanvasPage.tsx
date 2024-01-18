@@ -35,11 +35,6 @@ export default function CanvasPage() {
 	const [width, setWidth] = useState<number>(100)
 	const [height, setHeight] = useState<number>(100)
 
-	console.log('left', position_x)
-	console.log('top', position_y)
-	console.log('width', width)
-	console.log('height', height)
-
 	const updateComponent = (updatedComponent: Component) => {
 		setComponentList((prevList) =>
 			prevList.map((component) =>
@@ -70,15 +65,7 @@ export default function CanvasPage() {
 			formData.append('components', JSON.stringify(componentList))
 
 			formData.append('canvas_preview_url', blob)
-
-			console.log(formData)
 			let entries = formData.entries()
-			for (const pair of entries) {
-				console.log(pair[0] + ', ' + pair[1])
-			}
-
-			https: console.log('updatedComponents!!!!!!!!!', componentList)
-			console.log('canvasPreview!!!!!!!!!', canvasPreviewURL)
 
 			const response = await axios.put(
 				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/save/`,
@@ -89,8 +76,6 @@ export default function CanvasPage() {
 					},
 				},
 			)
-
-			console.log(response.data)
 		} catch (error) {
 			console.error('Error saving canvas:', error)
 		}
@@ -104,9 +89,7 @@ export default function CanvasPage() {
 					selected_url: componentURL,
 				},
 			)
-			console.log(response.data)
 			const component = response.data.result.component
-			console.log(component)
 			const newComponent = {
 				component_id: component.component_id,
 				component_url: componentURL,
@@ -135,7 +118,6 @@ export default function CanvasPage() {
 
 			const image = canvasImage.toDataURL('image/png', 1.0)
 			setCanvasPreviewURL(image)
-			console.log(image)
 			const downloadLink = document.createElement('a')
 			downloadLink.href = image
 			downloadLink.download = 'captured-canvas.png'
@@ -152,6 +134,8 @@ export default function CanvasPage() {
 			const fetchedCanvasData = response.data.result
 
 			setCanvasName(fetchedCanvasData.canvas_name)
+
+			setBackgroundURL(fetchedCanvasData.background.component_url)
 
 			setComponentList(
 				fetchedCanvasData.sticker.map(
@@ -181,8 +165,6 @@ export default function CanvasPage() {
 				),
 			)
 
-			console.log('fetchedCanvasData', componentList)
-
 			if (fetchedCanvasData.background) {
 				setBackgroundURL(fetchedCanvasData.background.component_url)
 			}
@@ -194,10 +176,6 @@ export default function CanvasPage() {
 	useEffect(() => {
 		fetchCanvasDetails()
 	}, [params.canvas_id])
-
-	console.log(canvasName)
-	console.log('back!!', backgroundURL)
-	console.log(componentList)
 
 	return (
 		<div className="flex flex-col min-h-screen">
@@ -226,10 +204,6 @@ export default function CanvasPage() {
 					backgroundURL={backgroundURL}
 					componentList={componentList}
 					setComponentList={setComponentList}
-					setPosition_x={setPosition_x}
-					setPosition_y={setPosition_y}
-					setWidth={setWidth}
-					setHeight={setHeight}
 					updateComponent={updateComponent} // New prop
 				/>
 			</div>

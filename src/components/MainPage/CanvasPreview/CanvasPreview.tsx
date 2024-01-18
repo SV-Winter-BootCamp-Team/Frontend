@@ -68,7 +68,7 @@ export default function CanvasPreview({
 			>
 				<p>{content}</p>
 				<div
-					className="absolute top-0 left-0 h-full w-full "
+					className="absolute top-0 left-0 w-full h-full cursor-pointer"
 					onClick={() =>
 						nav({
 							pathname: `/canvas/${canvas_id}`,

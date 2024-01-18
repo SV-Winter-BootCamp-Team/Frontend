@@ -95,7 +95,7 @@ export default function MainPage() {
 				))}
 				<div>
 					<div
-						className="bg-purple-100 flex justify-center px-32 py-20 border-2 sm:py-[100px]"
+						className="bg-purple-100 cursor-pointer flex justify-center px-32 py-20 border-2 sm:py-[100px]"
 						onClick={createPersonalCanvas}
 					>
 						<p className="absolute">+</p>

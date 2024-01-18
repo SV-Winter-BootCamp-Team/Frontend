@@ -21,7 +21,6 @@ export default function MyCanvas() {
 				`http://localhost:8000/api/v1/canvases/personal/${user_id}/`,
 			)
 			setCanvases(response.data.result.canvases)
-			console.log(response.data.result.canvases)
 		} catch (error) {
 			console.error('Error fetching canvases:', error)
 		}
@@ -39,13 +38,15 @@ export default function MyCanvas() {
 							key={canvas.canvas_id}
 							className="flex flex-col items-center mb-4"
 						>
-							<img
-								onClick={() => {
-									navigate(`/canvas/${canvas.canvas_id}`)
-								}}
-								src={canvas.canvas_preview_url}
-								className="w-[304px] h-[171px] mb-2 cursor-pointer"
-							></img>
+							{canvas.canvas_preview_url !== 'default_preview_url' ? (
+								<img
+									onClick={() => navigate(`/canvas/${canvas.canvas_id}`)}
+									src={canvas.canvas_preview_url}
+									className="w-[304px] h-[171px] mb-2 cursor-pointer"
+								/>
+							) : (
+								<div className="w-[304px] h-[171px] mb-2 bg-white border-[1px]"></div>
+							)}
 							<p className="text-sm">{canvas.canvas_name}</p>
 						</div>
 					),

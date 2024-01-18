@@ -51,7 +51,6 @@ export default function MenuSection({
 					style: style,
 				},
 			)
-			console.log(response.data)
 			setStickerStatus('completed')
 			setStickerList(response.data.result.s3_urls)
 		} catch (error) {
@@ -71,7 +70,6 @@ export default function MenuSection({
 					place: backgroundInputText,
 				},
 			)
-			console.log(response.data)
 			setBackgroundStatus('completed')
 			setBackgroundList(response.data.result.s3_urls)
 		} catch (error) {

@@ -20,7 +20,6 @@ export default function Invite() {
 				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/invite/`,
 				{ user_email: email },
 			)
-			console.log(response.data)
 			alert('Invitation sent successfully!')
 		} catch (error) {
 			console.error('Error sending invitation:', error)
