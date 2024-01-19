@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
@@ -46,6 +46,14 @@ export default function SignUpPage() {
 				setSignUpSuccess(true)
 			})
 	}
+
+	useEffect(() => {
+		if (typeof localStorage.getItem('user_id') === 'string') {
+			window.location.replace(
+				`http://localhost:5173/main/${localStorage.getItem('user_id')}`,
+			)
+		}
+	}, [])
 
 	return (
 		<div className="h-screen flex justify-left items-center">
