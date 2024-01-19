@@ -15,7 +15,6 @@ export type TimeType = {
 	day: string
 	hour: string
 	minute: string
-	second: string
 }
 
 export default function CanvasPreview({
@@ -38,7 +37,6 @@ export default function CanvasPreview({
 		day: update_at.substr(8, 2),
 		hour: update_at.substr(11, 2),
 		minute: update_at.substr(14, 2),
-		second: update_at.substr(17, 2),
 	}
 	const now = new Date()
 	const timeNow: TimeType = {
@@ -47,7 +45,6 @@ export default function CanvasPreview({
 		day: String(now.getDate()).padStart(2, '0'),
 		hour: String(now.getHours() - 9).padStart(2, '0'),
 		minute: String(now.getMinutes()).padStart(2, '0'),
-		second: String(now.getSeconds()).padStart(2, '0'),
 	}
 
 	function deleteCanvas() {
@@ -82,7 +79,7 @@ export default function CanvasPreview({
 			})
 	}
 
-	let showUpdate = 'now'
+	let showUpdate = '0 minutes ago'
 
 	if (updateAt.year !== timeNow.year) {
 		showUpdate = `${Number(timeNow.year) - Number(updateAt.year)} years ago`
@@ -94,14 +91,12 @@ export default function CanvasPreview({
 		showUpdate = `${Number(timeNow.hour) - Number(updateAt.hour)} hours ago`
 	} else if (updateAt.minute !== timeNow.minute) {
 		showUpdate = `${Number(timeNow.minute) - Number(updateAt.minute)} minutes ago`
-	} else if (updateAt.second !== timeNow.second) {
-		showUpdate = `${Number(timeNow.second) - Number(updateAt.second)} seconds ago`
 	}
 
 	return (
 		<div className="flex-col">
 			<div
-				className="relative flex justify-center px-32 py-32 border-2 sm:py-[100px]"
+				className="relative flex justify-center px-32 py-32 border-2 sm:py-[100px] rounded-lg"
 				onMouseEnter={() => {
 					setHide(true)
 				}}
@@ -110,7 +105,9 @@ export default function CanvasPreview({
 				}}
 			>
 				<img
-					className="absolute top-0 left-0 w-full h-full"
+					className={`absolute top-0 left-0 w-full h-full rounded-lg ${
+						canvas_preview_url === 'default_preview_url' && 'hidden'
+					}`}
 					src={canvas_preview_url}
 				/>
 				<div
@@ -122,7 +119,7 @@ export default function CanvasPreview({
 					}
 				/>
 				<button
-					className={`absolute top-0 right-0 ml-44 text-white ${
+					className={`absolute top-3 right-3 ml-44 text-white ${
 						!hide && 'hidden'
 					}`}
 					onClick={deleteCanvas}
