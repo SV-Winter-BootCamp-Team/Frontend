@@ -6,7 +6,7 @@ import axios from 'axios'
 
 export type CanvasPreviewProps = {
 	canvas_id: number
-	content: string
+	canvas_preview_url: string
 	canvas_name: string
 	update_at: string
 }

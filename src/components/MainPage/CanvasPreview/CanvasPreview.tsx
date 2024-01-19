@@ -11,7 +11,7 @@ export type EditNameType = {
 
 export default function CanvasPreview({
 	canvas_id,
-	content,
+	canvas_preview_url,
 	canvas_name,
 	update_at,
 }: CanvasPreviewProps) {
@@ -55,6 +55,8 @@ export default function CanvasPreview({
 			})
 	}
 
+	console.log(canvas_preview_url)
+
 	return (
 		<div className="flex-col">
 			<div
@@ -66,7 +68,10 @@ export default function CanvasPreview({
 					setHide(false)
 				}}
 			>
-				<p>{content}</p>
+				<img
+					className="absolute top-0 left-0 w-full h-full"
+					src={canvas_preview_url}
+				/>
 				<div
 					className="absolute top-0 left-0 w-full h-full cursor-pointer"
 					onClick={() =>
