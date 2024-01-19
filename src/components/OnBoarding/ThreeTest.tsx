@@ -68,6 +68,16 @@ export default function ThreeTest({ color, x }: HandleThreeType) {
 					>
 						<boxGeometry />
 						<meshStandardMaterial color={'#d4d4d4'} />
+
+						<mesh
+							position={[0, 0, 1]}
+							castShadow
+							scale={[0.95, 0.95, 0.5]}
+							rotation={[0, 0, 0]}
+						>
+							<boxGeometry />
+							<meshStandardMaterial color={'#66edfd'} />
+						</mesh>
 					</mesh>
 					<mesh
 						position={[0, -0.2, -0.01]}
