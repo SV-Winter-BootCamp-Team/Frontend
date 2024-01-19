@@ -4,26 +4,25 @@ import * as THREE from 'three'
 import { HandleThreeType } from './OnBoardingTemplate'
 import GLTFLoader from 'three-gltf-loader'
 
-export default function ThreeTest({ color, mouseX }: HandleThreeType) {
+export default function ThreeTest({ color, mouseX, x }: HandleThreeType) {
 	const camera = new THREE.PerspectiveCamera(
 		45,
 		window.innerWidth / window.innerHeight,
 		1,
 		10000,
 	)
-	const gltf = useLoader(GLTFLoader, 'src/components/OnBoarding/Desk.gltf')
 
-	camera.position.x += (mouseX - camera.position.x) * 0.5
-	console.log(camera.position.x)
+	camera.position.x += (mouseX - camera.position.x) * 0.05
 	camera.lookAt(0, 0, 0)
+	console.log(mouseX)
 
 	return (
 		<div className="w-full">
 			<Canvas shadows>
 				<fogExp2 />
 				<PerspectiveCamera
-					position={[5.5 - mouseX * 0.005, 0.02, 6]}
-					fov={60}
+					position={[(0.5 - x) * 3, 0.02, 12]}
+					fov={30}
 					makeDefault
 				/>
 				<ambientLight intensity={1} castShadow />

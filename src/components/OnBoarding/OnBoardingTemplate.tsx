@@ -10,6 +10,7 @@ export type ImageType = {
 export type HandleThreeType = {
 	color: string
 	mouseX: number
+	x: number
 }
 
 export default function OnBoardingTemplate() {
@@ -28,6 +29,7 @@ export default function OnBoardingTemplate() {
 	const [handleThree, setHandleThree] = useState<HandleThreeType>({
 		color: '#3490dc',
 		mouseX: 0,
+		x: 0,
 	})
 	const [mousex, setMousex] = useState(0)
 
@@ -44,13 +46,14 @@ export default function OnBoardingTemplate() {
 		setHandleThree({
 			color: color,
 			mouseX: e.clientX,
+			x: x,
 		})
 	}
 
 	return (
 		<div className="w-full overflow-hidden">
 			<section className="w-full h-fit flex-col ">
-				<div className="w-screen h-screen flex justify-center">
+				<div className="w-full h-full flex justify-center">
 					<ThreeTest {...handleThree} />
 					<div className="absolute right-0 h-full w-1/3 font-jua text-5xl">
 						<div
