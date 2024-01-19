@@ -9,6 +9,15 @@ export type EditNameType = {
 	canvas_name: string
 }
 
+export type TimeType = {
+	year: string
+	month: string
+	day: string
+	hour: string
+	minute: string
+	second: string
+}
+
 export default function CanvasPreview({
 	canvas_id,
 	canvas_preview_url,
@@ -22,6 +31,24 @@ export default function CanvasPreview({
 		canvas_id: canvas_id,
 		canvas_name: canvas_name,
 	})
+
+	const updateAt: TimeType = {
+		year: update_at.substr(0, 4),
+		month: update_at.substr(5, 2),
+		day: update_at.substr(8, 2),
+		hour: update_at.substr(11, 2),
+		minute: update_at.substr(14, 2),
+		second: update_at.substr(17, 2),
+	}
+	const now = new Date()
+	const timeNow: TimeType = {
+		year: String(now.getFullYear()),
+		month: String(now.getMonth() + 1).padStart(2, '0'),
+		day: String(now.getDate()).padStart(2, '0'),
+		hour: String(now.getHours() - 9).padStart(2, '0'),
+		minute: String(now.getMinutes()).padStart(2, '0'),
+		second: String(now.getSeconds()).padStart(2, '0'),
+	}
 
 	function deleteCanvas() {
 		axios
@@ -55,7 +82,21 @@ export default function CanvasPreview({
 			})
 	}
 
-	console.log(canvas_preview_url)
+	let showUpdate = 'now'
+
+	if (updateAt.year !== timeNow.year) {
+		showUpdate = `${Number(timeNow.year) - Number(updateAt.year)} years ago`
+	} else if (updateAt.month !== timeNow.month) {
+		showUpdate = `${Number(timeNow.month) - Number(updateAt.month)} months ago`
+	} else if (updateAt.day !== timeNow.day) {
+		showUpdate = `${Number(timeNow.day) - Number(updateAt.day)} days ago`
+	} else if (updateAt.hour !== timeNow.hour) {
+		showUpdate = `${Number(timeNow.hour) - Number(updateAt.hour)} hours ago`
+	} else if (updateAt.minute !== timeNow.minute) {
+		showUpdate = `${Number(timeNow.minute) - Number(updateAt.minute)} minutes ago`
+	} else if (updateAt.second !== timeNow.second) {
+		showUpdate = `${Number(timeNow.second) - Number(updateAt.second)} seconds ago`
+	}
 
 	return (
 		<div className="flex-col">
@@ -96,7 +137,7 @@ export default function CanvasPreview({
 					value={newName}
 				/>
 			</form>
-			<div>{update_at}</div>
+			<div className="text-sm text-gray-400">{showUpdate}</div>
 		</div>
 	)
 }
