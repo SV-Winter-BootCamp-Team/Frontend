@@ -4,18 +4,7 @@ import * as THREE from 'three'
 import { HandleThreeType } from './OnBoardingTemplate'
 import GLTFLoader from 'three-gltf-loader'
 
-export default function ThreeTest({ color, mouseX, x }: HandleThreeType) {
-	const camera = new THREE.PerspectiveCamera(
-		45,
-		window.innerWidth / window.innerHeight,
-		1,
-		10000,
-	)
-
-	camera.position.x += (mouseX - camera.position.x) * 0.05
-	camera.lookAt(0, 0, 0)
-	console.log(mouseX)
-
+export default function ThreeTest({ color, x }: HandleThreeType) {
 	return (
 		<div className="w-full">
 			<Canvas shadows>
@@ -26,16 +15,24 @@ export default function ThreeTest({ color, mouseX, x }: HandleThreeType) {
 					makeDefault
 				/>
 				<ambientLight intensity={1} castShadow />
-				<pointLight position={[1, 2, -1]} intensity={5} castShadow />
+				<pointLight position={[-7, 7, 7]} intensity={100} castShadow />
 				<mesh position={[0, -1, 0]} castShadow>
 					<boxGeometry />
-					<meshStandardMaterial color={color} />
+					<meshStandardMaterial color={'#d4d4d4'} />
 				</mesh>
 				<mesh
 					position={[0, -1, 0]}
 					rotation-x={-Math.PI / 2}
 					receiveShadow={true}
 				>
+					<planeGeometry args={[200, 200]} />
+					<meshPhongMaterial
+						color={color}
+						specular={'skyblue'}
+						shininess={50}
+					/>
+				</mesh>
+				<mesh position={[0, 0, -3]} receiveShadow={true}>
 					<planeGeometry args={[200, 200]} />
 					<meshPhongMaterial
 						color={color}

@@ -35,7 +35,7 @@ export default function OnBoardingTemplate() {
 
 	const handleMouseMove = (e: React.MouseEvent) => {
 		const x = e.clientX / window.innerWidth
-		setMousex(x)
+		setMousex(1 / (1 + Math.exp(-15 * (x - 0.5))))
 
 		const red = Math.round(212 - 128 * x)
 		const green = Math.round(212 - 40 * x)
@@ -46,14 +46,14 @@ export default function OnBoardingTemplate() {
 		setHandleThree({
 			color: color,
 			mouseX: e.clientX,
-			x: x,
+			x: mousex,
 		})
 	}
 
 	return (
 		<div className="w-full overflow-hidden">
 			<section className="w-full h-fit flex-col ">
-				<div className="w-full h-full flex justify-center">
+				<div className="w-full h-screen flex justify-center">
 					<ThreeTest {...handleThree} />
 					<div className="absolute right-0 h-full w-1/3 font-jua text-5xl">
 						<div
