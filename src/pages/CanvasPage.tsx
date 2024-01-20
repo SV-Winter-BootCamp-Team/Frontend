@@ -15,6 +15,7 @@ export type Component = {
 	position_y: number
 	width: number
 	height: number
+	rotate: number
 }
 
 export default function CanvasPage() {
@@ -30,10 +31,17 @@ export default function CanvasPage() {
 
 	const [canvasPreviewURL, setCanvasPreviewURL] = useState<string>('')
 
+	// let position_x = 406
+	// let position_y = 206
+	// let width = 100
+	// let height = 100
+	// let rotate = 0
+
 	const [position_x, setPosition_x] = useState<number>(406)
 	const [position_y, setPosition_y] = useState<number>(206)
 	const [width, setWidth] = useState<number>(100)
 	const [height, setHeight] = useState<number>(100)
+	const [rotate, setRotate] = useState<number>(0)
 
 	const updateComponent = (updatedComponent: Component) => {
 		setComponentList((prevList) =>
@@ -65,7 +73,6 @@ export default function CanvasPage() {
 			formData.append('components', JSON.stringify(componentList))
 
 			formData.append('canvas_preview_url', blob)
-			let entries = formData.entries()
 
 			const response = await axios.put(
 				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/save/`,
@@ -97,6 +104,7 @@ export default function CanvasPage() {
 				position_y: position_y,
 				width: width,
 				height: height,
+				rotate: rotate,
 			}
 			setComponentList([...componentList, newComponent])
 		} catch (error) {
@@ -146,6 +154,7 @@ export default function CanvasPage() {
 						position_y,
 						width,
 						height,
+						rotate,
 						...rest
 					}: {
 						id: string
@@ -154,12 +163,14 @@ export default function CanvasPage() {
 						position_y: number
 						width: number
 						height: number
+						rotate: number
 					}) => ({
 						component_id: id,
 						position_x,
 						position_y,
-						width, // 이 부분 확인
-						height, // 이 부분 확인
+						width,
+						height,
+						rotate,
 						...rest,
 					}),
 				),
@@ -204,7 +215,7 @@ export default function CanvasPage() {
 					backgroundURL={backgroundURL}
 					componentList={componentList}
 					setComponentList={setComponentList}
-					updateComponent={updateComponent} // New prop
+					updateComponent={updateComponent}
 				/>
 			</div>
 		</div>

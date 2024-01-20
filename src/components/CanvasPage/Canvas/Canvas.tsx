@@ -60,32 +60,6 @@ export default function Canvas({
 		setSelectedElement(null) // 선택 해제
 	}
 
-	const handleMoveableChange = (
-		element: Component,
-		left: number,
-		top: number,
-		width: number,
-		height: number,
-	) => {
-		const updatedComponent = {
-			...element,
-			position_x: left,
-			position_y: top,
-			width: width,
-			height: height,
-		}
-
-		updateComponent(updatedComponent)
-
-		// 변경 사항을 WebSocket을 통해 서버로 전송
-		chatSocket?.send(
-			JSON.stringify({
-				type: 'updateComponent',
-				component: updatedComponent,
-			}),
-		)
-	}
-
 	useEffect(() => {
 		// WebSocket 연결 설정
 		const newSocket = new WebSocket(
@@ -113,8 +87,6 @@ export default function Canvas({
 						}
 						return component
 					})
-
-					// 컴포넌트 리스트 상태 업데이트
 					setComponentList(updatedComponentList)
 				} else if (data.type === 'position') {
 					const updatedComponentList = componentList.map((component) => {
@@ -129,6 +101,17 @@ export default function Canvas({
 					})
 
 					// 컴포넌트 리스트 상태 업데이트
+					setComponentList(updatedComponentList)
+				} else if (data.type === 'rotate') {
+					const updatedComponentList = componentList.map((component) => {
+						if (component.component_id === data.component_id) {
+							return {
+								...component,
+								rotate: data.rotate,
+							}
+						}
+						return component
+					})
 					setComponentList(updatedComponentList)
 				}
 			}
@@ -188,19 +171,12 @@ export default function Canvas({
 											target.style.left = `${left}px`
 											target.style.top = `${top}px`
 
-											handleMoveableChange(
-												element,
-												left,
-												top,
-												element.width,
-												element.height,
-											)
 											updateComponent({
 												...element,
 												position_x: left,
 												position_y: top,
 											})
-
+											console.log(localStorage.getItem('user_id'))
 											chatSocket?.send(
 												JSON.stringify({
 													type: 'position',
@@ -237,14 +213,6 @@ export default function Canvas({
 											target.style.height = `${newHeight}px`
 											target.style.transform = `translate(${beforeTranslate[0]}px, ${beforeTranslate[1]}px)`
 
-											handleMoveableChange(
-												element,
-												element.position_x,
-												element.position_y,
-												newWidth,
-												newHeight,
-											)
-
 											updateComponent({
 												...element,
 												width: newWidth,
@@ -258,6 +226,23 @@ export default function Canvas({
 													component_id: element.component_id,
 													width: newWidth,
 													height: newHeight,
+												}),
+											)
+										}}
+										onRotate={({ target, beforeRotate }) => {
+											target.style.transform = `rotate(${beforeRotate}deg)`
+
+											updateComponent({
+												...element,
+												rotate: beforeRotate,
+											})
+
+											chatSocket?.send(
+												JSON.stringify({
+													type: 'rotate',
+													user_id: localStorage.getItem('user_id'),
+													component_id: element.component_id,
+													rotate: beforeRotate,
 												}),
 											)
 										}}
