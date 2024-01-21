@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import ReGenerateButton from '../../ReGenerateButton'
 import info from '/images/svg/info.svg'
 
@@ -18,8 +19,16 @@ export default function AISticker({
 	inputText,
 	style,
 }: AIStickerProps) {
-	const handleClick = (componentURL: string) => {
+	const [clickedIndexes, setClickedIndexes] = useState<number[]>([])
+
+	const handleClick = (componentURL: string, index: number) => {
+		if (clickedIndexes.includes(index)) return
+
+		// 클릭 처리
 		handleAddComponent(componentURL)
+
+		// 클릭된 인덱스 추가
+		setClickedIndexes((prevIndexes) => [...prevIndexes, index])
 	}
 
 	return (
@@ -40,7 +49,7 @@ export default function AISticker({
 					<img
 						src={componentURL}
 						key={index}
-						onClick={() => handleClick(componentURL)}
+						onClick={() => handleClick(componentURL, index)}
 						className="bg-[#f6f8fa] w-40 h-40 rounded-lg p-4 cursor-pointer"
 					/>
 				))}

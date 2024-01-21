@@ -147,6 +147,7 @@ export default function Canvas({
 										height: element.height,
 										left: element.position_x,
 										top: element.position_y,
+										transform: `rotate(${element.rotate}deg)`,
 									}}
 								>
 									<img src={element.component_url} className="w-full h-full" />
