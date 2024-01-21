@@ -10,10 +10,10 @@ export default function ThreeTest({ color, x }: HandleThreeType) {
 			<Canvas shadows>
 				<fogExp2 />
 				<PerspectiveCamera
-					position={[(0.5 - x) * 3, 0.02, 12]}
+					position={[(x - 0.5) * 3, 0.02, 12]}
 					fov={30}
 					makeDefault
-					rotation-y={(0.5 - x) * 0.3}
+					rotation-y={(x - 0.5) * 0.8}
 				/>
 				<ambientLight intensity={0.25 + (x * 3) / 4} />
 				<pointLight position={[-7, 7, 8]} intensity={80} castShadow />
@@ -70,9 +70,9 @@ export default function ThreeTest({ color, x }: HandleThreeType) {
 						<meshStandardMaterial color={'#d4d4d4'} />
 
 						<mesh
-							position={[0, 0, 1]}
+							position={[0, 0, x]}
 							castShadow
-							scale={[0.95, 0.95, 0.5]}
+							scale={[0.95, x * 0.9, 0.5]}
 							rotation={[0, 0, 0]}
 						>
 							<boxGeometry />
@@ -108,15 +108,15 @@ export default function ThreeTest({ color, x }: HandleThreeType) {
 						<meshPhongMaterial
 							color={color}
 							specular={'skyblue'}
-							shininess={50}
+							shininess={25}
 						/>
 					</mesh>
-					<mesh position={[0, 0, -3]} receiveShadow={true}>
+					<mesh position={[0, 0, -5]} receiveShadow={true}>
 						<planeGeometry args={[200, 200]} />
 						<meshPhongMaterial
 							color={color}
 							specular={'skyblue'}
-							shininess={50}
+							shininess={10}
 						/>
 					</mesh>
 				</group>
