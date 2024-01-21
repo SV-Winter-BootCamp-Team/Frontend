@@ -37,9 +37,9 @@ export default function OnBoardingTemplate() {
 		const x = e.clientX / window.innerWidth
 		setMousex(1 / (1 + Math.exp(-15 * (x - 0.5))))
 
-		const red = Math.round(212 - 128 * x)
-		const green = Math.round(212 - 40 * x)
-		const blue = Math.round(212 - 24 * x)
+		const red = Math.round(212 - 128 * (1 - x))
+		const green = Math.round(212 - 40 * (1 - x))
+		const blue = Math.round(212 - 24 * (1 - x))
 
 		const color = `rgb(${red}, ${green}, ${blue})`
 
@@ -66,8 +66,8 @@ export default function OnBoardingTemplate() {
 							}}
 						>
 							<div className="flex flex-col items-center">
-								<p>지루한 회의...</p>
-								<p>재미없는 시간...</p>
+								<p>AI를 활용한 '나'를</p>
+								<p>표현하는 배경 만들기!</p>
 							</div>
 						</div>
 					</div>
@@ -82,8 +82,8 @@ export default function OnBoardingTemplate() {
 							}}
 						>
 							<div className="flex flex-col items-center">
-								<p>AI를 활용한 '나'를</p>
-								<p>표현하는 배경 만들기!</p>
+								<p>지루한 회의...</p>
+								<p>재미없는 시간...</p>
 							</div>
 						</div>
 					</div>

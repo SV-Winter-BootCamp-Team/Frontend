@@ -13,11 +13,11 @@ export default function ThreeTest({ color, x }: HandleThreeType) {
 					position={[(x - 0.5) * 3, 0.02, 12]}
 					fov={30}
 					makeDefault
-					rotation-y={(x - 0.5) * 0.8}
+					rotation-y={(x - 0.5) * 1.25}
 				/>
-				<ambientLight intensity={0.25 + (x * 3) / 4} />
+				<ambientLight intensity={0.25 + ((1 - x) * 3) / 4} />
 				<pointLight position={[-7, 7, 8]} intensity={80} castShadow />
-				<group position={[0, -0.2, 7]}>
+				<group position={[0, -0.2, 9.5]}>
 					<mesh
 						position={[0.55, -0.5, 0.45]}
 						castShadow
@@ -54,12 +54,69 @@ export default function ThreeTest({ color, x }: HandleThreeType) {
 						<boxGeometry />
 						<meshStandardMaterial color={'#d4d4d4'} />
 					</mesh>
-					<mesh position={[0, 0, 0]} castShadow scale={[1.5, 0.01, 1]}>
+					<mesh position={[0, -0.005, 0]} scale={[1.5, 0.01, 1]}>
 						<boxGeometry />
-						<meshStandardMaterial color={'#d4d4d4'} />
+						<meshStandardMaterial color={'#dcd0bc'} />
 					</mesh>
+					<mesh
+						position={[0, 0, 0]}
+						rotation-x={-Math.PI / 2}
+						castShadow
+						receiveShadow
+					>
+						<planeGeometry args={[1.5, 1]} />
+						<meshStandardMaterial color={'#dcd0bc'} />
+					</mesh>
+
+					<group
+						position={[-0.6, x * 0.02 - 0.03, -0.3]}
+						scale={[0.3 * x, 0.01 * x, 0.3 * x]}
+						rotation-x={0}
+					>
+						<mesh rotation-y={0.2} castShadow>
+							<boxGeometry />
+							<meshStandardMaterial color={'#d4d4d4'} />
+						</mesh>
+						<mesh rotation-y={0.35} position-y={1} castShadow>
+							<boxGeometry />
+							<meshStandardMaterial color={'#d4d4d4'} />
+						</mesh>
+						<mesh rotation-y={0.3} position-y={2} castShadow>
+							<boxGeometry />
+							<meshStandardMaterial color={'#d4d4d4'} />
+						</mesh>
+						<mesh rotation-y={0.25} position-y={3} castShadow>
+							<boxGeometry />
+							<meshStandardMaterial color={'#d4d4d4'} />
+						</mesh>
+						<mesh rotation-y={0.22} position-y={4} castShadow>
+							<boxGeometry />
+							<meshStandardMaterial color={'#d4d4d4'} />
+						</mesh>
+						<mesh rotation-y={0.24} position-y={5} castShadow>
+							<boxGeometry />
+							<meshStandardMaterial color={'#d4d4d4'} />
+						</mesh>
+						<mesh rotation-y={0.14} position-y={6} castShadow>
+							<boxGeometry />
+							<meshStandardMaterial color={'#d4d4d4'} />
+						</mesh>
+						<mesh rotation-y={0.2} position-y={7} castShadow>
+							<boxGeometry />
+							<meshStandardMaterial color={'#d4d4d4'} />
+						</mesh>
+						<mesh rotation-y={0.19} position-y={8} castShadow>
+							<boxGeometry />
+							<meshStandardMaterial color={'#d4d4d4'} />
+						</mesh>
+						<mesh rotation-y={0.4} position-y={9} castShadow>
+							<boxGeometry />
+							<meshStandardMaterial color={'#d4d4d4'} />
+						</mesh>
+					</group>
 				</group>
-				<group position={[0, 0.22, 7]} rotation={[0, -0.06, 0]}>
+
+				<group position={[0, 0.2, 9.5]}>
 					<mesh
 						position={[0, 0, 0]}
 						castShadow
@@ -70,9 +127,9 @@ export default function ThreeTest({ color, x }: HandleThreeType) {
 						<meshStandardMaterial color={'#d4d4d4'} />
 
 						<mesh
-							position={[0, 0, x]}
+							position={[0, 0, 1 - x]}
 							castShadow
-							scale={[0.95, x * 0.9, 0.5]}
+							scale={[0.95, (1 - x) * 0.9, 0.5]}
 							rotation={[0, 0, 0]}
 						>
 							<boxGeometry />
