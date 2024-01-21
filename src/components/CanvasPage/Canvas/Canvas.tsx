@@ -113,6 +113,29 @@ export default function Canvas({
 						return component
 					})
 					setComponentList(updatedComponentList)
+				} else if (data.type === 'add') {
+					console.log(data.type)
+					console.log(componentList)
+
+					// Check if the component already exists
+					const existingComponent = componentList.find(
+						(component) => component.component_id === data.component_id,
+					)
+
+					if (!existingComponent) {
+						// If the component does not exist, create a new one
+						const newComponent = {
+							component_id: data.component_id,
+							component_url: data.component_url,
+							position_x: 406,
+							position_y: 206,
+							width: 100,
+							height: 100,
+							rotate: 0,
+						}
+						const updatedComponentList = [...componentList, newComponent]
+						setComponentList(updatedComponentList)
+					}
 				}
 			}
 		}
@@ -171,6 +194,7 @@ export default function Canvas({
 										onDrag={({ target, left, top }) => {
 											target.style.left = `${left}px`
 											target.style.top = `${top}px`
+											console.log(left, top)
 
 											updateComponent({
 												...element,
@@ -187,6 +211,7 @@ export default function Canvas({
 													position_y: top,
 												}),
 											)
+											console.log('drag', left, top)
 										}}
 										onResize={({ target, width, height, drag, direction }) => {
 											const beforeTranslate = drag.beforeTranslate

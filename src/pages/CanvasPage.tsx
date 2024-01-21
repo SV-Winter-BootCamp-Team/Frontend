@@ -30,12 +30,7 @@ export default function CanvasPage() {
 	const [canvasName, setCanvasName] = useState<string>('')
 
 	const [canvasPreviewURL, setCanvasPreviewURL] = useState<string>('')
-
-	// let position_x = 406
-	// let position_y = 206
-	// let width = 100
-	// let height = 100
-	// let rotate = 0
+	const [socket, setSocket] = useState<WebSocket | null>(null)
 
 	const [position_x, setPosition_x] = useState<number>(406)
 	const [position_y, setPosition_y] = useState<number>(206)
@@ -97,6 +92,7 @@ export default function CanvasPage() {
 				},
 			)
 			const component = response.data.result.component
+			console.log(position_x, position_y, width, height, rotate)
 			const newComponent = {
 				component_id: component.component_id,
 				component_url: componentURL,
@@ -106,7 +102,16 @@ export default function CanvasPage() {
 				height: height,
 				rotate: rotate,
 			}
+
 			setComponentList([...componentList, newComponent])
+			socket?.send(
+				JSON.stringify({
+					type: 'add',
+					user_id: localStorage.getItem('user_id'),
+					component_id: newComponent.component_id,
+					component_url: newComponent.component_url,
+				}),
+			)
 		} catch (error) {
 			console.error('Error saving sticker:', error)
 		}
@@ -186,6 +191,10 @@ export default function CanvasPage() {
 
 	useEffect(() => {
 		fetchCanvasDetails()
+		const newSocket = new WebSocket(
+			'ws://' + 'localhost:8000' + '/ws/canvases/' + params.canvas_id + '/',
+		) // Adjust the URL to your WebSocket server
+		setSocket(newSocket)
 	}, [params.canvas_id])
 
 	return (
