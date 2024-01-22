@@ -56,10 +56,10 @@ export default function ThreeTest({ color, x }: HandleThreeType) {
 			0,
 			-Math.sin(-(1 / 4) * Math.PI + i * 1.2) - Math.sin((1 / 4) * Math.PI),
 		)
-		mobile.current.rotation.y += 0.35 * delta
-		mobile2.current.rotation.y += 0.75 * delta
-		mobile3.current.rotation.y += 0.2 * delta
-		mobile4.current.rotation.y += 0.1 * delta
+		// mobile.current.rotation.y += 0.35 * delta
+		// mobile2.current.rotation.y += 0.75 * delta
+		// mobile3.current.rotation.y += 0.2 * delta
+		// mobile4.current.rotation.y += 0.1 * delta
 	})
 	return (
 		<>
@@ -195,7 +195,7 @@ export default function ThreeTest({ color, x }: HandleThreeType) {
 				</group>
 			</group>
 			<group position={[0, 0.2, 9.5]}>
-				<group ref={mobile4}>
+				{/* <group ref={mobile4}>
 					<mesh position={[0, 1.3 - 0.6 * (1 - x), 0]} castShadow>
 						<cylinderGeometry args={[0.001, 0.001, 0.4, 8, 1]} />
 						<meshStandardMaterial />
@@ -273,7 +273,7 @@ export default function ThreeTest({ color, x }: HandleThreeType) {
 							<meshStandardMaterial />
 						</mesh>
 					</group>
-				</group>
+				</group> */}
 				<mesh
 					position={[0, 0, 0]}
 					castShadow

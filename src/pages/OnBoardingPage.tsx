@@ -8,20 +8,20 @@ export default function OnBoardingPage() {
 					<div className="text-[#60c0d0] text-4xl">꾸며Zoom</div>
 					<div>
 						<button
-							className="bg-[#60c0d0] rounded-lg py-1 px-3 text-lg mx-4"
+							className="bg-[#60c0d0] rounded-lg pt-1 pb-[2px] px-3 text-lg mx-4"
 							onClick={() => {
 								window.location.replace('/signup')
 							}}
 						>
-							Signup
+							<span className="flex items-center">회원가입</span>
 						</button>
 						<button
-							className="bg-[#60c0d0] rounded-lg py-1 px-3 text-lg"
+							className="bg-[#60c0d0] rounded-lg pt-1 pb-[2px] px-3 text-lg"
 							onClick={() => {
 								window.location.replace('/login')
 							}}
 						>
-							Login
+							<span>로그인</span>
 						</button>
 					</div>
 				</div>
