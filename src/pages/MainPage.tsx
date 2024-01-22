@@ -3,6 +3,7 @@ import CanvasPreview from '../components/MainPage/CanvasPreview'
 import { useEffect, useState } from 'react'
 import NavBar from '../components/NavBar'
 import axios from 'axios'
+import plus from '/images/svg/plus.svg'
 
 export type CanvasPreviewProps = {
 	canvas_id: number
@@ -79,10 +80,12 @@ export default function MainPage() {
 				))}
 				<div>
 					<div
-						className="bg-[#66CAE150] cursor-pointer flex justify-center px-32 py-20 border-2 sm:py-[100px]"
+						className="relative bg-[#66CAE150] cursor-pointer px-32 py-20 border-2 sm:py-[100px] rounded-lg"
 						onClick={createPersonalCanvas}
 					>
-						<p className="absolute">+</p>
+						<div className="absolute top-0 left-0 w-full h-full flex justify-center items-center">
+							<img className="w-8 h-8" src={plus} />
+						</div>
 					</div>
 				</div>
 			</div>

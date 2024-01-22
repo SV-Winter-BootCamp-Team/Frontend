@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { CanvasPreviewProps } from '../../../pages/MainPage'
 import axios from 'axios'
+import trashCan from '/images/svg/trashcan.svg'
 
 export type EditNameType = {
 	[index: string]: string | number
@@ -123,18 +124,23 @@ export default function CanvasPreview({
 						!hide && 'hidden'
 					}`}
 					onClick={deleteCanvas}
-				>
-					❌
-				</button>
+				></button>
 			</div>
-			<form onSubmit={onSubmit}>
-				<input
-					className="text-ellipsis"
-					onChange={(e) => setNewName(e.target.value)}
-					value={newName}
-				/>
-			</form>
-			<div className="text-sm text-gray-400">{showUpdate}</div>
+			<div className="flex justify-between mx-4">
+				<div>
+					<form onSubmit={onSubmit}>
+						<input
+							className="text-ellipsis"
+							onChange={(e) => setNewName(e.target.value)}
+							value={newName}
+						/>
+					</form>
+					<div className="text-sm text-gray-400">{showUpdate}</div>
+				</div>
+				<div className="h-6 aspect-square my-auto cursor-pointer">
+					<img src={trashCan} onClick={deleteCanvas} />
+				</div>
+			</div>
 		</div>
 	)
 }
