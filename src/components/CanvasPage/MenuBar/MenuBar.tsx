@@ -25,7 +25,7 @@ export default function MenuBar({
 	setSelectedMenu,
 }: MenuBarProps) {
 	const navigate = useNavigate()
-	const userId = 'yourUserId' // 실제 사용자 ID로 대체
+	const userId = localStorage.getItem('userId')
 
 	const handleButtonClick = (menu: string) => {
 		setSelectedMenu(menu)
