@@ -10,17 +10,19 @@ let i = 0
 export default function ThreeTest({ color, x }: HandleThreeType) {
 	const textures = useTexture({
 		map: 'src/components/OnBoarding/background2.png',
+		book: 'src/components/OnBoarding/whitebookshelf.png',
 	})
 
-	const ref = useRef()
-	const ref2 = useRef()
+	const ref = useRef<HTMLInputElement>()
+	const ref2 = useRef<number>(0)
 
 	useFrame((_, delta) => {
 		i += delta
 		ref.current.rotation.x += 1 * delta
 		ref.current.rotation.y += 0.5 * delta
 		ref.current.position.y = 0.25 + 0.25 * Math.sin(i)
-		ref.current.position.z = 0.01 + 0.01 * Math.sin(i * 1.2)
+		ref.current.position.z = 0.01 * Math.sin(i * 5)
+		ref.current.position.x = 0.01 * Math.sin(i * 7)
 		ref.current.scale.x = Math.max(
 			0,
 			-Math.sin(-(1 / 4) * Math.PI + i) - Math.sin((1 / 4) * Math.PI),
@@ -36,7 +38,8 @@ export default function ThreeTest({ color, x }: HandleThreeType) {
 		ref2.current.rotation.x += 0.9 * delta
 		ref2.current.rotation.y += 0.35 * delta
 		ref2.current.position.y = 0.4 + 0.4 * Math.sin(i * 1.2)
-		ref.current.position.z = 0.025 + 0.025 * Math.sin(i)
+		ref2.current.position.z = 0.025 * Math.sin(i * 6)
+		ref2.current.position.x = 0.025 * Math.sin(i * 8)
 		ref2.current.scale.x = Math.max(
 			0,
 			-Math.sin(-(1 / 4) * Math.PI + i * 1.2) - Math.sin((1 / 4) * Math.PI),
@@ -223,6 +226,7 @@ export default function ThreeTest({ color, x }: HandleThreeType) {
 					castShadow
 					scale={[0.2, 0.4, 0.03]}
 					rotation={[0, 0, 0]}
+					receiveShadow
 				>
 					<boxGeometry />
 					<meshStandardMaterial color={'#d4d4d4'} />
@@ -232,6 +236,7 @@ export default function ThreeTest({ color, x }: HandleThreeType) {
 					castShadow
 					scale={[0.25, 0.025, 0.25]}
 					rotation={[0, 0, 0]}
+					receiveShadow
 				>
 					<boxGeometry />
 					<meshStandardMaterial color={'#d4d4d4'} />
@@ -244,13 +249,9 @@ export default function ThreeTest({ color, x }: HandleThreeType) {
 					receiveShadow={true}
 				>
 					<planeGeometry args={[200, 200]} />
-					<meshPhongMaterial
-						color={color}
-						specular={'skyblue'}
-						shininess={25}
-					/>
+					<meshPhongMaterial color={'white'} shininess={25} />
 				</mesh>
-				<mesh position={[0, 0, -5]} receiveShadow={true}>
+				<mesh position={[-1.5, 0, 1]} receiveShadow={true} castShadow>
 					<planeGeometry args={[200, 200]} />
 					<meshPhongMaterial
 						color={color}

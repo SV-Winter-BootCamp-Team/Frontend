@@ -68,7 +68,7 @@ export default function OnBoardingTemplate() {
 		},
 	]
 	const [handleThree, setHandleThree] = useState<HandleThreeType>({
-		color: '#3490dc',
+		color: '#80B9BF',
 		mouseX: 0,
 		x: 0,
 	})
@@ -76,11 +76,11 @@ export default function OnBoardingTemplate() {
 
 	const handleMouseMove = (e: React.MouseEvent) => {
 		const x = e.clientX / window.innerWidth
-		setMousex(1 / (1 + Math.exp(-20 * (x - 0.5))))
+		setMousex(1 / (1 + Math.exp(-23 * (x - 0.5))))
 
-		const red = Math.round(212 - 100 * (1 - x))
-		const green = Math.round(212 + 14 * (1 - x))
-		const blue = Math.round(212 + 30 * (1 - x))
+		const red = Math.round(212 - 110 * (1 - x))
+		const green = Math.round(212 + 18 * (1 - x))
+		const blue = Math.round(212 + 43 * (1 - x))
 
 		const color = `rgb(${red}, ${green}, ${blue})`
 
@@ -98,33 +98,33 @@ export default function OnBoardingTemplate() {
 					<Canvas shadows>
 						<ThreeTest {...handleThree} />
 					</Canvas>
-					<div className="absolute right-0 h-full w-1/3 font-jua text-5xl">
+					<div className="absolute right-0 h-full w-3/5 font-jua text-5xl">
 						<div
 							style={{
 								width: '100%',
 								height: '300px',
 								position: 'absolute',
-								top: `${(0.3 - mousex) * window.innerHeight}px`,
+								top: `${(0.4 - mousex) * window.innerHeight}px`,
 								opacity: 0.8 - mousex * 2,
 							}}
 						>
-							<div className="flex flex-col items-center bg-[#ffffff66] mx-20 h-80 justify-center rounded-xl">
+							<div className="flex flex-col items-center mx-20 h-80 justify-center">
 								<p>AI를 활용한 '나'를</p>
 								<p>표현하는 배경 만들기!</p>
 							</div>
 						</div>
 					</div>
-					<div className="absolute left-0 h-full w-1/3 font-jua text-5xl">
+					<div className="absolute left-0 h-full w-3/5 font-jua text-5xl">
 						<div
 							style={{
 								width: '100%',
 								height: '300px',
 								position: 'absolute',
-								top: `${(mousex - 0.7) * window.innerHeight}px`,
+								top: `${(mousex - 0.6) * window.innerHeight}px`,
 								opacity: mousex * 2 - 1.2,
 							}}
 						>
-							<div className="flex flex-col items-center bg-[#ffffff66] mx-20 h-80 justify-center rounded-xl">
+							<div className="flex flex-col items-center mx-20 h-80 justify-center">
 								<p>지루한 회의...</p>
 								<p>재미없는 시간...</p>
 							</div>
@@ -135,8 +135,8 @@ export default function OnBoardingTemplate() {
 						onMouseMove={handleMouseMove}
 					/>
 				</div>
-				<div className={`w-full h-screen bg-[#60c0d0]`}>
-					<div className="flex flex-row-reverse gap-[10px] pt-80 overflow-hidden">
+				<div className={`w-full h-screen bg-white`}>
+					<div className="flex flex-row-reverse gap-[10px] pt-40 overflow-hidden">
 						{images.map((image) => (
 							<img
 								className="w-[300px] animate-slider"
