@@ -22,8 +22,9 @@ export default function AISticker({
 	const [clickedIndexes, setClickedIndexes] = useState<number[]>([])
 
 	const handleClick = (componentURL: string, index: number) => {
-		if (clickedIndexes.includes(index)) return
-
+		if (clickedIndexes.includes(index)) {
+			
+		}
 		// 클릭 처리
 		handleAddComponent(componentURL)
 

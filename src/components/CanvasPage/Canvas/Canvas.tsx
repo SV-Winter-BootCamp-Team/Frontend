@@ -10,6 +10,7 @@ type CanvasProps = {
 	componentList: Component[]
 	setComponentList: (componentList: Component[]) => void
 	updateComponent: (component: Component) => void
+	setBackgroundURL: (backgroundURL: string) => void
 }
 
 export default function Canvas({
@@ -17,6 +18,7 @@ export default function Canvas({
 	componentList,
 	setComponentList,
 	updateComponent,
+	setBackgroundURL,
 }: CanvasProps) {
 	const params = useParams<{ canvas_id: string }>()
 	const [selectedElement, setSelectedElement] = useState<number | null>(null)
@@ -106,8 +108,6 @@ export default function Canvas({
 						}
 						return component
 					})
-
-					// 컴포넌트 리스트 상태 업데이트
 					setComponentList(updatedComponentList)
 				} else if (data.type === 'rotate') {
 					const updatedComponentList = componentList.map((component) => {
@@ -121,27 +121,32 @@ export default function Canvas({
 					})
 					setComponentList(updatedComponentList)
 				} else if (data.type === 'add') {
-					console.log(data.type)
-					console.log(componentList)
+					if (data.component_type === 'sticker') {
+						console.log(data.type)
+						console.log(componentList)
 
-					// Check if the component already exists
-					const existingComponent = componentList.find(
-						(component) => component.component_id === data.component_id,
-					)
+						// Check if the component already exists
+						const existingComponent = componentList.find(
+							(component) => component.component_id === data.component_id,
+						)
 
-					if (!existingComponent) {
-						// If the component does not exist, create a new one
-						const newComponent = {
-							component_id: data.component_id,
-							component_url: data.component_url,
-							position_x: 406,
-							position_y: 206,
-							width: 100,
-							height: 100,
-							rotate: 0,
+						if (!existingComponent) {
+							// If the component does not exist, create a new one
+							const newComponent = {
+								component_id: data.component_id,
+								component_url: data.component_url,
+								position_x: 406,
+								position_y: 206,
+								width: 100,
+								height: 100,
+								rotate: 0,
+							}
+							const updatedComponentList = [...componentList, newComponent]
+							setComponentList(updatedComponentList)
 						}
-						const updatedComponentList = [...componentList, newComponent]
-						setComponentList(updatedComponentList)
+					} else if (data.component_type === 'background') {
+						const newBackground = data.component_url
+						setBackgroundURL(newBackground)
 					}
 				} else if (data.type === 'remove') {
 					const updatedComponentList = componentList.filter(
@@ -151,7 +156,7 @@ export default function Canvas({
 				}
 			}
 		}
-	}, [chatSocket, componentList])
+	}, [chatSocket, componentList, backgroundURL])
 
 	return (
 		<div

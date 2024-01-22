@@ -110,6 +110,7 @@ export default function CanvasPage() {
 					user_id: localStorage.getItem('user_id'),
 					component_id: newComponent.component_id,
 					component_url: newComponent.component_url,
+					component_type: 'sticker',
 				}),
 			)
 		} catch (error) {
@@ -195,7 +196,7 @@ export default function CanvasPage() {
 			'ws://' + 'localhost:8000' + '/ws/canvases/' + params.canvas_id + '/',
 		) // Adjust the URL to your WebSocket server
 		setSocket(newSocket)
-	}, [params.canvas_id])
+	}, [])
 
 	return (
 		<div className="flex flex-col min-h-screen">
@@ -225,6 +226,7 @@ export default function CanvasPage() {
 					componentList={componentList}
 					setComponentList={setComponentList}
 					updateComponent={updateComponent}
+					setBackgroundURL={setBackgroundURL}
 				/>
 			</div>
 		</div>
