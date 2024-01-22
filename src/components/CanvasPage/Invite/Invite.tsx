@@ -16,7 +16,7 @@ export default function Invite() {
 		}
 
 		try {
-			const response = await axios.post(
+			await axios.post(
 				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/invite/`,
 				{ user_email: email },
 			)

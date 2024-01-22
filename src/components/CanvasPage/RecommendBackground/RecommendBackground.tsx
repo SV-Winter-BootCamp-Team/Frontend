@@ -11,6 +11,7 @@ export default function RecommendBackground({
 }: RecommendBackgroundProps) {
 	const params = useParams<{ canvas_id: string }>()
 	const [backgrounds, setBackgrounds] = useState<string[]>([])
+	const [socket, setSocket] = useState<WebSocket | null>(null)
 
 	const fetchRecommendedBackgrounds = async () => {
 		try {
@@ -38,6 +39,15 @@ export default function RecommendBackground({
 			console.log(response.data)
 
 			setBackgroundURL(backgroundURL)
+			socket?.send(
+				JSON.stringify({
+					type: 'add',
+					user_id: localStorage.getItem('user_id'),
+					component_id: response.data.result.component.component_id,
+					component_url: backgroundURL,
+					component_type: 'background',
+				}),
+			)
 		} catch (error) {
 			if (axios.isAxiosError(error)) {
 				const errorMessage = error.response?.data.message || error.message
@@ -54,6 +64,10 @@ export default function RecommendBackground({
 
 	useEffect(() => {
 		fetchRecommendedBackgrounds()
+		const newSocket = new WebSocket(
+			'ws://' + 'localhost:8000' + '/ws/canvases/' + params.canvas_id + '/',
+		) // Adjust the URL to your WebSocket server
+		setSocket(newSocket)
 	}, [])
 
 	return (

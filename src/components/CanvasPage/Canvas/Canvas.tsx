@@ -10,6 +10,7 @@ type CanvasProps = {
 	componentList: Component[]
 	setComponentList: (componentList: Component[]) => void
 	updateComponent: (component: Component) => void
+	setBackgroundURL: (backgroundURL: string) => void
 }
 
 export default function Canvas({
@@ -17,6 +18,7 @@ export default function Canvas({
 	componentList,
 	setComponentList,
 	updateComponent,
+	setBackgroundURL,
 }: CanvasProps) {
 	const params = useParams<{ canvas_id: string }>()
 	const [selectedElement, setSelectedElement] = useState<number | null>(null)
@@ -50,40 +52,21 @@ export default function Canvas({
 
 		// API 요청을 통해 서버에서 요소 삭제
 		try {
-			const response = await axios.delete(
+			await axios.delete(
 				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/${componentId}/`,
+			)
+			chatSocket?.send(
+				JSON.stringify({
+					type: 'remove',
+					user_id: localStorage.getItem('user_id'),
+					component_id: componentId,
+				}),
 			)
 		} catch (error) {
 			console.error('Error deleting component:', error)
 		}
 
 		setSelectedElement(null) // 선택 해제
-	}
-
-	const handleMoveableChange = (
-		element: Component,
-		left: number,
-		top: number,
-		width: number,
-		height: number,
-	) => {
-		const updatedComponent = {
-			...element,
-			position_x: left,
-			position_y: top,
-			width: width,
-			height: height,
-		}
-
-		updateComponent(updatedComponent)
-
-		// 변경 사항을 WebSocket을 통해 서버로 전송
-		chatSocket?.send(
-			JSON.stringify({
-				type: 'updateComponent',
-				component: updatedComponent,
-			}),
-		)
 	}
 
 	useEffect(() => {
@@ -113,8 +96,6 @@ export default function Canvas({
 						}
 						return component
 					})
-
-					// 컴포넌트 리스트 상태 업데이트
 					setComponentList(updatedComponentList)
 				} else if (data.type === 'position') {
 					const updatedComponentList = componentList.map((component) => {
@@ -127,13 +108,55 @@ export default function Canvas({
 						}
 						return component
 					})
+					setComponentList(updatedComponentList)
+				} else if (data.type === 'rotate') {
+					const updatedComponentList = componentList.map((component) => {
+						if (component.component_id === data.component_id) {
+							return {
+								...component,
+								rotate: data.rotate,
+							}
+						}
+						return component
+					})
+					setComponentList(updatedComponentList)
+				} else if (data.type === 'add') {
+					if (data.component_type === 'sticker') {
+						console.log(data.type)
+						console.log(componentList)
 
-					// 컴포넌트 리스트 상태 업데이트
+						// Check if the component already exists
+						const existingComponent = componentList.find(
+							(component) => component.component_id === data.component_id,
+						)
+
+						if (!existingComponent) {
+							// If the component does not exist, create a new one
+							const newComponent = {
+								component_id: data.component_id,
+								component_url: data.component_url,
+								position_x: 406,
+								position_y: 206,
+								width: 100,
+								height: 100,
+								rotate: 0,
+							}
+							const updatedComponentList = [...componentList, newComponent]
+							setComponentList(updatedComponentList)
+						}
+					} else if (data.component_type === 'background') {
+						const newBackground = data.component_url
+						setBackgroundURL(newBackground)
+					}
+				} else if (data.type === 'remove') {
+					const updatedComponentList = componentList.filter(
+						(component) => component.component_id !== data.component_id,
+					)
 					setComponentList(updatedComponentList)
 				}
 			}
 		}
-	}, [chatSocket, componentList])
+	}, [chatSocket, componentList, backgroundURL])
 
 	return (
 		<div
@@ -164,6 +187,7 @@ export default function Canvas({
 										height: element.height,
 										left: element.position_x,
 										top: element.position_y,
+										transform: `rotate(${element.rotate}deg)`,
 									}}
 								>
 									<img src={element.component_url} className="w-full h-full" />
@@ -187,20 +211,14 @@ export default function Canvas({
 										onDrag={({ target, left, top }) => {
 											target.style.left = `${left}px`
 											target.style.top = `${top}px`
+											console.log(left, top)
 
-											handleMoveableChange(
-												element,
-												left,
-												top,
-												element.width,
-												element.height,
-											)
 											updateComponent({
 												...element,
 												position_x: left,
 												position_y: top,
 											})
-
+											console.log(localStorage.getItem('user_id'))
 											chatSocket?.send(
 												JSON.stringify({
 													type: 'position',
@@ -210,6 +228,7 @@ export default function Canvas({
 													position_y: top,
 												}),
 											)
+											console.log('drag', left, top)
 										}}
 										onResize={({ target, width, height, drag, direction }) => {
 											const beforeTranslate = drag.beforeTranslate
@@ -237,14 +256,6 @@ export default function Canvas({
 											target.style.height = `${newHeight}px`
 											target.style.transform = `translate(${beforeTranslate[0]}px, ${beforeTranslate[1]}px)`
 
-											handleMoveableChange(
-												element,
-												element.position_x,
-												element.position_y,
-												newWidth,
-												newHeight,
-											)
-
 											updateComponent({
 												...element,
 												width: newWidth,
@@ -258,6 +269,23 @@ export default function Canvas({
 													component_id: element.component_id,
 													width: newWidth,
 													height: newHeight,
+												}),
+											)
+										}}
+										onRotate={({ target, beforeRotate }) => {
+											target.style.transform = `rotate(${beforeRotate}deg)`
+
+											updateComponent({
+												...element,
+												rotate: beforeRotate,
+											})
+
+											chatSocket?.send(
+												JSON.stringify({
+													type: 'rotate',
+													user_id: localStorage.getItem('user_id'),
+													component_id: element.component_id,
+													rotate: beforeRotate,
 												}),
 											)
 										}}

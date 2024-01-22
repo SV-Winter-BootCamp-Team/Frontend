@@ -2,12 +2,19 @@ import { ChangeEvent, useRef } from 'react'
 import upload from '/images/svg/upload.svg'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
+import { Background } from './UploadBackground'
 
 type UploadButtonProps = {
 	setBackgroundURL: (backgroundURL: string) => void
+	setBackgrounds: (backgrounds: Background[]) => void
+	backgrounds: Background[]
 }
 
-export default function UploadButton({ setBackgroundURL }: UploadButtonProps) {
+export default function UploadButton({
+	setBackgroundURL,
+	setBackgrounds,
+	backgrounds,
+}: UploadButtonProps) {
 	const fileInputRef = useRef<HTMLInputElement>(null)
 	const params = useParams<{ canvas_id: string }>()
 
@@ -31,7 +38,12 @@ export default function UploadButton({ setBackgroundURL }: UploadButtonProps) {
 					},
 				)
 				console.log(response.data)
+				const background = {
+					id: response.data.result.component.component_id,
+					component_url: URL.createObjectURL(e.target.files[0]),
+				}
 				setBackgroundURL(URL.createObjectURL(e.target.files[0]))
+				setBackgrounds([background, ...backgrounds])
 			} catch (error) {
 				if (axios.isAxiosError(error)) {
 					const errorMessage = error.response?.data.message || error.message

@@ -3,10 +3,11 @@ import CanvasPreview from '../components/MainPage/CanvasPreview'
 import { useEffect, useState } from 'react'
 import NavBar from '../components/NavBar'
 import axios from 'axios'
+import plus from '/images/svg/plus.svg'
 
 export type CanvasPreviewProps = {
 	canvas_id: number
-	content: string
+	canvas_preview_url: string
 	canvas_name: string
 	update_at: string
 }
@@ -46,22 +47,6 @@ export default function MainPage() {
 			})
 	}
 
-	function onClick() {
-		setNewCanvas((current) => {
-			let nextState = current
-			nextState['canvas_name'] = 'Untitled'
-			return nextState
-		})
-		axios
-			.post('http://localhost:8000/api/v1/canvases/', newCanvas)
-			.then((response) => {
-				alert(response.data.message)
-			})
-			.catch((error) => {
-				alert(error.response.message)
-			})
-	}
-
 	useEffect(() => {
 		axios
 			.get(`http://localhost:8000/api/v1/canvases/personal/${Number(user_id)}/`)
@@ -88,21 +73,24 @@ export default function MainPage() {
 	return (
 		<>
 			<NavBar />
-			<h1 className="mx-8 mt-8 text-xl font-semibold">내 캔버스</h1>
+			<h1 className="mx-8 mt-8 text-xl font-jua">내 캔버스</h1>
 			<div className="grid grid-cols-1 gap-8 mx-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 				{personalCanvasData.map((canvas: CanvasPreviewProps) => (
 					<CanvasPreview key={canvas.canvas_id} {...canvas} />
 				))}
 				<div>
 					<div
-						className="bg-purple-100 cursor-pointer flex justify-center px-32 py-20 border-2 sm:py-[100px]"
+						className="relative bg-[#66CAE150] cursor-pointer px-32 py-20 border-2 sm:py-[100px] rounded-lg"
 						onClick={createPersonalCanvas}
 					>
-						<p className="absolute">+</p>
+						<div className="absolute top-0 left-0 w-full h-full bg-white flex justify-center items-center">
+							<img className="w-5 h-5" src={plus} />
+						</div>
 					</div>
 				</div>
 			</div>
-			<h1 className="mx-8 mt-8 text-xl font-semibold">공유된 캔버스</h1>
+			<hr className="mt-12 mx-10" />
+			<h1 className="mx-8 mt-8 text-xl font-jua">공유된 캔버스</h1>
 			<div className="grid grid-cols-1 gap-8 mx-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 				{shareCanvasData.map((canvas: CanvasPreviewProps) => (
 					<CanvasPreview key={canvas.canvas_id} {...canvas} />

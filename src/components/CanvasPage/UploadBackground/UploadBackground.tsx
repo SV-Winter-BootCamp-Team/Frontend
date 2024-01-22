@@ -7,7 +7,7 @@ export type UploadProps = {
 	setBackgroundURL: (backgroundURL: string) => void
 }
 
-type Background = {
+export type Background = {
 	id: number
 	component_url: string
 }
@@ -15,6 +15,7 @@ type Background = {
 export default function UploadBackground({ setBackgroundURL }: UploadProps) {
 	const params = useParams<{ canvas_id: string }>()
 	const [backgrounds, setBackgrounds] = useState<Background[]>([])
+	const [socket, setSocket] = useState<WebSocket | null>(null)
 
 	const fetchBackgrounds = async () => {
 		try {
@@ -58,6 +59,15 @@ export default function UploadBackground({ setBackgroundURL }: UploadProps) {
 			console.log(response.data)
 
 			setBackgroundURL(backgroundURL)
+			socket?.send(
+				JSON.stringify({
+					type: 'add',
+					user_id: localStorage.getItem('user_id'),
+					component_id: response.data.result.component.component_id,
+					component_url: backgroundURL,
+					component_type: 'background',
+				}),
+			)
 		} catch (error) {
 			if (axios.isAxiosError(error)) {
 				const errorMessage = error.response?.data.message || error.message
@@ -74,12 +84,20 @@ export default function UploadBackground({ setBackgroundURL }: UploadProps) {
 
 	useEffect(() => {
 		fetchBackgrounds()
+		const newSocket = new WebSocket(
+			'ws://' + 'localhost:8000' + '/ws/canvases/' + params.canvas_id + '/',
+		) // Adjust the URL to your WebSocket server
+		setSocket(newSocket)
 	}, [])
 
 	return (
 		<div className="flex flex-col">
 			<div>
-				<UploadButton setBackgroundURL={setBackgroundURL} />
+				<UploadButton
+					setBackgroundURL={setBackgroundURL}
+					setBackgrounds={setBackgrounds}
+					backgrounds={backgrounds}
+				/>
 			</div>
 			<div className="flex flex-col mt-8 ml-8">
 				{backgrounds.map((background) => (

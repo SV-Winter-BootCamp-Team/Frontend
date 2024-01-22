@@ -21,14 +21,6 @@
 	display: none;
 }
 
-.moveable-control.moveable-rotation-control {
-	display: none;
-}
-
-.moveable-rotation {
-	display: none;
-}
-
 .moveable-control.moveable-direction.moveable-ne.moveable-resizable {
 	display: none;
 }

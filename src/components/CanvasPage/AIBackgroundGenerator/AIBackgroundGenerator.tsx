@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent } from 'react'
 import Theme from './Theme'
 import Color from './Color'
 import GenerateButton from '../../GenearateButton/'
@@ -56,7 +56,7 @@ export default function AIBackgroundGenerator({
 					<Color color="#3340EF" setColor={setColor} selectedColor={color} />
 					<Color color="#9161F6" setColor={setColor} selectedColor={color} />
 					<Color color="#EF8BE5" setColor={setColor} selectedColor={color} />
-					<Color color="#976D5" setColor={setColor} selectedColor={color} />
+					<Color color="#a16207" setColor={setColor} selectedColor={color} />
 					<Color color="#BFBFBF" setColor={setColor} selectedColor={color} />
 					<Color color="#000000" setColor={setColor} selectedColor={color} />
 				</div>
