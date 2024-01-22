@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent } from 'react'
 import Theme from './Theme'
 import Color from './Color'
 import GenerateButton from '../../GenearateButton/'

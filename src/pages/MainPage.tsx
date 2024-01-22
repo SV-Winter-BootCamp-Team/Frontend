@@ -46,22 +46,6 @@ export default function MainPage() {
 			})
 	}
 
-	function onClick() {
-		setNewCanvas((current) => {
-			let nextState = current
-			nextState['canvas_name'] = 'Untitled'
-			return nextState
-		})
-		axios
-			.post('http://localhost:8000/api/v1/canvases/', newCanvas)
-			.then((response) => {
-				alert(response.data.message)
-			})
-			.catch((error) => {
-				alert(error.response.message)
-			})
-	}
-
 	useEffect(() => {
 		axios
 			.get(`http://localhost:8000/api/v1/canvases/personal/${Number(user_id)}/`)
