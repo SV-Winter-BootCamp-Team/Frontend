@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Canvas } from '@react-three/fiber'
 import ThreeTest from './ThreeTest'
 
 export type ImageType = {
@@ -35,11 +36,11 @@ export default function OnBoardingTemplate() {
 
 	const handleMouseMove = (e: React.MouseEvent) => {
 		const x = e.clientX / window.innerWidth
-		setMousex(1 / (1 + Math.exp(-15 * (x - 0.5))))
+		setMousex(1 / (1 + Math.exp(-20 * (x - 0.5))))
 
-		const red = Math.round(212 - 128 * (1 - x))
-		const green = Math.round(212 - 40 * (1 - x))
-		const blue = Math.round(212 - 24 * (1 - x))
+		const red = Math.round(212 - 100 * (1 - x))
+		const green = Math.round(212 - 20 * (1 - x))
+		const blue = Math.round(212 - 14 * (1 - x))
 
 		const color = `rgb(${red}, ${green}, ${blue})`
 
@@ -54,7 +55,9 @@ export default function OnBoardingTemplate() {
 		<div className="w-full overflow-hidden">
 			<section className="w-full h-fit flex-col ">
 				<div className="w-full h-screen flex justify-center">
-					<ThreeTest {...handleThree} />
+					<Canvas>
+						<ThreeTest {...handleThree} />
+					</Canvas>
 					<div className="absolute right-0 h-full w-1/3 font-jua text-5xl">
 						<div
 							style={{
