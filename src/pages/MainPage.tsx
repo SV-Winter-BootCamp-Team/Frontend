@@ -73,7 +73,7 @@ export default function MainPage() {
 	return (
 		<>
 			<NavBar />
-			<h1 className="mx-8 mt-8 text-xl font-semibold">내 캔버스</h1>
+			<h1 className="mx-8 mt-8 text-xl font-jua">내 캔버스</h1>
 			<div className="grid grid-cols-1 gap-8 mx-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 				{personalCanvasData.map((canvas: CanvasPreviewProps) => (
 					<CanvasPreview key={canvas.canvas_id} {...canvas} />
@@ -83,13 +83,14 @@ export default function MainPage() {
 						className="relative bg-[#66CAE150] cursor-pointer px-32 py-20 border-2 sm:py-[100px] rounded-lg"
 						onClick={createPersonalCanvas}
 					>
-						<div className="absolute top-0 left-0 w-full h-full flex justify-center items-center">
-							<img className="w-8 h-8" src={plus} />
+						<div className="absolute top-0 left-0 w-full h-full bg-white flex justify-center items-center">
+							<img className="w-5 h-5" src={plus} />
 						</div>
 					</div>
 				</div>
 			</div>
-			<h1 className="mx-8 mt-8 text-xl font-semibold">공유된 캔버스</h1>
+			<hr className="mt-12 mx-10" />
+			<h1 className="mx-8 mt-8 text-xl font-jua">공유된 캔버스</h1>
 			<div className="grid grid-cols-1 gap-8 mx-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 				{shareCanvasData.map((canvas: CanvasPreviewProps) => (
 					<CanvasPreview key={canvas.canvas_id} {...canvas} />

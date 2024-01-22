@@ -96,15 +96,7 @@ export default function CanvasPreview({
 
 	return (
 		<div className="flex-col">
-			<div
-				className="relative flex justify-center px-32 py-32 border-2 sm:py-[100px] rounded-lg"
-				onMouseEnter={() => {
-					setHide(true)
-				}}
-				onMouseLeave={() => {
-					setHide(false)
-				}}
-			>
+			<div className="relative bg-white flex justify-center px-32 py-32 border-2 sm:py-[100px] rounded-lg">
 				<img
 					className={`absolute top-0 left-0 w-full h-full rounded-lg ${
 						canvas_preview_url === 'default_preview_url' && 'hidden'
@@ -126,20 +118,22 @@ export default function CanvasPreview({
 					onClick={deleteCanvas}
 				></button>
 			</div>
-			<div className="flex justify-between mx-4">
+			<div className="flex justify-between mx-[4.5px] mt-[5px]">
 				<div>
 					<form onSubmit={onSubmit}>
 						<input
-							className="text-ellipsis"
+							className="text-ellipsis font-semibold"
 							onChange={(e) => setNewName(e.target.value)}
 							value={newName}
 						/>
 					</form>
-					<div className="text-sm text-gray-400">{showUpdate}</div>
+					<div className="text-sm text-gray-600">{showUpdate}</div>
 				</div>
-				<div className="h-6 aspect-square my-auto cursor-pointer">
-					<img src={trashCan} onClick={deleteCanvas} />
-				</div>
+				<img
+					className="h-[12.5px] aspect-square cursor-pointer mt-[2.5px]"
+					src={trashCan}
+					onClick={deleteCanvas}
+				/>
 			</div>
 		</div>
 	)
