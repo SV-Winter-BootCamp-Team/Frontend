@@ -5,7 +5,7 @@ import { HandleThreeType } from './OnBoardingTemplate'
 import GLTFLoader from 'three-gltf-loader'
 import { useRef } from 'react'
 import { degToRad } from 'three/src/math/MathUtils.js'
-import { Mesh } from 'three'
+import { Mesh, Group } from 'three'
 
 let i = 0
 export default function ThreeTest({ color, x }: HandleThreeType) {
@@ -15,6 +15,10 @@ export default function ThreeTest({ color, x }: HandleThreeType) {
 
 	const ref = useRef<Mesh>(null!)
 	const ref2 = useRef<Mesh>(null!)
+	const mobile = useRef<Group>(null!)
+	const mobile2 = useRef<Mesh>(null!)
+	const mobile3 = useRef<Group>(null!)
+	const mobile4 = useRef<Group>(null!)
 
 	useFrame((_, delta) => {
 		i += delta
@@ -52,6 +56,10 @@ export default function ThreeTest({ color, x }: HandleThreeType) {
 			0,
 			-Math.sin(-(1 / 4) * Math.PI + i * 1.2) - Math.sin((1 / 4) * Math.PI),
 		)
+		mobile.current.rotation.y += 0.35 * delta
+		mobile2.current.rotation.y += 0.75 * delta
+		mobile3.current.rotation.y += 0.2 * delta
+		mobile4.current.rotation.y += 0.1 * delta
 	})
 	return (
 		<>
@@ -187,6 +195,85 @@ export default function ThreeTest({ color, x }: HandleThreeType) {
 				</group>
 			</group>
 			<group position={[0, 0.2, 9.5]}>
+				<group ref={mobile4}>
+					<mesh position={[0, 1.3 - 0.6 * (1 - x), 0]} castShadow>
+						<cylinderGeometry args={[0.001, 0.001, 0.4, 8, 1]} />
+						<meshStandardMaterial />
+					</mesh>
+					<mesh position-y={1.26 - 0.6 * (1 - x)} castShadow receiveShadow>
+						<torusGeometry args={[0.08, 0.002, 4, 50]} />
+					</mesh>
+
+					<group ref={mobile} position={[0, 1.1 - 0.6 * (1 - x), 0]}>
+						<mesh position-x={0.05} castShadow receiveShadow>
+							<sphereGeometry args={[0.02]} />
+							<meshStandardMaterial />
+						</mesh>
+						<mesh
+							rotation-z={Math.PI / 2}
+							position-x={-0.025}
+							castShadow
+							receiveShadow
+						>
+							<cylinderGeometry args={[0.0025, 0.0025, 0.15]} />
+							<meshStandardMaterial />
+						</mesh>
+						<mesh position={[-0.1, -0.1, 0]} castShadow>
+							<cylinderGeometry
+								args={[0.001, 0.001, 0.2, 8, 1, false, 0, 2 * Math.PI]}
+							/>
+							<meshStandardMaterial />
+						</mesh>
+						<mesh
+							ref={mobile2}
+							position={[-0.1, -0.17, 0]}
+							rotation-x={Math.PI / 2}
+							castShadow
+							receiveShadow
+						>
+							<cylinderGeometry
+								args={[0.03, 0.03, 0.001, 10, 1, false, -Math.PI / 2, Math.PI]}
+							/>
+							<meshStandardMaterial />
+						</mesh>
+					</group>
+
+					<group ref={mobile3} position={[0, 1.3 - 0.6 * (1 - x), 0]}>
+						<mesh position={[0.1, -0.1, 0]} castShadow receiveShadow>
+							<cylinderGeometry args={[0.008, 0.008, 0.1, 8, 1, false]} />
+							<meshStandardMaterial />
+						</mesh>
+						<mesh position={[0.1, -0.05, 0]}>
+							<cylinderGeometry args={[0.001, 0.001, 0.1, 8, 1, false]} />
+							<meshStandardMaterial />
+						</mesh>
+						<mesh
+							rotation-z={Math.PI / 2}
+							position-x={-0.05}
+							castShadow
+							receiveShadow
+						>
+							<cylinderGeometry
+								args={[0.005, 0.005, 0.3, 8, 1, false, 0, 2 * Math.PI]}
+							/>
+							<meshStandardMaterial />
+						</mesh>
+						<mesh position={[-0.2, -0.18, 0]}>
+							<cylinderGeometry
+								args={[0.001, 0.001, 0.36, 8, 1, false, 0, 2 * Math.PI]}
+							/>
+							<meshStandardMaterial />
+						</mesh>
+						<mesh
+							ref={mobile2}
+							position={[-0.2, -0.32, 0]}
+							rotation-x={Math.PI / 2}
+						>
+							<cylinderGeometry args={[0.04, 0.04, 0.001]} />
+							<meshStandardMaterial />
+						</mesh>
+					</group>
+				</group>
 				<mesh
 					position={[0, 0, 0]}
 					castShadow
@@ -247,7 +334,7 @@ export default function ThreeTest({ color, x }: HandleThreeType) {
 					receiveShadow={true}
 				>
 					<planeGeometry args={[200, 200]} />
-					<meshPhongMaterial color={'white'} shininess={25} />
+					<meshPhongMaterial color={color} shininess={25} />
 				</mesh>
 				<mesh position={[-1.5, 0, 1]} receiveShadow={true} castShadow>
 					<planeGeometry args={[200, 200]} />
