@@ -15,6 +15,7 @@ export type Component = {
 	position_y: number
 	width: number
 	height: number
+	rotate: number
 }
 
 export default function CanvasPage() {
@@ -29,11 +30,13 @@ export default function CanvasPage() {
 	const [canvasName, setCanvasName] = useState<string>('')
 
 	const [canvasPreviewURL, setCanvasPreviewURL] = useState<string>('')
+	const [socket, setSocket] = useState<WebSocket | null>(null)
 
 	const [position_x, setPosition_x] = useState<number>(406)
 	const [position_y, setPosition_y] = useState<number>(206)
 	const [width, setWidth] = useState<number>(100)
 	const [height, setHeight] = useState<number>(100)
+	const [rotate, setRotate] = useState<number>(0)
 
 	const updateComponent = (updatedComponent: Component) => {
 		setComponentList((prevList) =>
@@ -65,7 +68,6 @@ export default function CanvasPage() {
 			formData.append('components', JSON.stringify(componentList))
 
 			formData.append('canvas_preview_url', blob)
-			let entries = formData.entries()
 
 			const response = await axios.put(
 				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/save/`,
@@ -90,6 +92,7 @@ export default function CanvasPage() {
 				},
 			)
 			const component = response.data.result.component
+			console.log(position_x, position_y, width, height, rotate)
 			const newComponent = {
 				component_id: component.component_id,
 				component_url: componentURL,
@@ -97,8 +100,19 @@ export default function CanvasPage() {
 				position_y: position_y,
 				width: width,
 				height: height,
+				rotate: rotate,
 			}
+
 			setComponentList([...componentList, newComponent])
+			socket?.send(
+				JSON.stringify({
+					type: 'add',
+					user_id: localStorage.getItem('user_id'),
+					component_id: newComponent.component_id,
+					component_url: newComponent.component_url,
+					component_type: 'sticker',
+				}),
+			)
 		} catch (error) {
 			console.error('Error saving sticker:', error)
 		}
@@ -146,6 +160,7 @@ export default function CanvasPage() {
 						position_y,
 						width,
 						height,
+						rotate,
 						...rest
 					}: {
 						id: string
@@ -154,12 +169,14 @@ export default function CanvasPage() {
 						position_y: number
 						width: number
 						height: number
+						rotate: number
 					}) => ({
 						component_id: id,
 						position_x,
 						position_y,
-						width, // 이 부분 확인
-						height, // 이 부분 확인
+						width,
+						height,
+						rotate,
 						...rest,
 					}),
 				),
@@ -175,7 +192,11 @@ export default function CanvasPage() {
 
 	useEffect(() => {
 		fetchCanvasDetails()
-	}, [params.canvas_id])
+		const newSocket = new WebSocket(
+			'ws://' + 'localhost:8000' + '/ws/canvases/' + params.canvas_id + '/',
+		) // Adjust the URL to your WebSocket server
+		setSocket(newSocket)
+	}, [])
 
 	return (
 		<div className="flex flex-col min-h-screen">
@@ -204,7 +225,8 @@ export default function CanvasPage() {
 					backgroundURL={backgroundURL}
 					componentList={componentList}
 					setComponentList={setComponentList}
-					updateComponent={updateComponent} // New prop
+					updateComponent={updateComponent}
+					setBackgroundURL={setBackgroundURL}
 				/>
 			</div>
 		</div>

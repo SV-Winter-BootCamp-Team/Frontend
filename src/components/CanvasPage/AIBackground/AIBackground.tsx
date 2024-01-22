@@ -1,7 +1,7 @@
 import axios from 'axios'
 import ReGenerateButton from '../../ReGenerateButton'
 import { useParams } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 type AIBackgroundProps = {
 	setBackgroundStatus: (status: string) => void
@@ -17,6 +17,7 @@ export default function AIBackground({
 	setBackgroundURL,
 }: AIBackgroundProps) {
 	const params = useParams<{ canvas_id: string }>()
+	const [socket, setSocket] = useState<WebSocket | null>(null)
 
 	const changeBackground = async (backgroundURL: string) => {
 		try {
@@ -32,6 +33,15 @@ export default function AIBackground({
 			console.log(response.data)
 
 			setBackgroundURL(backgroundURL)
+			socket?.send(
+				JSON.stringify({
+					type: 'add',
+					user_id: localStorage.getItem('user_id'),
+					component_id: response.data.result.component.component_id,
+					component_url: backgroundURL,
+					component_type: 'background',
+				}),
+			)
 		} catch (error) {
 			if (axios.isAxiosError(error)) {
 				const errorMessage = error.response?.data.message || error.message
@@ -45,6 +55,13 @@ export default function AIBackground({
 			}
 		}
 	}
+
+	useEffect(() => {
+		const newSocket = new WebSocket(
+			'ws://' + 'localhost:8000' + '/ws/canvases/' + params.canvas_id + '/',
+		) // Adjust the URL to your WebSocket server
+		setSocket(newSocket)
+	}, [])
 
 	return (
 		<div className="flex flex-col items-center mt-8 grow">
