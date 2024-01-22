@@ -10,8 +10,6 @@ import AIStickerLoading from '../AIStickerLoading'
 import AIStickerGenerator from '../AIStickerGenerator'
 import AIBackground from '../AIBackground'
 import AIBackgroundLoading from '../AIBackgroundLoading'
-import axios from 'axios'
-import { useParams } from 'react-router'
 import m1 from '/images/png/mm1.png'
 import m2 from '/images/png/mm2.png'
 
@@ -28,7 +26,6 @@ export default function MenuSection({
 	setBackgroundURL,
 	handleAddComponent,
 }: MenuSectionProps) {
-	const params = useParams<{ canvas_id: string }>()
 	const [stickerStatus, setStickerStatus] = useState('generator')
 	const [backgroundStatus, setBackgroundStatus] = useState('generator')
 

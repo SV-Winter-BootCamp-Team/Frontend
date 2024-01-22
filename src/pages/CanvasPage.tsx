@@ -32,11 +32,11 @@ export default function CanvasPage() {
 	const [canvasPreviewURL, setCanvasPreviewURL] = useState<string>('')
 	const [socket, setSocket] = useState<WebSocket | null>(null)
 
-	const [position_x, setPosition_x] = useState<number>(406)
-	const [position_y, setPosition_y] = useState<number>(206)
-	const [width, setWidth] = useState<number>(100)
-	const [height, setHeight] = useState<number>(100)
-	const [rotate, setRotate] = useState<number>(0)
+	const [position_x] = useState<number>(406)
+	const [position_y] = useState<number>(206)
+	const [width] = useState<number>(100)
+	const [height] = useState<number>(100)
+	const [rotate] = useState<number>(0)
 
 	const updateComponent = (updatedComponent: Component) => {
 		setComponentList((prevList) =>
@@ -69,7 +69,7 @@ export default function CanvasPage() {
 
 			formData.append('canvas_preview_url', blob)
 
-			const response = await axios.put(
+			await axios.put(
 				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/save/`,
 				formData,
 				{

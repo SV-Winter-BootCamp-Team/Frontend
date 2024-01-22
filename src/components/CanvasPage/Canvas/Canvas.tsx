@@ -52,7 +52,7 @@ export default function Canvas({
 
 		// API 요청을 통해 서버에서 요소 삭제
 		try {
-			const response = await axios.delete(
+			await axios.delete(
 				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/${componentId}/`,
 			)
 			chatSocket?.send(
