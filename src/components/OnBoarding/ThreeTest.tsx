@@ -1,26 +1,68 @@
-import { Canvas, useLoader } from '@react-three/fiber'
+import { Canvas, useLoader, useFrame } from '@react-three/fiber'
 import { PerspectiveCamera, useTexture } from '@react-three/drei'
 import * as THREE from 'three'
 import { HandleThreeType } from './OnBoardingTemplate'
 import GLTFLoader from 'three-gltf-loader'
-import { useMemo } from 'react'
+import { useRef } from 'react'
+import { degToRad } from 'three/src/math/MathUtils.js'
 
+let i = 0
 export default function ThreeTest({ color, x }: HandleThreeType) {
 	const textures = useTexture({
 		map: 'src/components/OnBoarding/background2.png',
+	})
+
+	const ref = useRef()
+	const ref2 = useRef()
+
+	useFrame((_, delta) => {
+		i += delta
+		ref.current.rotation.x += 1 * delta
+		ref.current.rotation.y += 0.5 * delta
+		ref.current.position.y = 0.25 + 0.25 * Math.sin(i)
+		ref.current.position.z = 0.01 + 0.01 * Math.sin(i * 1.2)
+		ref.current.scale.x = Math.max(
+			0,
+			-Math.sin(-(1 / 4) * Math.PI + i) - Math.sin((1 / 4) * Math.PI),
+		)
+		ref.current.scale.y = Math.max(
+			0,
+			-Math.sin(-(1 / 4) * Math.PI + i) - Math.sin((1 / 4) * Math.PI),
+		)
+		ref.current.scale.z = Math.max(
+			0,
+			-Math.sin(-(1 / 4) * Math.PI + i) - Math.sin((1 / 4) * Math.PI),
+		)
+		ref2.current.rotation.x += 0.9 * delta
+		ref2.current.rotation.y += 0.35 * delta
+		ref2.current.position.y = 0.4 + 0.4 * Math.sin(i * 1.2)
+		ref.current.position.z = 0.025 + 0.025 * Math.sin(i)
+		ref2.current.scale.x = Math.max(
+			0,
+			-Math.sin(-(1 / 4) * Math.PI + i * 1.2) - Math.sin((1 / 4) * Math.PI),
+		)
+		ref2.current.scale.y = Math.max(
+			0,
+			-Math.sin(-(1 / 4) * Math.PI + i * 1.2) - Math.sin((1 / 4) * Math.PI),
+		)
+		ref2.current.scale.z = Math.max(
+			0,
+			-Math.sin(-(1 / 4) * Math.PI + i * 1.2) - Math.sin((1 / 4) * Math.PI),
+		)
 	})
 	return (
 		<>
 			<fogExp2 />
 			<PerspectiveCamera
-				position={[(x - 0.5) * 3, 0.02, 12]}
+				position={[(x - 0.5) * 3, 0.3, 12]}
 				fov={30}
 				makeDefault
-				rotation-y={(x - 0.5) * 1.25}
+				rotation-y={(x - 0.5) * 1.4}
 			/>
 			<ambientLight intensity={0.25 + (1 - x)} />
 			<pointLight position={[-7, 7, 10]} intensity={120} castShadow />
-			<group position={[0, -0.2, 9.5]}>
+			<pointLight position={[70, 70, 15]} intensity={120} castShadow />
+			<group position={[0, -0.2, 9.6]}>
 				<mesh
 					position={[0.55, -0.5, 0.45]}
 					castShadow
@@ -69,6 +111,30 @@ export default function ThreeTest({ color, x }: HandleThreeType) {
 				>
 					<planeGeometry args={[1.5, 1]} />
 					<meshStandardMaterial color={'#dcd0bc'} />
+				</mesh>
+
+				<mesh position={[0.5, 0.05 * (1 - x), 0]} castShadow>
+					<cylinderGeometry
+						args={[
+							0.05 * (1 - x),
+							0.03 * (1 - x),
+							0.14 * (1 - x),
+							13,
+							1,
+							false,
+							0,
+							2 * Math.PI,
+						]}
+					/>
+					<meshStandardMaterial />
+					<mesh ref={ref} position={[0, 0.4, 0]}>
+						<icosahedronGeometry args={[0.1 * (1 - x), 0]} />
+						<meshStandardMaterial color={'#ffffff66'} />
+					</mesh>
+					<mesh ref={ref2} position={[0.02, 0.4, 0]}>
+						<icosahedronGeometry args={[0.1 * (1 - x), 0]} />
+						<meshStandardMaterial color={'#ffffff66'} />
+					</mesh>
 				</mesh>
 
 				<group
@@ -141,6 +207,15 @@ export default function ThreeTest({ color, x }: HandleThreeType) {
 							<planeGeometry attach="geometry" />
 							<meshBasicMaterial attach="material" map={textures.map} />
 						</mesh>
+					</mesh>
+
+					<mesh
+						position={[0, 0, x * 0.8 + 0.2]}
+						castShadow
+						scale={[0.95, x * 0.9, 0.5]}
+					>
+						<boxGeometry />
+						<meshStandardMaterial color={'#000000'} />
 					</mesh>
 				</mesh>
 				<mesh

@@ -16,16 +16,56 @@ export type HandleThreeType = {
 
 export default function OnBoardingTemplate() {
 	const images: ImageType[] = [
-		{ key: 1, src: 'public/images/svg/onBoarding1.svg', alt: 'onBoarding1' },
-		{ key: 2, src: 'public/images/svg/onBoarding2.svg', alt: 'onBoarding2' },
-		{ key: 3, src: 'public/images/svg/onBoarding2.svg', alt: 'onBoarding2' },
-		{ key: 4, src: 'public/images/svg/onBoarding2.svg', alt: 'onBoarding2' },
-		{ key: 5, src: 'public/images/svg/onBoarding2.svg', alt: 'onBoarding2' },
-		{ key: 6, src: 'public/images/svg/onBoarding2.svg', alt: 'onBoarding2' },
-		{ key: 7, src: 'public/images/svg/onBoarding2.svg', alt: 'onBoarding2' },
-		{ key: 8, src: 'public/images/svg/onBoarding2.svg', alt: 'onBoarding2' },
-		{ key: 9, src: 'public/images/svg/onBoarding2.svg', alt: 'onBoarding2' },
-		{ key: 10, src: 'public/images/svg/onBoarding2.svg', alt: 'onBoarding2' },
+		{
+			key: 1,
+			src: 'src/components/OnBoarding/background2.png',
+			alt: 'onBoarding1',
+		},
+		{
+			key: 2,
+			src: 'src/components/OnBoarding/background2.png',
+			alt: 'onBoarding2',
+		},
+		{
+			key: 3,
+			src: 'src/components/OnBoarding/background2.png',
+			alt: 'onBoarding2',
+		},
+		{
+			key: 4,
+			src: 'src/components/OnBoarding/background2.png',
+			alt: 'onBoarding2',
+		},
+		{
+			key: 5,
+			src: 'src/components/OnBoarding/background2.png',
+			alt: 'onBoarding2',
+		},
+		{
+			key: 6,
+			src: 'src/components/OnBoarding/background2.png',
+			alt: 'onBoarding2',
+		},
+		{
+			key: 7,
+			src: 'src/components/OnBoarding/background2.png',
+			alt: 'onBoarding2',
+		},
+		{
+			key: 8,
+			src: 'src/components/OnBoarding/background2.png',
+			alt: 'onBoarding2',
+		},
+		{
+			key: 9,
+			src: 'src/components/OnBoarding/background2.png',
+			alt: 'onBoarding2',
+		},
+		{
+			key: 10,
+			src: 'src/components/OnBoarding/background2.png',
+			alt: 'onBoarding2',
+		},
 	]
 	const [handleThree, setHandleThree] = useState<HandleThreeType>({
 		color: '#3490dc',
@@ -39,8 +79,8 @@ export default function OnBoardingTemplate() {
 		setMousex(1 / (1 + Math.exp(-20 * (x - 0.5))))
 
 		const red = Math.round(212 - 100 * (1 - x))
-		const green = Math.round(212 - 20 * (1 - x))
-		const blue = Math.round(212 - 14 * (1 - x))
+		const green = Math.round(212 + 14 * (1 - x))
+		const blue = Math.round(212 + 30 * (1 - x))
 
 		const color = `rgb(${red}, ${green}, ${blue})`
 
@@ -55,7 +95,7 @@ export default function OnBoardingTemplate() {
 		<div className="w-full overflow-hidden">
 			<section className="w-full h-fit flex-col ">
 				<div className="w-full h-screen flex justify-center">
-					<Canvas>
+					<Canvas shadows>
 						<ThreeTest {...handleThree} />
 					</Canvas>
 					<div className="absolute right-0 h-full w-1/3 font-jua text-5xl">
@@ -64,11 +104,11 @@ export default function OnBoardingTemplate() {
 								width: '100%',
 								height: '300px',
 								position: 'absolute',
-								top: `${(0.5 - mousex) * window.innerHeight}px`,
+								top: `${(0.3 - mousex) * window.innerHeight}px`,
 								opacity: 0.8 - mousex * 2,
 							}}
 						>
-							<div className="flex flex-col items-center">
+							<div className="flex flex-col items-center bg-[#ffffff66] mx-20 h-80 justify-center rounded-xl">
 								<p>AI를 활용한 '나'를</p>
 								<p>표현하는 배경 만들기!</p>
 							</div>
@@ -80,11 +120,11 @@ export default function OnBoardingTemplate() {
 								width: '100%',
 								height: '300px',
 								position: 'absolute',
-								top: `${(mousex - 0.5) * window.innerHeight}px`,
+								top: `${(mousex - 0.7) * window.innerHeight}px`,
 								opacity: mousex * 2 - 1.2,
 							}}
 						>
-							<div className="flex flex-col items-center">
+							<div className="flex flex-col items-center bg-[#ffffff66] mx-20 h-80 justify-center rounded-xl">
 								<p>지루한 회의...</p>
 								<p>재미없는 시간...</p>
 							</div>
@@ -95,9 +135,7 @@ export default function OnBoardingTemplate() {
 						onMouseMove={handleMouseMove}
 					/>
 				</div>
-				<div
-					className={`w-full h-screen bg-gradient-to-b from-[#54ACBC] to-[#96D9E6]`}
-				>
+				<div className={`w-full h-screen bg-[#60c0d0]`}>
 					<div className="flex flex-row-reverse gap-[10px] pt-80 overflow-hidden">
 						{images.map((image) => (
 							<img
