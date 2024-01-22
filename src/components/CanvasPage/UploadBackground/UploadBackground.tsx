@@ -7,7 +7,7 @@ export type UploadProps = {
 	setBackgroundURL: (backgroundURL: string) => void
 }
 
-type Background = {
+export type Background = {
 	id: number
 	component_url: string
 }
@@ -93,7 +93,11 @@ export default function UploadBackground({ setBackgroundURL }: UploadProps) {
 	return (
 		<div className="flex flex-col">
 			<div>
-				<UploadButton setBackgroundURL={setBackgroundURL} />
+				<UploadButton
+					setBackgroundURL={setBackgroundURL}
+					setBackgrounds={setBackgrounds}
+					backgrounds={backgrounds}
+				/>
 			</div>
 			<div className="flex flex-col mt-8 ml-8">
 				{backgrounds.map((background) => (
