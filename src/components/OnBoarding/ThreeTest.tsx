@@ -5,16 +5,16 @@ import { HandleThreeType } from './OnBoardingTemplate'
 import GLTFLoader from 'three-gltf-loader'
 import { useRef } from 'react'
 import { degToRad } from 'three/src/math/MathUtils.js'
+import { Mesh } from 'three'
 
 let i = 0
 export default function ThreeTest({ color, x }: HandleThreeType) {
 	const textures = useTexture({
 		map: 'src/components/OnBoarding/background2.png',
-		book: 'src/components/OnBoarding/whitebookshelf.png',
 	})
 
-	const ref = useRef<HTMLInputElement>()
-	const ref2 = useRef<number>(0)
+	const ref = useRef<Mesh>(null!)
+	const ref2 = useRef<Mesh>(null!)
 
 	useFrame((_, delta) => {
 		i += delta
@@ -55,7 +55,6 @@ export default function ThreeTest({ color, x }: HandleThreeType) {
 	})
 	return (
 		<>
-			<fogExp2 />
 			<PerspectiveCamera
 				position={[(x - 0.5) * 3, 0.3, 12]}
 				fov={30}
@@ -130,13 +129,13 @@ export default function ThreeTest({ color, x }: HandleThreeType) {
 						]}
 					/>
 					<meshStandardMaterial />
-					<mesh ref={ref} position={[0, 0.4, 0]}>
+					<mesh ref={ref} position={[0, 0.4, 0]} castShadow receiveShadow>
 						<icosahedronGeometry args={[0.1 * (1 - x), 0]} />
-						<meshStandardMaterial color={'#ffffff66'} />
+						<meshStandardMaterial color={'#ffffff'} />
 					</mesh>
-					<mesh ref={ref2} position={[0.02, 0.4, 0]}>
+					<mesh ref={ref2} position={[0.02, 0.4, 0]} castShadow receiveShadow>
 						<icosahedronGeometry args={[0.1 * (1 - x), 0]} />
-						<meshStandardMaterial color={'#ffffff66'} />
+						<meshStandardMaterial color={'#ffffff'} />
 					</mesh>
 				</mesh>
 
@@ -187,7 +186,6 @@ export default function ThreeTest({ color, x }: HandleThreeType) {
 					</mesh>
 				</group>
 			</group>
-
 			<group position={[0, 0.2, 9.5]}>
 				<mesh
 					position={[0, 0, 0]}
