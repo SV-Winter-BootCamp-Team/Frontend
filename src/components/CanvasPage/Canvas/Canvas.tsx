@@ -53,6 +53,13 @@ export default function Canvas({
 			const response = await axios.delete(
 				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/${componentId}/`,
 			)
+			chatSocket?.send(
+				JSON.stringify({
+					type: 'remove',
+					user_id: localStorage.getItem('user_id'),
+					component_id: componentId,
+				}),
+			)
 		} catch (error) {
 			console.error('Error deleting component:', error)
 		}
@@ -136,6 +143,11 @@ export default function Canvas({
 						const updatedComponentList = [...componentList, newComponent]
 						setComponentList(updatedComponentList)
 					}
+				} else if (data.type === 'remove') {
+					const updatedComponentList = componentList.filter(
+						(component) => component.component_id !== data.component_id,
+					)
+					setComponentList(updatedComponentList)
 				}
 			}
 		}
