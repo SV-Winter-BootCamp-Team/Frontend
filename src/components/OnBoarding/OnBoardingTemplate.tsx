@@ -1,43 +1,156 @@
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Canvas } from '@react-three/fiber'
+import ThreeTest from './ThreeTest'
+
+export type ImageType = {
+	key: number
+	src: string
+	alt: string
+}
+
+export type HandleThreeType = {
+	color: string
+	mouseX: number
+	x: number
+}
 
 export default function OnBoardingTemplate() {
-	const images: string[] = [
-		'onBoarding1',
-		'onBoarding2',
-		'onBoarding2',
-		'onBoarding2',
-		'onBoarding2',
-		'onBoarding2',
-		'onBoarding2',
-		'onBoarding2',
-		'onBoarding2',
+	const images: ImageType[] = [
+		{
+			key: 1,
+			src: 'src/components/OnBoarding/background2.png',
+			alt: 'onBoarding1',
+		},
+		{
+			key: 2,
+			src: 'src/components/OnBoarding/background2.png',
+			alt: 'onBoarding2',
+		},
+		{
+			key: 3,
+			src: 'src/components/OnBoarding/background2.png',
+			alt: 'onBoarding2',
+		},
+		{
+			key: 4,
+			src: 'src/components/OnBoarding/background2.png',
+			alt: 'onBoarding2',
+		},
+		{
+			key: 5,
+			src: 'src/components/OnBoarding/background2.png',
+			alt: 'onBoarding2',
+		},
+		{
+			key: 6,
+			src: 'src/components/OnBoarding/background2.png',
+			alt: 'onBoarding2',
+		},
+		{
+			key: 7,
+			src: 'src/components/OnBoarding/background2.png',
+			alt: 'onBoarding2',
+		},
+		{
+			key: 8,
+			src: 'src/components/OnBoarding/background2.png',
+			alt: 'onBoarding2',
+		},
+		{
+			key: 9,
+			src: 'src/components/OnBoarding/background2.png',
+			alt: 'onBoarding2',
+		},
+		{
+			key: 10,
+			src: 'src/components/OnBoarding/background2.png',
+			alt: 'onBoarding2',
+		},
 	]
+	const [handleThree, setHandleThree] = useState<HandleThreeType>({
+		color: '#80B9BF',
+		mouseX: 0,
+		x: 0,
+	})
+	const [mousex, setMousex] = useState(0)
+
+	const handleMouseMove = (e: React.MouseEvent) => {
+		const x = e.clientX / window.innerWidth
+		setMousex(1 / (1 + Math.exp(-23 * (x - 0.5))))
+
+		const red = Math.round(212 - 110 * (1 - x))
+		const green = Math.round(212 + 18 * (1 - x))
+		const blue = Math.round(212 + 43 * (1 - x))
+
+		const color = `rgb(${red}, ${green}, ${blue})`
+
+		setHandleThree({
+			color: color,
+			mouseX: e.clientX,
+			x: mousex,
+		})
+	}
 
 	return (
 		<div className="w-full overflow-hidden">
-			<section className="w-full h-fit flex-col bg-gradient-to-b from-[#CB96EF] to-[#7AA1CD]">
-				<div className="w-fit pt-[358px] mx-auto text-[#514958] text-[60px]">
-					<h1>꾸며Zoom에서 당신만의 배경을 꾸며보세요</h1>
+			<section className="w-full h-fit flex-col ">
+				<div className="w-full h-screen flex justify-center">
+					<Canvas shadows>
+						<ThreeTest {...handleThree} />
+					</Canvas>
+					<div className="absolute right-0 h-full w-3/5 font-jua text-5xl">
+						<div
+							style={{
+								width: '100%',
+								height: '300px',
+								position: 'absolute',
+								top: `${(0.4 - mousex) * window.innerHeight}px`,
+								opacity: 0.8 - mousex * 2,
+							}}
+						>
+							<div className="flex flex-col items-center mx-20 h-80 justify-center">
+								<p>AI를 활용한 '나'를</p>
+								<p>표현하는 배경 만들기!</p>
+							</div>
+						</div>
+					</div>
+					<div className="absolute left-0 h-full w-3/5 font-jua text-5xl">
+						<div
+							style={{
+								width: '100%',
+								height: '300px',
+								position: 'absolute',
+								top: `${(mousex - 0.6) * window.innerHeight}px`,
+								opacity: mousex * 2 - 1.2,
+							}}
+						>
+							<div className="flex flex-col items-center mx-20 h-80 justify-center">
+								<p>지루한 회의...</p>
+								<p>재미없는 시간...</p>
+							</div>
+						</div>
+					</div>
+					<div
+						className="absolute h-full w-full"
+						onMouseMove={handleMouseMove}
+					/>
 				</div>
-				<div className="mt-28 w-fit mx-auto">
-					<button className="bg-[#FFFFFF66] p-4 text-[#514958] text-5xl rounded-[25px]">
-						<Link to="/signup">시작하기</Link>
-					</button>
-				</div>
-				<div className="w-full">
-					<div className="flex flex-row-reverse gap-[10px] mt-80 overflow-hidden">
+				<div className={`w-full h-screen bg-white`}>
+					<div className="flex flex-row-reverse gap-[10px] pt-40 overflow-hidden">
 						{images.map((image) => (
 							<img
 								className="w-[300px] animate-slider"
-								alt={image}
-								src={`public/images/svg/${image}.svg`}
+								key={image.key}
+								alt={image.alt}
+								src={image.src}
 							/>
 						))}
 						{images.map((image) => (
 							<img
 								className="w-[300px] animate-slider"
-								alt={image}
-								src={`public/images/svg/${image}.svg`}
+								key={image.key}
+								alt={image.alt}
+								src={image.src}
 							/>
 						))}
 					</div>
@@ -45,15 +158,17 @@ export default function OnBoardingTemplate() {
 						{images.map((image) => (
 							<img
 								className="w-[300px] animate-reverse_slider"
-								alt={image}
-								src={`public/images/svg/${image}.svg`}
+								key={image.key}
+								alt={image.alt}
+								src={image.src}
 							/>
 						))}
 						{images.map((image) => (
 							<img
 								className="w-[300px] animate-reverse_slider"
-								alt={image}
-								src={`public/images/svg/${image}.svg`}
+								key={image.key}
+								alt={image.alt}
+								src={image.src}
 							/>
 						))}
 					</div>
@@ -61,29 +176,20 @@ export default function OnBoardingTemplate() {
 						{images.map((image) => (
 							<img
 								className="w-[300px] animate-slider"
-								alt={image}
-								src={`public/images/svg/${image}.svg`}
+								key={image.key}
+								alt={image.alt}
+								src={image.src}
 							/>
 						))}
 						{images.map((image) => (
 							<img
 								className="w-[300px] animate-slider"
-								alt={image}
-								src={`public/images/svg/${image}.svg`}
+								key={image.key}
+								alt={image.alt}
+								src={image.src}
 							/>
 						))}
 					</div>
-				</div>
-				<div className="pt-24 w-fit mx-auto text-[#514958] text-5xl">
-					<div>
-						이미 수많은 사용자들이 매일 창의적인 작품들을 만들어내고 있습니다!
-					</div>
-				</div>
-				<div className="w-fit pt-[143px] mx-auto text-[#514958] text-6xl mt-32">
-					<div className="border-2 border-[#000000] border-dotted rounded-[25px] w-[700px] h-[600px]" />
-				</div>
-				<div className="w-fit py-16 mx-auto text-[#514958] text-5xl">
-					<div>나만의 개성을 담은 배경을 직접 디자인할 수 있습니다</div>
 				</div>
 			</section>
 		</div>
