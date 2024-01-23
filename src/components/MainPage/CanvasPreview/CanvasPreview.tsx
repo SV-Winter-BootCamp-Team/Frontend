@@ -25,7 +25,6 @@ export default function CanvasPreview({
 	update_at,
 }: CanvasPreviewProps) {
 	const nav = useNavigate()
-	const [hide, setHide] = useState(false)
 	const [newName, setNewName] = useState(canvas_name)
 	const [editName, setEditName] = useState<EditNameType>({
 		canvas_id: canvas_id,
@@ -111,12 +110,6 @@ export default function CanvasPreview({
 						})
 					}
 				/>
-				<button
-					className={`absolute top-3 right-3 ml-44 text-white ${
-						!hide && 'hidden'
-					}`}
-					onClick={deleteCanvas}
-				></button>
 			</div>
 			<div className="flex justify-between mx-[4.5px] mt-[5px]">
 				<div>
