@@ -103,6 +103,26 @@ export default function OnBoardingTemplate() {
 					<Canvas shadows>
 						<ThreeTest {...handleThree} />
 					</Canvas>
+					<div className="absolute bottom-5 h-3 w-12 flex justify-between items-center">
+						<div
+							className="bg-gray-600 aspect-square rounded-full"
+							style={{
+								height: `${6 + (1 - assistMousex) * 6}px`,
+							}}
+						/>
+						<div
+							className="bg-gray-600 aspect-square rounded-full"
+							style={{
+								height: `${6 + (assistMousex - mousex) * 12}px`,
+							}}
+						/>
+						<div
+							className="bg-gray-600 aspect-square rounded-full"
+							style={{
+								height: `${6 + (2 * mousex - assistMousex) * 6}px`,
+							}}
+						/>
+					</div>
 					<div className="absolute right-0 h-full w-3/5 font-jua text-5xl">
 						<div
 							style={{
@@ -130,8 +150,8 @@ export default function OnBoardingTemplate() {
 							}}
 						>
 							<div className="flex flex-col items-center mx-20 h-80 justify-center">
-								<p>안녕</p>
-								<p>하세요!</p>
+								<p>배경을 직접</p>
+								<p>꾸며보세요!</p>
 							</div>
 						</div>
 					</div>
