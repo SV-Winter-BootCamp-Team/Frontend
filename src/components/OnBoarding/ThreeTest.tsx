@@ -5,7 +5,7 @@ import { useRef } from 'react'
 import { Mesh } from 'three'
 
 let i = 0
-export default function ThreeTest({ color, x }: HandleThreeType) {
+export default function ThreeTest({ color, x, assistX }: HandleThreeType) {
 	const textures = useTexture({
 		map: 'src/components/OnBoarding/background2.png',
 	})
@@ -112,12 +112,12 @@ export default function ThreeTest({ color, x }: HandleThreeType) {
 					<meshStandardMaterial color={'#dcd0bc'} />
 				</mesh>
 
-				<mesh position={[0.5, 0.05 * (1 - x), 0]} castShadow>
+				<mesh position={[0.5, 0.05 * (1 - assistX), 0]} castShadow>
 					<cylinderGeometry
 						args={[
-							0.05 * (1 - x),
-							0.03 * (1 - x),
-							0.14 * (1 - x),
+							0.05 * (1 - assistX),
+							0.03 * (1 - assistX),
+							0.14 * (1 - assistX),
 							13,
 							1,
 							false,
@@ -127,18 +127,22 @@ export default function ThreeTest({ color, x }: HandleThreeType) {
 					/>
 					<meshStandardMaterial />
 					<mesh ref={ref} position={[0, 0.4, 0]} castShadow receiveShadow>
-						<icosahedronGeometry args={[0.1 * (1 - x), 0]} />
+						<icosahedronGeometry args={[0.1 * (1 - assistX), 0]} />
 						<meshStandardMaterial color={'#ffffff'} />
 					</mesh>
 					<mesh ref={ref2} position={[0.02, 0.4, 0]} castShadow receiveShadow>
-						<icosahedronGeometry args={[0.1 * (1 - x), 0]} />
+						<icosahedronGeometry args={[0.1 * (1 - assistX), 0]} />
 						<meshStandardMaterial color={'#ffffff'} />
 					</mesh>
 				</mesh>
 
 				<group
-					position={[-0.6, x * 0.02 - 0.03, -0.3]}
-					scale={[0.3 * x, 0.01 * x, 0.3 * x]}
+					position={[-0.6, (2 * x - assistX) * 0.02 - 0.03, -0.3]}
+					scale={[
+						0.3 * (2 * x - assistX),
+						0.01 * (2 * x - assistX),
+						0.3 * (2 * x - assistX),
+					]}
 					rotation-x={0}
 				>
 					<mesh rotation-y={0.2} castShadow>
@@ -194,9 +198,9 @@ export default function ThreeTest({ color, x }: HandleThreeType) {
 					<meshStandardMaterial color={'#d4d4d4'} />
 
 					<mesh
-						position={[0, 0, (1 - x) * 0.8 + 0.2]}
+						position={[0, 0, (1 - assistX) * 0.8 + 0.2]}
 						castShadow
-						scale={[0.95, (1 - x) * 0.9, 0.5]}
+						scale={[0.95, (1 - assistX) * 0.9, 0.5]}
 						rotation={[0, 0, 0]}
 					>
 						<boxGeometry />
@@ -208,9 +212,9 @@ export default function ThreeTest({ color, x }: HandleThreeType) {
 					</mesh>
 
 					<mesh
-						position={[0, 0, x * 0.8 + 0.2]}
+						position={[0, 0, (2 * x - assistX) * 0.8 + 0.2]}
 						castShadow
-						scale={[0.95, x * 0.9, 0.5]}
+						scale={[0.95, (2 * x - assistX) * 0.9, 0.5]}
 					>
 						<boxGeometry />
 						<meshStandardMaterial color={'#000000'} />

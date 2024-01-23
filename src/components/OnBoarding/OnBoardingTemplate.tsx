@@ -10,8 +10,8 @@ export type ImageType = {
 
 export type HandleThreeType = {
 	color: string
-	mouseX: number
 	x: number
+	assistX: number
 }
 
 export default function OnBoardingTemplate() {
@@ -69,14 +69,19 @@ export default function OnBoardingTemplate() {
 	]
 	const [handleThree, setHandleThree] = useState<HandleThreeType>({
 		color: '#80B9BF',
-		mouseX: 0,
 		x: 0,
+		assistX: 0,
 	})
 	const [mousex, setMousex] = useState(0)
+	const [assistMousex, setAssistMousex] = useState(0)
 
 	const handleMouseMove = (e: React.MouseEvent) => {
 		const x = e.clientX / window.innerWidth
-		setMousex(1 / (1 + Math.exp(-45 * (x - 0.5))))
+		setMousex(
+			0.5 / (1 + Math.exp(-45 * (x - 0.3))) +
+				0.5 / (1 + Math.exp(-45 * (x - 0.7))),
+		)
+		setAssistMousex(1 / (1 + Math.exp(-45 * (x - 0.3))))
 
 		const red = Math.round(212 - 110 * (1 - x))
 		const green = Math.round(212 + 18 * (1 - x))
@@ -86,8 +91,8 @@ export default function OnBoardingTemplate() {
 
 		setHandleThree({
 			color: color,
-			mouseX: e.clientX,
 			x: mousex,
+			assistX: assistMousex,
 		})
 	}
 
@@ -111,6 +116,22 @@ export default function OnBoardingTemplate() {
 							<div className="flex flex-col items-center mx-20 h-80 justify-center">
 								<p>AI를 활용한 '나'를</p>
 								<p>표현하는 배경 만들기!</p>
+							</div>
+						</div>
+					</div>
+					<div className="absolute h-full w-3/5 font-jua text-5xl">
+						<div
+							style={{
+								width: '100%',
+								height: '300px',
+								position: 'absolute',
+								top: `${0.4 * window.innerHeight}px`,
+								opacity: (mousex - 0.3) * (0.7 - mousex) * 25,
+							}}
+						>
+							<div className="flex flex-col items-center mx-20 h-80 justify-center">
+								<p>안녕</p>
+								<p>하세요!</p>
 							</div>
 						</div>
 					</div>
