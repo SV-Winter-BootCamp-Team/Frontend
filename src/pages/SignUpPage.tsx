@@ -13,7 +13,7 @@ export default function SignUpPage() {
 	const nav = useNavigate()
 
 	const [userKey, setUserKey] = useState<UserKeyType>()
-	const [signUpSuccess, setSignUpSuccess] = useState(false)
+	const [signUpSuccess, setSignUpSuccess] = useState<boolean>(true)
 	const [nameCheck, setNameCheck] = useState(false)
 	const [emailCheck, setEmailCheck] = useState(false)
 	const [passwordCheck, setPasswordCheck] = useState(false)
@@ -36,14 +36,13 @@ export default function SignUpPage() {
 
 		axios
 			.post('http://localhost:8000/api/v1/users/register/', userKey)
-			.then((response) => {
-				console.log(response)
+			.then(() => {
 				nav({
 					pathname: '/login',
 				})
 			})
 			.catch(() => {
-				setSignUpSuccess(true)
+				setSignUpSuccess(false)
 			})
 	}
 
@@ -84,8 +83,8 @@ export default function SignUpPage() {
 					<input
 						className={`w-[300px] py-3.5 px-[17px] mt-7 ${
 							signUpSuccess
-								? 'border border-[#2C67ED]'
-								: 'border border-opacity-60 border-white'
+								? 'border border-opacity-60 border-white'
+								: 'border border-[#2C67ED]'
 						} rounded-3xl bg-transparent placeholder-opacity-50 placeholder-white`}
 						onChange={(e) => {
 							onChange(e)
@@ -96,7 +95,7 @@ export default function SignUpPage() {
 					/>
 					<div
 						className={`ml-3 text-[11px] text-[#2C67ED] ${
-							!signUpSuccess && 'hidden'
+							signUpSuccess && 'hidden'
 						}`}
 					>
 						이메일을 정확히 입력해주세요
