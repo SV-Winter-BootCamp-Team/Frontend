@@ -18,52 +18,52 @@ export default function OnBoardingTemplate() {
 	const images: ImageType[] = [
 		{
 			key: 1,
-			src: 'src/components/OnBoarding/background2.png',
+			src: '/images/svg/examples/example01.svg',
 			alt: 'onBoarding1',
 		},
 		{
 			key: 2,
-			src: 'src/components/OnBoarding/background2.png',
+			src: '/images/svg/examples/example02.svg',
 			alt: 'onBoarding2',
 		},
 		{
 			key: 3,
-			src: 'src/components/OnBoarding/background2.png',
+			src: '/images/svg/examples/example03.svg',
 			alt: 'onBoarding2',
 		},
 		{
 			key: 4,
-			src: 'src/components/OnBoarding/background2.png',
+			src: '/images/svg/examples/example04.svg',
 			alt: 'onBoarding2',
 		},
 		{
 			key: 5,
-			src: 'src/components/OnBoarding/background2.png',
+			src: '/images/svg/examples/example05.svg',
 			alt: 'onBoarding2',
 		},
 		{
 			key: 6,
-			src: 'src/components/OnBoarding/background2.png',
+			src: '/images/svg/examples/example06.svg',
 			alt: 'onBoarding2',
 		},
 		{
 			key: 7,
-			src: 'src/components/OnBoarding/background2.png',
+			src: '/images/svg/examples/example07.svg',
 			alt: 'onBoarding2',
 		},
 		{
 			key: 8,
-			src: 'src/components/OnBoarding/background2.png',
+			src: '/images/svg/examples/example08.svg',
 			alt: 'onBoarding2',
 		},
 		{
 			key: 9,
-			src: 'src/components/OnBoarding/background2.png',
+			src: '/images/svg/examples/example09.svg',
 			alt: 'onBoarding2',
 		},
 		{
 			key: 10,
-			src: 'src/components/OnBoarding/background2.png',
+			src: '/images/svg/examples/example10.svg',
 			alt: 'onBoarding2',
 		},
 	]
@@ -76,7 +76,7 @@ export default function OnBoardingTemplate() {
 
 	const handleMouseMove = (e: React.MouseEvent) => {
 		const x = e.clientX / window.innerWidth
-		setMousex(1 / (1 + Math.exp(-23 * (x - 0.5))))
+		setMousex(1 / (1 + Math.exp(-45 * (x - 0.5))))
 
 		const red = Math.round(212 - 110 * (1 - x))
 		const green = Math.round(212 + 18 * (1 - x))

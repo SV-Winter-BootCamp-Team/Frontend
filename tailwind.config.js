@@ -33,8 +33,8 @@ export default {
 				},
 			},
 			animation: {
-				slider: 'slider 20s linear infinite',
-				reverse_slider: 'reverse_slider 20s linear infinite',
+				slider: 'slider 60s linear infinite',
+				reverse_slider: 'reverse_slider 60s linear infinite',
 			},
 		},
 	},
