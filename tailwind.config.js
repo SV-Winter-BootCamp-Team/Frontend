@@ -20,7 +20,7 @@ export default {
 						transform: 'translateX(0px)',
 					},
 					'100%': {
-						transform: 'translateX(2790px)',
+						transform: 'translateX(745%)',
 					},
 				},
 				reverse_slider: {
@@ -28,13 +28,13 @@ export default {
 						transform: 'translateX(0px)',
 					},
 					'100%': {
-						transform: 'translateX(-2790px)',
+						transform: 'translateX(-745%)',
 					},
 				},
 			},
 			animation: {
-				slider: 'slider 60s linear infinite',
-				reverse_slider: 'reverse_slider 60s linear infinite',
+				slider: 'slider 55s linear infinite',
+				reverse_slider: 'reverse_slider 55s linear infinite',
 			},
 		},
 	},

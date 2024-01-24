@@ -50,21 +50,6 @@ export default function OnBoardingTemplate() {
 			src: '/images/svg/examples/example07.svg',
 			alt: 'onBoarding2',
 		},
-		{
-			key: 8,
-			src: '/images/svg/examples/example08.svg',
-			alt: 'onBoarding2',
-		},
-		{
-			key: 9,
-			src: '/images/svg/examples/example09.svg',
-			alt: 'onBoarding2',
-		},
-		{
-			key: 10,
-			src: '/images/svg/examples/example10.svg',
-			alt: 'onBoarding2',
-		},
 	]
 	const images2: ImageType[] = [
 		{
@@ -102,21 +87,6 @@ export default function OnBoardingTemplate() {
 			src: '/images/svg/examples/example17.svg',
 			alt: 'onBoarding2',
 		},
-		{
-			key: 8,
-			src: '/images/svg/examples/example18.svg',
-			alt: 'onBoarding2',
-		},
-		{
-			key: 9,
-			src: '/images/svg/examples/example19.svg',
-			alt: 'onBoarding2',
-		},
-		{
-			key: 10,
-			src: '/images/svg/examples/example20.svg',
-			alt: 'onBoarding2',
-		},
 	]
 	const images3: ImageType[] = [
 		{
@@ -152,21 +122,6 @@ export default function OnBoardingTemplate() {
 		{
 			key: 7,
 			src: '/images/svg/examples/example27.svg',
-			alt: 'onBoarding2',
-		},
-		{
-			key: 8,
-			src: '/images/svg/examples/example28.svg',
-			alt: 'onBoarding2',
-		},
-		{
-			key: 9,
-			src: '/images/svg/examples/example29.svg',
-			alt: 'onBoarding2',
-		},
-		{
-			key: 10,
-			src: '/images/svg/examples/example30.svg',
 			alt: 'onBoarding2',
 		},
 	]
@@ -258,11 +213,20 @@ export default function OnBoardingTemplate() {
 						onMouseMove={handleMouseMove}
 					/>
 				</div>
-				<div className={`w-full h-screen bg-white`}>
-					<div className="flex flex-row-reverse gap-[10px] pt-40 overflow-hidden">
+				<div className="relative w-full h-screen bg-white overflow-hidden">
+					<div className="absolute top-[-5%] left-[10%] w-[40%] aspect-square rounded-full bg-[#66CAE166]" />
+					<div className="absolute top-[-13%] left-[4%] w-[45%] aspect-square rounded-full border-[#66CAE1] border-2" />
+					<div className="absolute top-[38%] right-[-47%] w-[95%] aspect-square rounded-full border-[#66CAE1] border-2" />
+					<h1 className="absolute top-[10%] text-6xl w-full flex justify-center font-semibold">
+						꾸며Zoom에서만 할 수 있는 작업
+					</h1>
+					<h1 className="absolute top-[20%] w-full flex justify-center text-2xl">
+						당신의 창의력을 디자인에 녹여내보세요
+					</h1>
+					<div className="flex flex-row-reverse gap-[1%] mt-[15%] overflow-hidden">
 						{images1.map((image) => (
 							<img
-								className="w-[300px] animate-slider"
+								className="w-[15%] animate-slider"
 								key={image.key}
 								alt={image.alt}
 								src={image.src}
@@ -270,17 +234,17 @@ export default function OnBoardingTemplate() {
 						))}
 						{images1.map((image) => (
 							<img
-								className="w-[300px] animate-slider"
+								className="w-[15%] animate-slider"
 								key={image.key}
 								alt={image.alt}
 								src={image.src}
 							/>
 						))}
 					</div>
-					<div className="flex flex-row gap-[10px] mt-4 overflow-hidden">
+					<div className="flex flex-row gap-[1%] mt-4 overflow-hidden">
 						{images2.map((image) => (
 							<img
-								className="w-[300px] animate-reverse_slider"
+								className="w-[15%] animate-reverse_slider"
 								key={image.key}
 								alt={image.alt}
 								src={image.src}
@@ -288,17 +252,17 @@ export default function OnBoardingTemplate() {
 						))}
 						{images2.map((image) => (
 							<img
-								className="w-[300px] animate-reverse_slider"
+								className="w-[15%] animate-reverse_slider"
 								key={image.key}
 								alt={image.alt}
 								src={image.src}
 							/>
 						))}
 					</div>
-					<div className="flex flex-row-reverse gap-[10px] mt-4 overflow-hidden">
+					<div className="flex flex-row-reverse gap-[1%] mt-4 overflow-hidden">
 						{images3.map((image) => (
 							<img
-								className="w-[300px] animate-slider"
+								className="w-[15%] animate-slider"
 								key={image.key}
 								alt={image.alt}
 								src={image.src}
@@ -306,13 +270,32 @@ export default function OnBoardingTemplate() {
 						))}
 						{images3.map((image) => (
 							<img
-								className="w-[300px] animate-slider"
+								className="w-[15%] animate-slider"
 								key={image.key}
 								alt={image.alt}
 								src={image.src}
 							/>
 						))}
 					</div>
+				</div>
+				<div className="h-[150vh]">
+					<div className="h-[50vh] w-full flex justify-between items-center px-44">
+						<div className="flex flex-col gap-4 justify-center text-xl font-semibold">
+							<h2 className="text-3xl mb-2">작업을 도와주는 AI</h2>
+							<body>상상만 하던 것을 표현하도록 도움을 줄게요</body>
+							<body>창작에 날개를 달아드립니다!</body>
+						</div>
+						<img
+							className="w-[45%]"
+							alt="aiImage"
+							src="public/images/svg/aiImage.svg"
+						/>
+					</div>
+					<div className="h-[50vh] w-full flex justify-between items-center">
+						<img alt="webSocketImage" src="" />
+						<div>웹소켓</div>
+					</div>
+					<div className="h-[50vh] bg-gray-400"></div>
 				</div>
 			</section>
 		</div>
