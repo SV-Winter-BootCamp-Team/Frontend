@@ -4,7 +4,7 @@ export default function OnBoardingPage() {
 	return (
 		<div className="w-screen max-w-full overflow-hidden">
 			<header className="z-10 fixed top w-full h-[70px]">
-				<div className="font-jua flex justify-between text-white bg-[#fff] w-full h-[70px] px-[30px] py-[15px]">
+				<div className="font-jua flex justify-between text-white bg-[#fff] w-full h-[70px] px-[30px] py-[15px] border-gray-200 border-b-[1px]">
 					<div className="text-[#60c0d0] text-4xl">꾸며Zoom</div>
 					<div>
 						<button
