@@ -146,9 +146,36 @@ export default function OnBoardingTemplate() {
 			x: mousex,
 		})
 	}
+	// const content1 = document.querySelector('#content1')
+	// const path1 = document.querySelector('.path2')
+	// const path1Length = path1.getTotalLength()
+	// path1.style.strokeDasharray = path1Length + ' ' + path1Length
+	// path1.style.strokeDashoffset = calcDashoffset(
+	// 	window.innerHeight * 0.8,
+	// 	content1,
+	// 	path1Length,
+	// )
+
+	// function calcDashoffset(scrollY, element, length) {
+	// 	const ratio = (scrollY - element.offsetTop) / element.offsetHeight
+	// 	const value = length - length * ratio
+	// 	return value < 0 ? 0 : value > length ? length : value
+	// }
+
+	// function scrollHandler() {
+	// 	const scrollY = window.scrollY + window.innerHeight * 0.8
+	// 	path1.style.strokeDashoffset = calcDashoffset(
+	// 		scrollY,
+	// 		content1,
+	// 		path1Length,
+	// 	)
+	// }
+
+	// window.addEventListener('scroll', scrollHandler)
 
 	return (
 		<div className="w-full overflow-hidden">
+			<div id="content1"></div>
 			<section className="w-full h-fit flex-col ">
 				<div className="w-full h-screen flex justify-center">
 					<Canvas shadows>
@@ -278,24 +305,53 @@ export default function OnBoardingTemplate() {
 						))}
 					</div>
 				</div>
-				<div className="h-[150vh]">
+				<div className="h-[180vh] pt-[18%]">
 					<div className="h-[50vh] w-full flex justify-between items-center px-44">
 						<div className="flex flex-col gap-4 justify-center text-xl font-semibold">
 							<h2 className="text-3xl mb-2">작업을 도와주는 AI</h2>
-							<body>상상만 하던 것을 표현하도록 도움을 줄게요</body>
-							<body>창작에 날개를 달아드립니다!</body>
+							<div>상상만 하던 것을 표현하도록 도움을 줄게요</div>
+							<div>창작에 날개를 달아드립니다!</div>
 						</div>
 						<img
-							className="w-[45%]"
+							className="w-[35%]"
 							alt="aiImage"
 							src="public/images/svg/aiImage.svg"
 						/>
 					</div>
-					<div className="h-[50vh] w-full flex justify-between items-center">
-						<img alt="webSocketImage" src="" />
-						<div>웹소켓</div>
+					<div className="h-[50vh] w-full flex justify-between items-center px-44">
+						<img
+							className="w-[35%]"
+							alt="webSocketImage"
+							src="public/images/svg/webSocketImage.svg"
+						/>
+						<div className="flex flex-col gap-4 items-end text-xl font-semibold">
+							<h2 className="text-3xl mb-2">실시간 공유 캔버스</h2>
+							<div>친구를 초대하고, 같이 디자인 해보세요</div>
+							<div></div>
+						</div>
 					</div>
-					<div className="h-[50vh] bg-gray-400"></div>
+					<div className="h-[50vh] w-full flex justify-between items-center px-44">
+						<div className="flex flex-col gap-4 justify-center text-xl font-semibold">
+							<h2 className="text-3xl mb-2">바로 시작하기</h2>
+							<div>회원가입만 하면 웹 상에서 바로 시작 할 수 있습니다</div>
+							<div>지금 바로 시작해보세요</div>
+						</div>
+						<div className="w-[35%] h-full pt-32 flex justify-between">
+							<img
+								className="w-[35%] rotate-[-13deg]"
+								alt="startImage"
+								src="public/images/svg/startImage.svg"
+							/>
+							<button
+								className="px-4 pt-2 pb-1 h-fit text-4xl text-white font-jua rounded-lg bg-[#66CAE1]"
+								onClick={() => {
+									window.location.replace('/signup')
+								}}
+							>
+								시작하기
+							</button>
+						</div>
+					</div>
 				</div>
 			</section>
 		</div>
