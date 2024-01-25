@@ -240,17 +240,17 @@ export default function OnBoardingTemplate() {
 						onMouseMove={handleMouseMove}
 					/>
 				</div>
-				<div className="relative w-full h-screen bg-white overflow-hidden">
-					<div className="absolute top-[-5%] left-[10%] w-[40%] aspect-square rounded-full bg-[#66CAE166]" />
-					<div className="absolute top-[-13%] left-[4%] w-[45%] aspect-square rounded-full border-[#66CAE1] border-2" />
-					<div className="absolute top-[38%] right-[-47%] w-[95%] aspect-square rounded-full border-[#66CAE1] border-2" />
-					<h1 className="absolute top-[10%] text-6xl w-full flex justify-center font-semibold">
-						꾸며Zoom에서만 할 수 있는 작업
+				<div className="relative w-full h-screen bg-white pt-[10%] overflow-hidden">
+					<h1 className="text-3xl w-full flex justify-center font-semibold">
+						꾸며Zoom 에서만
 					</h1>
-					<h1 className="absolute top-[20%] w-full flex justify-center text-2xl">
+					<h1 className="text-3xl w-full flex justify-center font-semibold">
+						할 수 있는 작업
+					</h1>
+					<h1 className="w-full flex justify-center text-2xl">
 						당신의 창의력을 디자인에 녹여내보세요
 					</h1>
-					<div className="flex flex-row-reverse gap-[1%] mt-[15%] overflow-hidden">
+					<div className="flex flex-row-reverse gap-[1%] mt-[5%] overflow-hidden">
 						{images1.map((image) => (
 							<img
 								className="w-[15%] animate-slider"
