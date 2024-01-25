@@ -1,20 +1,39 @@
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useParams } from 'react-router'
+import { useMutation, useQuery } from '@tanstack/react-query'
 
 import avator from '/images/svg/avator.svg'
+import { fetchMembers } from '../../../api/api'
+
+export type Member = {
+	user_id: number
+	user_email: string
+	user_name: string
+}
+
+export type ParamsType = {
+	canvas_id?: string
+}
 
 export default function Invite() {
-	const params = useParams<{ canvas_id: string }>()
+	const params = useParams<Partial<ParamsType>>()
 	const [email, setEmail] = useState<string>('')
-	const [invitedMembers, setInvitedMembers] = useState([])
+
+	const { data: memberList, error } = useQuery({
+		queryKey: ['members', params.canvas_id],
+		queryFn: () => fetchMembers(params.canvas_id as ParamsType),
+	})
+
+	if (error) {
+		console.error('Error fetching members:', error)
+	}
 
 	const handleInvite = async () => {
 		if (!email) {
 			alert('Please enter an email address.')
 			return
 		}
-
 		try {
 			await axios.post(
 				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/invite/`,
@@ -26,22 +45,6 @@ export default function Invite() {
 			alert('Failed to send invitation.')
 		}
 	}
-
-	const fetchInvitedMembers = async () => {
-		try {
-			const response = await axios.get(
-				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/invite/`,
-			)
-			console.log(response.data.result.shared_members)
-			setInvitedMembers(response.data.result.shared_members)
-		} catch (error) {
-			console.error('Error fetching invited members:', error)
-		}
-	}
-
-	useEffect(() => {
-		fetchInvitedMembers()
-	}, [])
 
 	return (
 		<div className="flex flex-col items-center">
@@ -61,8 +64,11 @@ export default function Invite() {
 				</button>
 			</div>
 			<div className="flex flex-col">
-				{invitedMembers.map((member: any) => (
-					<div className="flex w-[285px] border-[1px] my-4 py-3.5 rounded-lg bg-cyan-50 border-[#80C8DE]">
+				{memberList?.map((member: Member, index: number) => (
+					<div
+						key={index}
+						className="flex w-[285px] border-[1px] my-4 py-3.5 rounded-lg bg-cyan-50 border-[#80C8DE]"
+					>
 						<img src={avator} alt="profile" className="mx-4 w-7" />
 						<div key={member.user_id} className="flex flex-col">
 							<p className="text-[14px]">{member.user_name}</p>

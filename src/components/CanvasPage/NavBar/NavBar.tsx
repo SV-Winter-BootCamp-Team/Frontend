@@ -1,3 +1,4 @@
+import React from 'react'
 import download from '/images/svg/download.svg'
 
 type NavBarProps = {
@@ -6,7 +7,7 @@ type NavBarProps = {
 	handleSaveCanvas: () => void
 }
 
-export default function NavBar({
+export default React.memo(function NavBar({
 	captureCanvas,
 	canvasName,
 	handleSaveCanvas,
@@ -29,4 +30,4 @@ export default function NavBar({
 			</button>
 		</div>
 	)
-}
+})

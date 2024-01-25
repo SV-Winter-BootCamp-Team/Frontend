@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import ReGenerateButton from '../../ReGenerateButton'
+import ReGenerateButton from '../../General/ReGenerateButton'
 import info from '/images/svg/info.svg'
 
 type AIStickerProps = {
@@ -23,7 +23,6 @@ export default function AISticker({
 
 	const handleClick = (componentURL: string, index: number) => {
 		if (clickedIndexes.includes(index)) {
-			
 		}
 		// 클릭 처리
 		handleAddComponent(componentURL)

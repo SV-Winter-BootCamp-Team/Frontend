@@ -1,5 +1,5 @@
 import axios from 'axios'
-import ReGenerateButton from '../../ReGenerateButton'
+import ReGenerateButton from '../../General/ReGenerateButton'
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
