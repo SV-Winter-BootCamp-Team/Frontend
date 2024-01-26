@@ -59,6 +59,7 @@ export default function MenuSection({
 
 	const fetchStickerData = async () => {
 		setStickerStatus('loading')
+
 		try {
 			// 실제 API 요청 대신 사용할 가짜 응답 데이터
 			const fakeResponse = {
@@ -106,11 +107,11 @@ export default function MenuSection({
 			const fakeResponse = {
 				data: {
 					result: {
-						s3_urls: [m1, m2],
+						s3_urls: [m1, m2, m1],
 					},
 				},
 			}
-			await new Promise((resolve) => setTimeout(resolve, 500))
+			await new Promise((resolve) => setTimeout(resolve, 5000))
 
 			setBackgroundStatus('completed')
 			setBackgroundList(fakeResponse.data.result.s3_urls)
@@ -132,7 +133,7 @@ export default function MenuSection({
 				<UploadBackground setBackgroundURL={setBackgroundURL} />
 			)}
 			{seletedMenu === 'AI 배경' && (
-				<Suspense fallback={<AIBackgroundLoading />}>
+				<>
 					{backgroundStatus === 'generator' && (
 						<AIBackgroundGenerator
 							fetchBackgroundData={fetchBackgroundData}
@@ -152,21 +153,23 @@ export default function MenuSection({
 							setBackgroundURL={setBackgroundURL}
 						/>
 					)}
-				</Suspense>
+					{backgroundStatus === 'loading' && <AIBackgroundLoading />}
+				</>
 			)}
 			{seletedMenu === '추천 배경' && (
 				<RecommendBackground setBackgroundURL={setBackgroundURL} />
 			)}
 			{seletedMenu === 'AI 스티커' && (
-				<Suspense fallback={<AIStickerLoading />}>
+				<>
 					{stickerStatus === 'generator' && (
-						<AIStickerGenerator
-							fetchStickerData={fetchStickerData}
-							inputText={stickerInputText}
-							setInputText={setStickerInputText}
-							style={style}
-							setStyle={setStyle}
-						/>
+						// <AIStickerGenerator
+						// 	fetchStickerData={fetchStickerData}
+						// 	inputText={stickerInputText}
+						// 	setInputText={setStickerInputText}
+						// 	style={style}
+						// 	setStyle={setStyle}
+						// />
+						<AIStickerLoading />
 					)}
 					{stickerStatus === 'completed' && (
 						<AISticker
@@ -178,7 +181,8 @@ export default function MenuSection({
 							style={style}
 						/>
 					)}
-				</Suspense>
+					{stickerStatus === 'loading' && <AIStickerLoading />}
+				</>
 			)}
 			{seletedMenu === '히스토리' && (
 				<History handleAddComponent={handleAddComponent} />
