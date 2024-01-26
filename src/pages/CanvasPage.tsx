@@ -205,7 +205,7 @@ export default function CanvasPage() {
 				canvasName={canvasName}
 				handleSaveCanvas={handleSaveCanvas}
 			/>
-			<div className="flex flex-grow" style={{ height: 'calc(100vh - 55px)' }}>
+			<div className="flex flex-grow" style={{ height: 'calc(100vh - 65px)' }}>
 				<div className="flex h-full bg-white">
 					<MenuBar
 						selectedMenu={selectedMenu}
