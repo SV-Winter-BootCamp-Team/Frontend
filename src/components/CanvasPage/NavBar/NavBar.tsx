@@ -12,7 +12,7 @@ export default function NavBar({
 	handleSaveCanvas,
 }: NavBarProps) {
 	return (
-		<div className="flex items-center justify-center relative h-[65px] px-3.5 border-solid border-b-[1px] border-[#E7E8EA]">
+		<div className="flex items-center justify-center relative h-[65px] px-3.5 border-solid border-b-[1px] border-[#E7E8EA] shadow-sm">
 			<p className="text-md">{canvasName}</p>
 			<button
 				onClick={handleSaveCanvas}

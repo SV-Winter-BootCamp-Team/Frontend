@@ -163,7 +163,7 @@ export default React.memo(function Canvas({
 		>
 			<div
 				id="board"
-				className="overflow-hidden bg-white relative w-[912px] h-[513px] border-solid border-[1px] border-[#E7E8EA]"
+				className="overflow-hidden bg-white relative w-[912px] h-[513px] border-solid border-[1px] border-[#E7E8EA] shadow-sm"
 				onClick={handleDeselect}
 			>
 				{backgroundURL && backgroundURL !== 'default_preview_url' && (

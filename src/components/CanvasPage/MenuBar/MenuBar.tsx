@@ -36,10 +36,10 @@ export default function MenuBar({
 	}
 
 	return (
-		<div className="h-full grow flex flex-col items-center w-[80px] border-r-[1px] border-solid border-[#E7E8EA]">
+		<div className="h-full grow flex flex-col items-center justify-around w-[75px] border-r-[1px] border-solid border-[#E7E8EA] shadow-sm">
 			<button
 				onClick={handleMenuBarClick}
-				className="flex flex-col items-center justify-center mb-5 mt-[33px]"
+				className="flex flex-col items-center justify-center mt-6 mb-2"
 			>
 				<img src={hamburger} alt="menu" className="w-5" />
 			</button>
@@ -57,7 +57,7 @@ export default function MenuBar({
 			})}
 			<button
 				type="button"
-				className="flex flex-col items-center my-2 hover:bg-slate-100 py-[8px] w-[90%] rounded-xl"
+				className="flex flex-col items-center hover:bg-slate-200 py-[8px] w-[90%] rounded-xl"
 				onClick={handleExitClick}
 			>
 				<img src={exit} alt="exit" className="w-5" />
