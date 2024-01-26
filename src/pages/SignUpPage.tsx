@@ -13,11 +13,6 @@ export default function SignUpPage() {
 	const nav = useNavigate()
 
 	const [userKey, setUserKey] = useState<UserKeyType>()
-	const [signUpSuccess, setSignUpSuccess] = useState<boolean>(true)
-	const [nameCheck, setNameCheck] = useState(false)
-	const [emailCheck, setEmailCheck] = useState(false)
-	const [passwordCheck, setPasswordCheck] = useState(false)
-	const [signUpReady, setSignUpReady] = useState(false)
 
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target
@@ -26,9 +21,6 @@ export default function SignUpPage() {
 			newState[name] = value
 			return newState
 		})
-		if (nameCheck && emailCheck && passwordCheck) {
-			setSignUpReady(true)
-		}
 	}
 
 	const onSubmit = () => {
@@ -41,9 +33,7 @@ export default function SignUpPage() {
 					pathname: '/login',
 				})
 			})
-			.catch(() => {
-				setSignUpSuccess(false)
-			})
+			.catch(() => {})
 	}
 
 	useEffect(() => {
@@ -75,47 +65,29 @@ export default function SignUpPage() {
 						className="w-[300px] py-3.5 px-[17px] mt-7 border border-white border-opacity-60 rounded-full bg-transparent placeholder-opacity-50 placeholder-white"
 						onChange={(e) => {
 							onChange(e)
-							setNameCheck(true)
 						}}
 						name="user_name"
 						placeholder="이름"
 					/>
 					<input
-						className={`w-[300px] py-3.5 px-[17px] mt-7 ${
-							signUpSuccess
-								? 'border border-opacity-60 border-white'
-								: 'border border-[#2C67ED]'
-						} rounded-3xl bg-transparent placeholder-opacity-50 placeholder-white`}
+						className="w-[300px] py-3.5 px-[17px] mt-7 border border-white border-opacity-60 rounded-full bg-transparent placeholder-opacity-50 placeholder-white"
 						onChange={(e) => {
 							onChange(e)
-							setEmailCheck(true)
 						}}
 						name="user_email"
 						placeholder="이메일"
 					/>
-					<div
-						className={`ml-3 text-[11px] text-[#2C67ED] ${
-							signUpSuccess && 'hidden'
-						}`}
-					>
-						이메일을 정확히 입력해주세요
-					</div>
 					<input
 						className="w-[300px] py-3.5 px-[17px] mt-7 border border-opacity-60 border-white rounded-3xl bg-transparent placeholder-opacity-50 placeholder-white"
 						type="password"
 						onChange={(e) => {
 							onChange(e)
-							setPasswordCheck(true)
 						}}
 						name="user_password"
 						placeholder="비밀번호"
 					/>
 					<button
-						className={`w-[300px] font-thin rounded-3xl mt-8 mb-6 py-3.5 ${
-							signUpReady
-								? 'bg-[#21AFBF] text-[#ffffff] pointer-events-auto hover:bg-[#31BFCF]'
-								: 'bg-[#54ACBC70] text-[#ffffff] pointer-events-none'
-						}`}
+						className="w-[300px] font-thin rounded-3xl mt-8 mb-6 py-3.5 bg-[#21AFBF] text-[#ffffff] pointer-events-auto hover:bg-[#31BFCF]"
 						onClick={onSubmit}
 					>
 						가입하기
@@ -124,7 +96,7 @@ export default function SignUpPage() {
 						<div className="h-fit font-thin mr-[8px]">이미 회원이신가요? </div>
 						<Link
 							to="/login"
-							className="h-fit font-medium text-[#21AFBF] underline"
+							className="h-fit font-medium text-[#21AFBF] underline "
 						>
 							로그인 하러 가기
 						</Link>

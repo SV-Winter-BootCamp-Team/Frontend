@@ -12,9 +12,6 @@ export default function LoginPage() {
 	const nav = useNavigate()
 
 	const [userKey, setUserKey] = useState<UserKeyType>()
-	const [emailCheck, setEmailCheck] = useState(false)
-	const [passwordCheck, setPasswordCheck] = useState(false)
-	const [logInReady, setLogInReady] = useState(false)
 
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target
@@ -23,9 +20,6 @@ export default function LoginPage() {
 			newState[name] = value
 			return newState
 		})
-		if (emailCheck && passwordCheck) {
-			setLogInReady(true)
-		}
 	}
 
 	const onSubmit = () => {
@@ -76,7 +70,6 @@ export default function LoginPage() {
 						className="w-[300px] py-3.5 px-[17px] mt-7 border border-white border-opacity-60 rounded-full bg-transparent placeholder-opacity-50 placeholder-white"
 						onChange={(e) => {
 							onChange(e)
-							setEmailCheck(true)
 						}}
 						name="user_email"
 						placeholder="이메일"
@@ -86,17 +79,12 @@ export default function LoginPage() {
 						type="password"
 						onChange={(e) => {
 							onChange(e)
-							setPasswordCheck(true)
 						}}
 						name="user_password"
 						placeholder="비밀번호"
 					/>
 					<button
-						className={`w-[300px] font-thin rounded-3xl mt-8 mb-6 py-3.5 ${
-							logInReady
-								? 'bg-[#21AFBF] text-[#ffffff] pointer-events-auto hover:bg-[#31BFCF]'
-								: 'bg-[#54ACBC70] text-[#ffffff] pointer-events-none'
-						}`}
+						className="w-[300px] font-thin rounded-3xl mt-8 mb-6 py-3.5 bg-[#21AFBF] text-[#ffffff] pointer-events-auto hover:bg-[#31BFCF]"
 						onClick={onSubmit}
 					>
 						로그인하기
