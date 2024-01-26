@@ -4,26 +4,15 @@ import { useParams } from 'react-router-dom'
 
 type RecommendBackgroundProps = {
 	setBackgroundURL: (backgroundURL: string) => void
+	Recommendbackgrounds: string[]
 }
 
 export default function RecommendBackground({
 	setBackgroundURL,
+	Recommendbackgrounds,
 }: RecommendBackgroundProps) {
 	const params = useParams<{ canvas_id: string }>()
-	const [backgrounds, setBackgrounds] = useState<string[]>([])
 	const [socket, setSocket] = useState<WebSocket | null>(null)
-
-	const fetchRecommendedBackgrounds = async () => {
-		try {
-			const response = await axios.get(
-				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/backgrounds/recommend/`,
-			)
-			console.log('Recommended backgrounds:', response.data)
-			setBackgrounds(response.data.results)
-		} catch (error) {
-			console.error('Error fetching recommended backgrounds:', error)
-		}
-	}
 
 	const changeBackground = async (backgroundURL: string) => {
 		try {
@@ -63,7 +52,6 @@ export default function RecommendBackground({
 	}
 
 	useEffect(() => {
-		fetchRecommendedBackgrounds()
 		const newSocket = new WebSocket(
 			'ws://' + 'localhost:8000' + '/ws/canvases/' + params.canvas_id + '/',
 		) // Adjust the URL to your WebSocket server
@@ -72,7 +60,7 @@ export default function RecommendBackground({
 
 	return (
 		<div className="flex flex-col items-center mt-8">
-			{backgrounds.map((background, index) => (
+			{Recommendbackgrounds.map((background, index) => (
 				<img
 					onClick={() => {
 						setBackgroundURL(background)

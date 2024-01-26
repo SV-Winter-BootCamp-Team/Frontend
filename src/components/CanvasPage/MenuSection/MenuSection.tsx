@@ -12,6 +12,9 @@ import AIBackground from '../AIBackground'
 import AIBackgroundLoading from '../AIBackgroundLoading'
 import m1 from '/images/png/mm1.png'
 import m2 from '/images/png/mm2.png'
+import RecommendBackgroundLoading from '../RecommendBackgroundLoading'
+import axios from 'axios'
+import { useParams } from 'react-router-dom'
 
 type MenuSectionProps = {
 	isOpen: boolean
@@ -26,8 +29,11 @@ export default function MenuSection({
 	setBackgroundURL,
 	handleAddComponent,
 }: MenuSectionProps) {
+	const params = useParams<{ canvas_id: string }>()
+
 	const [stickerStatus, setStickerStatus] = useState('generator')
 	const [backgroundStatus, setBackgroundStatus] = useState('generator')
+	const [recommendStatus, setRecommendStatus] = useState('loading')
 
 	const [stickerInputText, setStickerInputText] = useState<string>('')
 	const [style, setStyle] = useState<string>('')
@@ -38,6 +44,7 @@ export default function MenuSection({
 
 	const [stickerList, setStickerList] = useState<string[]>([])
 	const [backgroundList, setBackgroundList] = useState<string[]>([])
+	const [Recommendbackgrounds, setRecommendbackgrounds] = useState<string[]>([])
 
 	// const fetchStickerData = async () => {
 	// 	setStickerStatus('loading')
@@ -121,6 +128,19 @@ export default function MenuSection({
 		}
 	}
 
+	const fetchRecommendedBackgrounds = async () => {
+		try {
+			const response = await axios.get(
+				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/backgrounds/recommend/`,
+			)
+			console.log('Recommended backgrounds:', response.data)
+			setRecommendbackgrounds(response.data.results)
+			setRecommendStatus('completed')
+		} catch (error) {
+			console.error('Error fetching recommended backgrounds:', error)
+		}
+	}
+
 	return (
 		<div
 			className={`h-full overflow-y-auto flex flex-col w-[380px] bg-white border-r-[1px] border-[#E7E8EA] ${
@@ -157,7 +177,19 @@ export default function MenuSection({
 				</>
 			)}
 			{seletedMenu === '추천 배경' && (
-				<RecommendBackground setBackgroundURL={setBackgroundURL} />
+				<>
+					{recommendStatus === 'completed' && (
+						<RecommendBackground
+							setBackgroundURL={setBackgroundURL}
+							Recommendbackgrounds={Recommendbackgrounds}
+						/>
+					)}
+					{recommendStatus === 'loading' && (
+						<RecommendBackgroundLoading
+							fetchRecommendedBackgrounds={fetchRecommendedBackgrounds}
+						/>
+					)}
+				</>
 			)}
 			{seletedMenu === 'AI 스티커' && (
 				<>
