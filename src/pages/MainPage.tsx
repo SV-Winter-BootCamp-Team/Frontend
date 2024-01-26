@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 import CanvasPreview from '../components/MainPage/CanvasPreview'
 import { useEffect, useState } from 'react'
-import NavBar from '../components/NavBar'
+import NavBar from '../components/General/NavBar'
 import axios from 'axios'
 import plus from '/images/svg/plus.svg'
 

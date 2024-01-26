@@ -10,8 +10,9 @@ import AIStickerLoading from '../AIStickerLoading'
 import AIStickerGenerator from '../AIStickerGenerator'
 import AIBackground from '../AIBackground'
 import AIBackgroundLoading from '../AIBackgroundLoading'
-// import m1 from '/images/png/mm1.png'
-// import m2 from '/images/png/mm2.png'
+import m1 from '/images/png/mm1.png'
+import m2 from '/images/png/mm2.png'
+import RecommendBackgroundLoading from '../RecommendBackgroundLoading'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 
@@ -29,8 +30,10 @@ export default function MenuSection({
 	handleAddComponent,
 }: MenuSectionProps) {
 	const params = useParams<{ canvas_id: string }>()
+
 	const [stickerStatus, setStickerStatus] = useState('generator')
 	const [backgroundStatus, setBackgroundStatus] = useState('generator')
+	const [recommendStatus, setRecommendStatus] = useState('loading')
 
 	const [stickerInputText, setStickerInputText] = useState<string>('')
 	const [style, setStyle] = useState<string>('')
@@ -41,9 +44,11 @@ export default function MenuSection({
 
 	const [stickerList, setStickerList] = useState<string[]>([])
 	const [backgroundList, setBackgroundList] = useState<string[]>([])
+	const [Recommendbackgrounds, setRecommendbackgrounds] = useState<string[]>([])
 
 	const fetchStickerData = async () => {
 		setStickerStatus('loading')
+
 		try {
 			const response = await axios.post(
 				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/stickers/ai/`,
@@ -86,14 +91,16 @@ export default function MenuSection({
 	const fetchBackgroundData = async () => {
 		setBackgroundStatus('loading')
 		try {
-			const response = await axios.post(
-				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/backgrounds/ai/`,
-				{
-					color: color,
-					theme: theme,
-					place: backgroundInputText,
+			// 실제 API 요청 대신 사용할 가짜 응답 데이터
+			const fakeResponse = {
+				data: {
+					result: {
+						s3_urls: [m1, m2, m1],
+					},
 				},
-			)
+			}
+			await new Promise((resolve) => setTimeout(resolve, 5000))
+
 			setBackgroundStatus('completed')
 			setBackgroundList(response.data.result.s3_urls)
 		} catch (error) {
@@ -102,6 +109,19 @@ export default function MenuSection({
 		}
 	}
 
+	const fetchRecommendedBackgrounds = async () => {
+		try {
+			const response = await axios.get(
+				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/backgrounds/recommend/`,
+			)
+			console.log('Recommended backgrounds:', response.data)
+			setRecommendbackgrounds(response.data.results)
+			setRecommendStatus('completed')
+		} catch (error) {
+			console.error('Error fetching recommended backgrounds:', error)
+		}
+	}
+    
 	// const fetchBackgroundData = async () => {
 	// 	setBackgroundStatus('loading')
 	// 	try {
@@ -135,7 +155,7 @@ export default function MenuSection({
 				<UploadBackground setBackgroundURL={setBackgroundURL} />
 			)}
 			{seletedMenu === 'AI 배경' && (
-				<Suspense fallback={<AIBackgroundLoading />}>
+				<>
 					{backgroundStatus === 'generator' && (
 						<AIBackgroundGenerator
 							fetchBackgroundData={fetchBackgroundData}
@@ -155,13 +175,26 @@ export default function MenuSection({
 							setBackgroundURL={setBackgroundURL}
 						/>
 					)}
-				</Suspense>
+					{backgroundStatus === 'loading' && <AIBackgroundLoading />}
+				</>
 			)}
 			{seletedMenu === '추천 배경' && (
-				<RecommendBackground setBackgroundURL={setBackgroundURL} />
+				<>
+					{recommendStatus === 'completed' && (
+						<RecommendBackground
+							setBackgroundURL={setBackgroundURL}
+							Recommendbackgrounds={Recommendbackgrounds}
+						/>
+					)}
+					{recommendStatus === 'loading' && (
+						<RecommendBackgroundLoading
+							fetchRecommendedBackgrounds={fetchRecommendedBackgrounds}
+						/>
+					)}
+				</>
 			)}
 			{seletedMenu === 'AI 스티커' && (
-				<Suspense fallback={<AIStickerLoading />}>
+				<>
 					{stickerStatus === 'generator' && (
 						<AIStickerGenerator
 							fetchStickerData={fetchStickerData}
@@ -181,7 +214,10 @@ export default function MenuSection({
 							style={style}
 						/>
 					)}
-				</Suspense>
+					{stickerStatus === 'loading' && (
+						<AIStickerLoading inputText={stickerInputText} style={style} />
+					)}
+				</>
 			)}
 			{seletedMenu === '히스토리' && (
 				<History handleAddComponent={handleAddComponent} />

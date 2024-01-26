@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import ReGenerateButton from '../../ReGenerateButton'
+import ReGenerateButton from '../../General/ReGenerateButton'
 import info from '/images/svg/info.svg'
 
 type AIStickerProps = {
@@ -23,7 +23,6 @@ export default function AISticker({
 
 	const handleClick = (componentURL: string, index: number) => {
 		if (clickedIndexes.includes(index)) {
-			
 		}
 		// 클릭 처리
 		handleAddComponent(componentURL)
@@ -34,7 +33,7 @@ export default function AISticker({
 
 	return (
 		<div className="flex flex-col items-center grow">
-			<div className="flex items-center justify-center py-4 mt-8 mb-4 bg-gray-100 rounded-lg px-7">
+			<div className="w-[335px] h-[80px] flex items-center justify-center py-5 mt-8 mb-4 rounded-lg px-6 bg-blue-50">
 				<img src={info} className="w-5 h-5 mr-2" />
 				<div>
 					<h3 className="text-[14px] text-[#413f3f] font-medium">
@@ -51,11 +50,11 @@ export default function AISticker({
 						src={componentURL}
 						key={index}
 						onClick={() => handleClick(componentURL, index)}
-						className="bg-[#f6f8fa] w-40 h-40 rounded-lg p-4 cursor-pointer"
+						className="w-40 h-40 p-4 bg-[#F0F1F3] rounded-lg cursor-pointer"
 					/>
 				))}
 			</div>
-			<div className="bg-[#F1F2F4] px-5 py-4 rounded-lg mt-8 flex text-[14px] font-normal w-[335px]">
+			<div className="bg-[#F0F1F3] px-5 py-4 rounded-lg mt-8 flex text-[14px] font-normal w-[335px]">
 				<p>
 					<span style={{ color: '#5f9ba9' }}>{inputText}</span>를{' '}
 					<span style={{ color: '#5f9ba9' }}>{style}</span> 스타일로 생성했어요.

@@ -1,7 +1,7 @@
+import { useNavigate } from 'react-router-dom'
 import Button from './Button'
 import hamburger from '/images/svg/hamburger.svg'
 import exit from '/images/svg/exit.svg'
-import { useNavigate } from 'react-router-dom'
 
 enum Menu {
 	'내 캔버스',

@@ -13,7 +13,7 @@ type CanvasProps = {
 	setBackgroundURL: (backgroundURL: string) => void
 }
 
-export default function Canvas({
+export default React.memo(function Canvas({
 	backgroundURL,
 	componentList,
 	setComponentList,
@@ -70,10 +70,8 @@ export default function Canvas({
 	}
 
 	useEffect(() => {
-		// WebSocket 연결 설정
 		const newSocket = new WebSocket(
-			// 'ws://' + window.location.host + '/ws/canvases/' + canvasId + '/',
-			'ws://' + 'localhost:8000' + '/ws/canvases/' + canvasId + '/',
+			`ws://localhost:8000/ws/canvases/${canvasId}/`,
 		)
 
 		setChatSocket(newSocket)
@@ -168,12 +166,13 @@ export default function Canvas({
 				className="overflow-hidden bg-white relative w-[912px] h-[513px] border-solid border-[1px] border-[#E7E8EA]"
 				onClick={handleDeselect}
 			>
-				<img
-					src={backgroundURL}
-					className="absolute w-[912px] h-[513px]"
-					onClick={handleDeselect}
-				/>
-				{!backgroundURL}
+				{backgroundURL && backgroundURL !== 'default_preview_url' && (
+					<img
+						src={backgroundURL}
+						className="absolute w-[912px] h-[513px]"
+						onClick={handleDeselect}
+					/>
+				)}
 				{componentList.map(
 					(element) =>
 						element.component_id && (
@@ -297,4 +296,4 @@ export default function Canvas({
 			</div>
 		</div>
 	)
-}
+})

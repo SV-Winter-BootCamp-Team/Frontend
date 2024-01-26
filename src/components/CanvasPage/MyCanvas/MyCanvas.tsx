@@ -36,16 +36,16 @@ export default function MyCanvas() {
 					canvas.canvas_id !== Number(params.canvas_id) && (
 						<div
 							key={canvas.canvas_id}
-							className="flex flex-col items-center mb-4"
+							className="flex flex-col items-center mb-5"
 						>
 							{canvas.canvas_preview_url !== 'default_preview_url' ? (
 								<img
 									onClick={() => navigate(`/canvas/${canvas.canvas_id}`)}
 									src={canvas.canvas_preview_url}
-									className="w-[304px] h-[171px] mb-2 cursor-pointer"
+									className="w-[304px] h-[171px] mb-2 cursor-pointer rounded-md"
 								/>
 							) : (
-								<div className="w-[304px] h-[171px] mb-2 bg-white border-[1px]"></div>
+								<div className="w-[304px] h-[171px] mb-2 bg-white border-[1px] rounded-md"></div>
 							)}
 							<p className="text-sm">{canvas.canvas_name}</p>
 						</div>

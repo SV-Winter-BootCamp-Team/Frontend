@@ -14,7 +14,8 @@ services:
     # depends_on:
     #   - backend
     volumes:
-      - ./src:/src:ro
+      - ./frontend:/frontend
+      - /frontend/node_modules
     env_file:
       - ./.env
     command: ['yarn', 'dev']
