@@ -1,4 +1,4 @@
-import { Suspense, useState } from 'react'
+import { useState } from 'react'
 import MyCanvas from '../MyCanvas'
 import Invite from '../Invite'
 import AISticker from '../AISticker'
