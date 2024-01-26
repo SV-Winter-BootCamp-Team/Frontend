@@ -71,7 +71,7 @@ export default function MenuSection({
 			}
 
 			// 가짜 지연 시간 설정 (예: 500ms)
-			await new Promise((resolve) => setTimeout(resolve, 500))
+			await new Promise((resolve) => setTimeout(resolve, 5000))
 
 			setStickerStatus('completed')
 			setStickerList(fakeResponse.data.result.s3_urls)
@@ -162,14 +162,13 @@ export default function MenuSection({
 			{seletedMenu === 'AI 스티커' && (
 				<>
 					{stickerStatus === 'generator' && (
-						// <AIStickerGenerator
-						// 	fetchStickerData={fetchStickerData}
-						// 	inputText={stickerInputText}
-						// 	setInputText={setStickerInputText}
-						// 	style={style}
-						// 	setStyle={setStyle}
-						// />
-						<AIStickerLoading />
+						<AIStickerGenerator
+							fetchStickerData={fetchStickerData}
+							inputText={stickerInputText}
+							setInputText={setStickerInputText}
+							style={style}
+							setStyle={setStyle}
+						/>
 					)}
 					{stickerStatus === 'completed' && (
 						<AISticker
@@ -181,7 +180,9 @@ export default function MenuSection({
 							style={style}
 						/>
 					)}
-					{stickerStatus === 'loading' && <AIStickerLoading />}
+					{stickerStatus === 'loading' && (
+						<AIStickerLoading inputText={stickerInputText} style={style} />
+					)}
 				</>
 			)}
 			{seletedMenu === '히스토리' && (

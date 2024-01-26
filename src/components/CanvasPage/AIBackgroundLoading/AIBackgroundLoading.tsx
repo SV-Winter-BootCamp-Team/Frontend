@@ -1,6 +1,7 @@
 export default function AIBackgroundLoading() {
 	return (
 		<div className="flex flex-col items-center mt-8 grow">
+			{/* AIBackground 스켈레톤 UI */}
 			<div className="flex flex-col">
 				{Array.from({ length: 3 }).map((_, index) => (
 					<div
