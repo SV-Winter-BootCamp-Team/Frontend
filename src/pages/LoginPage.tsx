@@ -56,21 +56,21 @@ export default function LoginPage() {
 	}, [])
 
 	return (
-		<div className="h-screen flex justify-left items-center">
+		<div className="flex items-center h-screen justify-left">
 			<div className="absolute bg-[#66CAE1] w-screen h-screen">
 				<img
 					className="absolute w-full h-full"
 					src="src/components/SignupPage/img/background.png"
 				/>
 				<div className="absolute right-[8%] w-3/5 h-full flex items-end">
-					<img src="src/components/SignupPage/img/object.png" />
+					<img src="/images/svg/object.svg" />
 				</div>
 			</div>
 			<div className="flex ml-[14%] flex-col z-10">
 				<div className="bg-[#ffffff35] text-[14px] text-white py-5 px-12 flex flex-col border rounded-xl">
-					<div className="mt-12 mb-8 flex flex-row justify-center">
-						<div className="h-fit text-xl font-bold mr-1">Login</div>
-						<div className="h-fit text-6xl font-jua">꾸며Zoom</div>
+					<div className="flex flex-row justify-center mt-12 mb-8">
+						<div className="mr-1 text-xl font-bold h-fit">Login</div>
+						<div className="text-6xl h-fit font-jua">꾸며Zoom</div>
 					</div>
 					<input
 						className="w-[300px] py-3.5 px-[17px] mt-7 border border-white border-opacity-60 rounded-full bg-transparent placeholder-opacity-50 placeholder-white"
