@@ -1,10 +1,16 @@
+import React from 'react'
+
 type ThemeProps = {
 	theme: string
 	setTheme: (theme: string) => void
 	selectedTheme: string // 현재 선택된 테마를 나타내는 prop 추가
 }
 
-export default function Theme({ theme, setTheme, selectedTheme }: ThemeProps) {
+export default React.memo(function Theme({
+	theme,
+	setTheme,
+	selectedTheme,
+}: ThemeProps) {
 	const handleClick = () => {
 		setTheme(theme)
 	}
@@ -24,4 +30,4 @@ export default function Theme({ theme, setTheme, selectedTheme }: ThemeProps) {
 			<p className="px-3 py-1.5 text-sm">{theme}</p>
 		</button>
 	)
-}
+})

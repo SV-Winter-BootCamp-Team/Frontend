@@ -1,10 +1,16 @@
+import React from 'react'
+
 type ColorProps = {
 	color: string
 	setColor: (color: string) => void
 	selectedColor?: string
 }
 
-export default function Color({ color, setColor, selectedColor }: ColorProps) {
+export default React.memo(function Color({
+	color,
+	setColor,
+	selectedColor,
+}: ColorProps) {
 	const handleClick = () => {
 		setColor(color)
 	}
@@ -29,4 +35,4 @@ export default function Color({ color, setColor, selectedColor }: ColorProps) {
 			/>
 		</div>
 	)
-}
+})
