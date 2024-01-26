@@ -9,12 +9,7 @@ export default React.memo(function Input() {
 	const params = useParams<Partial<ParamsType>>()
 	const [email, setEmail] = useState<string>('')
 
-	const {
-		mutate: createMemberMutate,
-		error: createMemberError,
-		isError,
-		isSuccess,
-	} = useMutation({
+	const { mutate: createMemberMutate } = useMutation({
 		mutationFn: () => createMember(params.canvas_id as ParamsType, email),
 		onSuccess: () => {
 			alert('Invitation sent successfully!')
