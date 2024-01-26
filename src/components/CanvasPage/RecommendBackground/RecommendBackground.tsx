@@ -80,7 +80,7 @@ export default function RecommendBackground({
 					}}
 					key={index}
 					src={background}
-					className="w-[304px] h-[171px] mb-2 cursor-pointer"
+					className="w-[304px] h-[171px] mb-5 cursor-pointer rounded-md"
 				/>
 			))}
 		</div>

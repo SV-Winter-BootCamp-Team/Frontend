@@ -1,21 +1,13 @@
 import axios from 'axios'
-import { ParamsType } from '../components/CanvasPage/Invite/Invite'
+import { ParamsType } from '../type'
 
-export const handleInvite = async (canvas_id: string, email: string) => {
-	if (!email) {
-		alert('Please enter an email address.')
-		return
-	}
-	try {
-		await axios.post(
-			`http://localhost:8000/api/v1/canvases/${canvas_id}/invite/`,
-			{ user_email: email },
-		)
-		alert('Invitation sent successfully!')
-	} catch (error) {
-		console.error('Error sending invitation:', error)
-		alert('Failed to send invitation.')
-	}
+export const createMember = async (canvas_id: ParamsType, email: string) => {
+	return await axios.post(
+		`http://localhost:8000/api/v1/canvases/${canvas_id}/invite/`,
+		{
+			user_email: email,
+		},
+	)
 }
 
 export const fetchMembers = async (canvas_id: ParamsType) => {

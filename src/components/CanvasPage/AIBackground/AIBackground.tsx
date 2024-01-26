@@ -75,7 +75,7 @@ export default function AIBackground({
 							setBackgroundURL(background)
 							changeBackground(background)
 						}}
-						className="w-[320px] h-[180px] mb-4 cursor-pointer"
+						className="w-[320px] h-[180px] mb-5 cursor-pointer rounded-md"
 					/>
 				))}
 			</div>

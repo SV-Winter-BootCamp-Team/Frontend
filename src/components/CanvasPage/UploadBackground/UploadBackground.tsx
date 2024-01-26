@@ -107,7 +107,7 @@ export default function UploadBackground({ setBackgroundURL }: UploadProps) {
 							changeBackground(background.component_url)
 						}}
 						src={background.component_url}
-						className="w-[304px] h-[171px] mb-4 cursor-pointer"
+						className="w-[304px] h-[171px] mb-5 cursor-pointer rounded-md"
 						key={background.id}
 					></img>
 				))}
