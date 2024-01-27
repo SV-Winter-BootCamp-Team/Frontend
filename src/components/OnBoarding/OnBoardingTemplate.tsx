@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import ThreeTest from './ThreeTest'
 import webSocketJson from '../../animations/json/webSocket.json'
@@ -40,7 +40,7 @@ export default function OnBoardingTemplate() {
 	return (
 		<div className="w-full overflow-hidden">
 			<section className="w-full h-fit flex-col ">
-				<div className="w-full h-screen flex justify-center">
+				<div id="three" className="w-full h-screen flex justify-center">
 					<Canvas shadows>
 						<ThreeTest {...handleThree} />
 					</Canvas>
@@ -103,7 +103,10 @@ export default function OnBoardingTemplate() {
 						onMouseMove={handleMouseMove}
 					/>
 				</div>
-				<div className="relative w-full h-screen bg-white pt-[5%] overflow-hidden">
+				<div
+					id="examples"
+					className="relative w-full h-screen bg-white pt-[5%] overflow-hidden"
+				>
 					<div className="flex h-fit justify-center gap-16 items-center text-[130px] text-[#66CAE1]">
 						[
 						<div className="text-black h-fit flex flex-col font-jua gap-4">
@@ -118,60 +121,63 @@ export default function OnBoardingTemplate() {
 					</div>
 					<ImageSlider />
 				</div>
-				<div className="relative h-[190vh]">
-					<div className="h-[60vh] w-full flex justify-between items-center px-[10%]">
-						<div className="flex flex-col gap-4 justify-center font-jua">
-							<h2 className="text-5xl mb-2">작업을 도와주는 AI</h2>
-							<div className=" text-[24px] font-thin">
-								여러분의 상상력을 표현할 수 있게 도움을 드립니다.
+				<div
+					id="introduction"
+					className="relative w-full aspect-[595.28/640.48]"
+				>
+					<div className="absolute h-full  pt-[3vh]">
+						<div className="w-full aspect-[595.28/219.49] flex justify-between items-center px-[10%]">
+							<div className="flex flex-col gap-4 justify-center font-jua">
+								<h2 className="text-[4vw] mb-2">작업을 도와주는 AI</h2>
+								<div className=" text-[1.7vw] font-thin">
+									여러분의 상상력을 표현할 수 있게 도움을 드립니다.
+								</div>
+								<div className=" text-[1.7vw] font-thin">
+									창작에 날개를 달아드립니다!
+								</div>
 							</div>
-							<div className=" text-[24px] font-thin">
-								창작에 날개를 달아드립니다!
+							<img
+								className="w-[45%]"
+								alt="aiImage"
+								src="public/images/svg/aiImage.svg"
+							/>
+						</div>
+						<div className="w-full aspect-[595.28/219.49] flex justify-between items-center px-[10%]">
+							<LottiePlayer animationdata={webSocketJson} />
+							<div className="flex flex-col gap-4 items-end font-jua">
+								<h2 className="text-[4vw] mb-2">실시간 공유 캔버스</h2>
+								<div className=" text-[1.7vw] font-thin">
+									친구를 초대하고, 같이 디자인 해보세요
+								</div>
+								<div className=" text-[1.7vw] font-thin">
+									혼자 하는것 보다 재미있을 거에요
+								</div>
 							</div>
 						</div>
-						<img
-							className="w-[45%]"
-							alt="aiImage"
-							src="public/images/svg/aiImage.svg"
-						/>
+						<div className="w-full aspect-[595.28/219.49] flex justify-between items-center px-[10%]">
+							<div className="flex flex-col gap-4 justify-center font-jua">
+								<h2 className="text-[4vw] mb-2">바로 시작하기</h2>
+								<div className=" text-[1.7vw] font-thin">
+									회원가입까지 걸리는 시간 ONLY 3초!
+								</div>
+								<div className=" text-[1.7vw] font-thin">
+									지금 바로 시작해보세요
+								</div>
+							</div>
+							<div className="w-fit h-full">
+								<LottiePlayer animationdata={startJson} />
+								<button
+									className="z-50 px-4 pt-2 pb-1 h-fit text-[1.75vw] text-white font-jua rounded-lg bg-[#66CAE1] inline"
+									onClick={() => {
+										window.location.replace('/signup')
+									}}
+								>
+									시작하기
+								</button>
+							</div>
+						</div>
 					</div>
-					<div className="h-[60vh] w-full flex justify-between items-center px-[10%]">
-						<LottiePlayer animationdata={webSocketJson} />
-						<div className="flex flex-col gap-4 items-end font-jua">
-							<h2 className="text-5xl mb-2">실시간 공유 캔버스</h2>
-							<div className=" text-[24px] font-thin">
-								친구를 초대하고, 같이 디자인 해보세요
-							</div>
-							<div className=" text-[24px] font-thin">
-								혼자 하는것 보다 재미있을 거에요
-							</div>
-						</div>
-					</div>
-					<div className="h-[70vh] w-full flex justify-between items-center px-[10%]">
-						<div className="flex flex-col gap-4 justify-center font-jua">
-							<h2 className="text-5xl mb-2">바로 시작하기</h2>
-							<div className=" text-[24px] font-thin">
-								회원가입까지 걸리는 시간 ONLY 3초!
-							</div>
-							<div className=" text-[24px] font-thin">
-								지금 바로 시작해보세요
-							</div>
-						</div>
-						<div className="relative w-[55%] h-full flex justify-between overflow-hidden">
-							<LottiePlayer animationdata={startJson} />
-							<button
-								className="absolute right-0 top-32 px-4 pt-2 pb-1 h-fit text-2xl text-white font-jua rounded-lg bg-[#66CAE1]"
-								onClick={() => {
-									nav({
-										pathname: '/signup/',
-									})
-								}}
-							>
-								시작하기
-							</button>
-						</div>
-					</div>
-					<div id="content" className="absolute top-[-3.5%] w-full h-[400vh]">
+					<div className="absolute top-0 w-full">
 						<PathDrawing />
 					</div>
 				</div>

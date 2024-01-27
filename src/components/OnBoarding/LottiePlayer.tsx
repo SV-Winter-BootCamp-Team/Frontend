@@ -3,7 +3,7 @@ import lottie from 'lottie-web'
 
 export default function LottiePlayer({ animationdata }) {
 	const container = document.querySelector('#content')!
-	console.log(animationdata)
+
 	useEffect(() => {
 		{
 			lottie.loadAnimation({
@@ -22,5 +22,5 @@ export default function LottiePlayer({ animationdata }) {
 		}
 	}, [])
 
-	return <div id="content" className="w-fit h-full bg-white" />
+	return <div id="content" className="w-fit h-full bg-gray-400" />
 }
