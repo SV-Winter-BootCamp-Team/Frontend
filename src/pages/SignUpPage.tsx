@@ -24,10 +24,8 @@ export default function SignUpPage() {
 	}
 
 	const onSubmit = () => {
-		console.log(userKey)
-
 		axios
-			.post('http://localhost:8000/api/v1/users/register/', userKey)
+			.post(`${import.meta.env.VITE_BASE_URL}users/register/`, userKey)
 			.then(() => {
 				nav({
 					pathname: '/login',
@@ -38,9 +36,9 @@ export default function SignUpPage() {
 
 	useEffect(() => {
 		if (typeof localStorage.getItem('user_id') === 'string') {
-			window.location.replace(
-				`http://localhost:5173/main/${localStorage.getItem('user_id')}`,
-			)
+			nav({
+				pathname: `/main/${localStorage.getItem('user_id')}/`,
+			})
 		}
 	}, [])
 
