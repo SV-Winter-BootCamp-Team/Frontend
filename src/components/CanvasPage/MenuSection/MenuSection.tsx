@@ -51,7 +51,7 @@ export default function MenuSection({
 
 	// 	try {
 	// 		const response = await axios.post(
-	// 			`http://localhost:8000/api/v1/canvases/${params.canvas_id}/stickers/ai/`,
+	// 			`${import.meta.env.VITE_BASE_URL}canvases/${params.canvas_id}/stickers/ai/`,
 	// 			{
 	// 				describe: stickerInputText,
 	// 				style: style,
@@ -112,7 +112,7 @@ export default function MenuSection({
 	const fetchRecommendedBackgrounds = async () => {
 		try {
 			const response = await axios.get(
-				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/backgrounds/recommend/`,
+				`${import.meta.env.VITE_BASE_URL}canvases/${params.canvas_id}/backgrounds/recommend/`,
 			)
 			console.log('Recommended backgrounds:', response.data)
 			setRecommendbackgrounds(response.data.results)
@@ -121,27 +121,6 @@ export default function MenuSection({
 			console.error('Error fetching recommended backgrounds:', error)
 		}
 	}
-
-	// const fetchBackgroundData = async () => {
-	// 	setBackgroundStatus('loading')
-	// 	try {
-	// 		// 실제 API 요청 대신 사용할 가짜 응답 데이터
-	// 		const fakeResponse = {
-	// 			data: {
-	// 				result: {
-	// 					s3_urls: [m1, m2],
-	// 				},
-	// 			},
-	// 		}
-	// 		await new Promise((resolve) => setTimeout(resolve, 500))
-
-	// 		setBackgroundStatus('completed')
-	// 		setBackgroundList(fakeResponse.data.result.s3_urls)
-	// 	} catch (error) {
-	// 		console.error('Error fetching AI background data:', error)
-	// 		throw error
-	// 	}
-	// }
 
 	return (
 		<div

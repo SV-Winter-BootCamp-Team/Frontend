@@ -12,21 +12,28 @@ export default function NavBar({
 	handleSaveCanvas,
 }: NavBarProps) {
 	return (
-		<div className="flex items-center justify-center relative h-[65px] px-3.5 border-solid border-b-[1px] border-[#E7E8EA] shadow-sm">
-			<p className="text-md">{canvasName}</p>
-			<button
-				onClick={handleSaveCanvas}
-				className="absolute right-[100px] flex px-3 py-2 mr-4 bg-[#66cae1] rounded-lg text-sm text-white"
-			>
-				저장하기
-			</button>
-			<button
-				onClick={captureCanvas}
-				className="absolute right-0 flex px-3 py-2 mr-4 bg-[#66cae1] rounded-lg items-center"
-			>
-				<img src={download} alt="download" className="w-3" />
-				<p className="ml-2 text-sm text-white">다운로드</p>
-			</button>
+		<div className="w-full h-[70px] shadow-lg border-b-[1px]">
+			<div className="font-jua flex justify-between items-center w-full px-[30px] py-[15px]">
+				<div className="text-[#60c0d0] text-4xl">꾸며Zoom</div>
+				<p className="font-sans font-medium text-gray-800 text-md">
+					{canvasName}
+				</p>
+				<div className="flex text-white">
+					<button
+						className="bg-[#60c0d0] rounded-lg pt-1 pb-[2px] px-3 text-lg mx-4 flex items-center"
+						onClick={handleSaveCanvas}
+					>
+						<span className="flex items-center">저장하기</span>
+					</button>
+					<button
+						className="bg-[#60c0d0] rounded-lg pt-1 pb-[2px] px-3 text-lg flex items-center"
+						onClick={captureCanvas}
+					>
+						<img src={download} alt="download" className="mr-2" />
+						<span>다운로드</span>
+					</button>
+				</div>
+			</div>
 		</div>
 	)
 }

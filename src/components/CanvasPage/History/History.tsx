@@ -29,7 +29,7 @@ export default function History({ handleAddComponent }: HistoryProps) {
 	const fetchStickerHistory = async () => {
 		try {
 			const response = await axios.get(
-				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/stickers/ai/select/`,
+				`${import.meta.env.VITE_BASE_URL}canvases/${params.canvas_id}/stickers/ai/select/`,
 			)
 			console.log(response.data)
 			setHistoryList(response.data.result.component)
@@ -50,7 +50,7 @@ export default function History({ handleAddComponent }: HistoryProps) {
 						src={component.component_url}
 						key={index}
 						onClick={() => handleClick(component.component_url, index)}
-						className="w-40 h-40 p-4 bg-gray-100 rounded-lg cursor-pointer"
+						className="w-40 h-40 p-4 bg-[#F0F1F3] rounded-lg cursor-pointer"
 					/>
 				))}
 			</div>

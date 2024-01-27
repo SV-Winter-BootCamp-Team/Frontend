@@ -18,7 +18,7 @@ export default function MyCanvas() {
 	const fetchCanvases = async () => {
 		try {
 			const response = await axios.get(
-				`http://localhost:8000/api/v1/canvases/personal/${user_id}/`,
+				`${import.meta.env.VITE_BASE_URL}canvases/personal/${user_id}/`,
 			)
 			setCanvases(response.data.result.canvases)
 		} catch (error) {
@@ -45,7 +45,10 @@ export default function MyCanvas() {
 									className="w-[304px] h-[171px] mb-2 cursor-pointer rounded-md"
 								/>
 							) : (
-								<div className="w-[304px] h-[171px] mb-2 bg-white border-[1px] rounded-md"></div>
+								<div
+									onClick={() => navigate(`/canvas/${canvas.canvas_id}`)}
+									className="w-[304px] h-[171px] mb-2 bg-white border-[1px] rounded-md cursor-pointer"
+								></div>
 							)}
 							<p className="text-sm">{canvas.canvas_name}</p>
 						</div>

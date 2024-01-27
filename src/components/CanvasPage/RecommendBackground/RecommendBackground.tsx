@@ -17,7 +17,7 @@ export default function RecommendBackground({
 	const changeBackground = async (backgroundURL: string) => {
 		try {
 			const response = await axios.post(
-				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/backgrounds/recommend/`,
+				`${import.meta.env.VITE_BASE_URL}canvases/${params.canvas_id}/backgrounds/recommend/`,
 				{ selected_url: backgroundURL },
 				{
 					headers: {
@@ -53,7 +53,7 @@ export default function RecommendBackground({
 
 	useEffect(() => {
 		const newSocket = new WebSocket(
-			'ws://' + 'localhost:8000' + '/ws/canvases/' + params.canvas_id + '/',
+			`ws://${import.meta.env.VITE_SOCKET_URL}/ws/canvases/${params.canvas_id}/`,
 		) // Adjust the URL to your WebSocket server
 		setSocket(newSocket)
 	}, [])
@@ -68,7 +68,7 @@ export default function RecommendBackground({
 					}}
 					key={index}
 					src={background}
-					className="w-[304px] h-[171px] mb-5 cursor-pointer rounded-md"
+					className="w-[320px] h-[180px] mb-5 cursor-pointer rounded-md"
 				/>
 			))}
 		</div>

@@ -53,7 +53,7 @@ export default React.memo(function Canvas({
 		// API 요청을 통해 서버에서 요소 삭제
 		try {
 			await axios.delete(
-				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/${componentId}/`,
+				`${import.meta.env.VITE_BASE_URL}canvases/${params.canvas_id}/${componentId}/`,
 			)
 			chatSocket?.send(
 				JSON.stringify({
@@ -71,7 +71,7 @@ export default React.memo(function Canvas({
 
 	useEffect(() => {
 		const newSocket = new WebSocket(
-			`ws://localhost:8000/ws/canvases/${canvasId}/`,
+			`ws://${import.meta.env.VITE_SOCKET_URL}/ws/canvases/${canvasId}/`,
 		)
 
 		setChatSocket(newSocket)
@@ -159,7 +159,7 @@ export default React.memo(function Canvas({
 	return (
 		<div
 			ref={canvasRef}
-			className="flex items-center h-full justify-center w-screen bg-[#F1F2F4]"
+			className="flex items-center h-full justify-center w-screen bg-[#F0F1F3]"
 		>
 			<div
 				id="board"
