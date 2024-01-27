@@ -117,7 +117,7 @@ export default function ImageSlider() {
 		},
 	]
 	return (
-		<div className="w-full h-full">
+		<div className="absolute bottom-0 w-full h-fit">
 			<div className="flex flex-row-reverse gap-[1%] mt-[3%] overflow-hidden">
 				{images1.map((image) => (
 					<img
