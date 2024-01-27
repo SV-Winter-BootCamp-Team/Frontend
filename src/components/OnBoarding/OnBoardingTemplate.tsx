@@ -3,7 +3,10 @@ import { Canvas } from '@react-three/fiber'
 import ThreeTest from './ThreeTest'
 import webSocketJson from '../../animations/json/webSocket.json'
 import startJson from '../../animations/json/startImage.json'
+<<<<<<< HEAD
 import { useNavigate } from 'react-router-dom'
+=======
+>>>>>>> ea0570269e4995bbf4ce02a30448dd88e762b2a0
 import PathDrawing from './PathDrawing'
 import ImageSlider from './ImageSlider'
 import LottiePlayer from './LottiePlayer'
@@ -14,7 +17,10 @@ export type HandleThreeType = {
 }
 
 export default function OnBoardingTemplate() {
+<<<<<<< HEAD
 	const nav = useNavigate()
+=======
+>>>>>>> ea0570269e4995bbf4ce02a30448dd88e762b2a0
 	const [handleThree, setHandleThree] = useState<HandleThreeType>({
 		color: '#80B9BF',
 		x: 0,
