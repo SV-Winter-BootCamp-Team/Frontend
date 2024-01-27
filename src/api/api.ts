@@ -8,7 +8,7 @@ export const changeBackground = async (
 ) => {
 	return await axios
 		.post(
-			`http://localhost:8000/api/v1/canvases/${canvas_id}/backgrounds/ai/select/`,
+			`${import.meta.env.VITE_BASE_URL}canvases/${canvas_id}/backgrounds/ai/select/`,
 			{ selected_url: backgroundURL },
 			{
 				headers: {
@@ -23,7 +23,7 @@ export const changeBackground = async (
 //Invite
 export const createMember = async (canvas_id: ParamsType, email: string) => {
 	return await axios.post(
-		`http://localhost:8000/api/v1/canvases/${canvas_id}/invite/`,
+		`${import.meta.env.VITE_BASE_URL}canvases/${canvas_id}/invite/`,
 		{
 			user_email: email,
 		},
@@ -32,6 +32,6 @@ export const createMember = async (canvas_id: ParamsType, email: string) => {
 
 export const fetchMembers = async (canvas_id: ParamsType) => {
 	return await axios
-		.get(`http://localhost:8000/api/v1/canvases/${canvas_id}/invite/`)
+		.get(`${import.meta.env.VITE_BASE_URL}canvases/${canvas_id}/invite/`)
 		.then((response) => response.data.result.shared_members)
 }

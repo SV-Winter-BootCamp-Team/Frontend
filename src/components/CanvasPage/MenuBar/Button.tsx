@@ -31,8 +31,8 @@ export default function Button({
 
 	const buttonClass =
 		name === selectedMenu
-			? 'flex flex-col items-center justify-center py-[8px] my-2 w-[90%] rounded-xl bg-[#66cae1] opacity-80 text-white'
-			: 'flex flex-col items-center justify-center py-[8px] my-2 w-[90%] hover:bg-slate-100 rounded-xl'
+			? 'flex flex-col items-center justify-center py-[10px] w-[90%] rounded-xl bg-[#66cae1] opacity-80 text-white'
+			: 'flex flex-col items-center justify-center py-[10px] w-[90%] hover:bg-slate-200 rounded-xl'
 
 	const iconClass = name === selectedMenu ? 'w-5 h-5 icon' : 'w-5 h-5'
 	return (

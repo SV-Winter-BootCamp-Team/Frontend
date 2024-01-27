@@ -31,6 +31,10 @@ export default function MainPage() {
 		owner_id: Number(user_id),
 	})
 
+	console.log(import.meta.env.DEV ? '개발' : '배포')
+	console.log(import.meta.env.VITE_BASE_URL)
+	console.log(import.meta.env.VITE_SOCKET_URL)
+
 	function createPersonalCanvas() {
 		setNewCanvas((current) => {
 			let nextState = current
@@ -83,13 +87,13 @@ export default function MainPage() {
 						className="relative bg-[#66CAE150] cursor-pointer px-32 py-20 border-2 sm:py-[100px] rounded-lg"
 						onClick={createPersonalCanvas}
 					>
-						<div className="absolute top-0 left-0 w-full h-full bg-white flex justify-center items-center">
+						<div className="absolute top-0 left-0 flex items-center justify-center w-full h-full bg-white">
 							<img className="w-5 h-5" src={plus} />
 						</div>
 					</div>
 				</div>
 			</div>
-			<hr className="mt-12 mx-10" />
+			<hr className="mx-10 mt-12" />
 			<h1 className="mx-8 mt-8 text-xl font-jua">공유된 캔버스</h1>
 			<div className="grid grid-cols-1 gap-8 mx-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 				{shareCanvasData.map((canvas: CanvasPreviewProps) => (

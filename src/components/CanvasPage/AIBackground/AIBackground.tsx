@@ -43,7 +43,7 @@ export default function AIBackground({
 
 	useEffect(() => {
 		const newSocket = new WebSocket(
-			'ws://' + 'localhost:8000' + '/ws/canvases/' + params.canvas_id + '/',
+			`ws://${import.meta.env.VITE_SOCKET_URL}/ws/canvases/${params.canvas_id}/`,
 		)
 		setSocket(newSocket)
 	}, [])

@@ -1,7 +1,8 @@
-import { ChangeEvent } from 'react'
+import React, { ChangeEvent } from 'react'
 import Theme from './Theme'
 import Color from './Color'
 import GenerateButton from '../../GenearateButton/'
+import Input from './Input'
 
 type AIBackgroundGeneratorProps = {
 	fetchBackgroundData: () => void
@@ -13,7 +14,7 @@ type AIBackgroundGeneratorProps = {
 	setBackgroundInputText: (inputText: string) => void
 }
 
-export default function AIBackgroundGenerator({
+export default React.memo(function AIBackgroundGenerator({
 	fetchBackgroundData,
 	color,
 	setColor,
@@ -79,34 +80,16 @@ export default function AIBackgroundGenerator({
 				</div>
 			</div>
 			{/* 배경 묘사 영역 */}
-			<div className="mt-8 ml-8">
-				<h2 className="mb-2 font-medium">배경 묘사</h2>
-				<p className="text-sm text-gray-500">
-					만들고 싶은 배경을 간단히 설명해 보세요.
-				</p>
-			</div>
-			{/* 사용자 입력 영역 */}
-			<div className="relative flex items-center justify-center mt-4">
-				<div className="flex border-[1px] h-24 rounded-lg p-2.5">
-					<textarea
-						placeholder="입력해주세요"
-						maxLength={20}
-						value={InputText}
-						onChange={handleInputChange}
-						className="h-full text-sm rounded-lg outline-none resize-none pr-[60px] textarea-scrollbar w-[300px]"
-					/>
-					<div className="absolute h-fit w-fit text-xs text-gray-300 right-[55px] top-3">
-						{remainingCharacters}/20
-					</div>
-				</div>
-			</div>
+			<Input
+				InputText={InputText}
+				handleInputChange={handleInputChange}
+				remainingCharacters={remainingCharacters}
+			/>
 			{/* 버튼 영역 */}
-			<div className="flex flex-col justify-end grow">
-				<GenerateButton
-					handleResetButtonClick={handleResetButtonClick}
-					handleGenerateButtonClick={fetchBackgroundData}
-				/>
-			</div>
+			<GenerateButton
+				handleResetButtonClick={handleResetButtonClick}
+				handleGenerateButtonClick={fetchBackgroundData}
+			/>
 		</div>
 	)
-}
+})

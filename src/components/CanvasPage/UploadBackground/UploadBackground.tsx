@@ -20,7 +20,7 @@ export default function UploadBackground({ setBackgroundURL }: UploadProps) {
 	const fetchBackgrounds = async () => {
 		try {
 			const response = await axios.get(
-				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/backgrounds/upload/`,
+				`${import.meta.env.VITE_BASE_URL}canvases/${params.canvas_id}/backgrounds/upload/`,
 			)
 			console.log(response.data.result.component)
 			setBackgrounds(response.data.result.component)
@@ -48,7 +48,7 @@ export default function UploadBackground({ setBackgroundURL }: UploadProps) {
 			const formData = new FormData()
 			formData.append('file', blob) // 'file'은 서버가 예상하는 필드 이름입니다.
 			const response = await axios.post(
-				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/backgrounds/upload/`,
+				`${import.meta.env.VITE_BASE_URL}canvases/${params.canvas_id}/backgrounds/upload/`,
 				formData,
 				{
 					headers: {
@@ -85,8 +85,8 @@ export default function UploadBackground({ setBackgroundURL }: UploadProps) {
 	useEffect(() => {
 		fetchBackgrounds()
 		const newSocket = new WebSocket(
-			'ws://' + 'localhost:8000' + '/ws/canvases/' + params.canvas_id + '/',
-		) // Adjust the URL to your WebSocket server
+			`ws://${import.meta.env.VITE_SOCKET_URL}/ws/canvases/${params.canvas_id}/`,
+		)
 		setSocket(newSocket)
 	}, [])
 

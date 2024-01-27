@@ -70,7 +70,7 @@ export default function CanvasPage() {
 			formData.append('canvas_preview_url', blob)
 
 			await axios.put(
-				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/save/`,
+				`${import.meta.env.VITE_BASE_URL}canvases/${params.canvas_id}/save/`,
 				formData,
 				{
 					headers: {
@@ -86,7 +86,7 @@ export default function CanvasPage() {
 	const handleAddComponent = async (componentURL: string) => {
 		try {
 			const response = await axios.post(
-				`http://localhost:8000/api/v1/canvases/${params.canvas_id}/stickers/ai/select/`,
+				`${import.meta.env.VITE_BASE_URL}canvases/${params.canvas_id}/stickers/ai/select/`,
 				{
 					selected_url: componentURL,
 				},
@@ -143,7 +143,7 @@ export default function CanvasPage() {
 	const fetchCanvasDetails = async () => {
 		try {
 			const response = await axios.get(
-				`http://localhost:8000/api/v1/canvases/detail/${params.canvas_id}/`,
+				`${import.meta.env.VITE_BASE_URL}canvases/detail/${params.canvas_id}/`,
 			)
 			const fetchedCanvasData = response.data.result
 
@@ -193,7 +193,7 @@ export default function CanvasPage() {
 	useEffect(() => {
 		fetchCanvasDetails()
 		const newSocket = new WebSocket(
-			'ws://' + 'localhost:8000' + '/ws/canvases/' + params.canvas_id + '/',
+			`ws://${import.meta.env.VITE_SOCKET_URL}/ws/canvases/${params.canvas_id}/`,
 		) // Adjust the URL to your WebSocket server
 		setSocket(newSocket)
 	}, [])
@@ -205,7 +205,7 @@ export default function CanvasPage() {
 				canvasName={canvasName}
 				handleSaveCanvas={handleSaveCanvas}
 			/>
-			<div className="flex flex-grow" style={{ height: 'calc(100vh - 55px)' }}>
+			<div className="flex flex-grow" style={{ height: 'calc(100vh - 70px)' }}>
 				<div className="flex h-full bg-white">
 					<MenuBar
 						selectedMenu={selectedMenu}

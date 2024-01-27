@@ -115,7 +115,7 @@ export default function CanvasPreview({
 				<div>
 					<form onSubmit={onSubmit}>
 						<input
-							className="text-ellipsis font-semibold"
+							className="font-semibold text-ellipsis"
 							onChange={(e) => setNewName(e.target.value)}
 							value={newName}
 						/>
