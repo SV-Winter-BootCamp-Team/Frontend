@@ -3,7 +3,7 @@ import { PerspectiveCamera, useTexture } from '@react-three/drei'
 import { HandleThreeType } from './OnBoardingTemplate'
 import { useRef } from 'react'
 import { Mesh } from 'three'
-import backgroundImage from '/src/components/OnBoarding/background2.png'
+import backgroundImage from '/src/components/OnBoarding/background.png'
 
 let i = 0
 export default function ThreeTest({ color, x }: HandleThreeType) {

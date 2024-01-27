@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Canvas } from '@react-three/fiber'
 import ThreeTest from './ThreeTest'
-import lottie from 'lottie-web'
 import webSocketJson from '../../animations/json/webSocket.json'
 import startJson from '../../animations/json/startImage.json'
 import { useNavigate } from 'react-router-dom'
 import PathDrawing from './PathDrawing'
 import ImageSlider from './ImageSlider'
+import LottiePlayer from './LottiePlayer'
 
 export type HandleThreeType = {
 	color: string
@@ -20,8 +20,6 @@ export default function OnBoardingTemplate() {
 		x: 0,
 	})
 	const [mousex, setMousex] = useState(0)
-	const webSocketImage = document.querySelector('#webSocket')!
-	const startImage = document.querySelector('#startImage')!
 
 	const handleMouseMove = (e: React.MouseEvent) => {
 		const x = e.clientX / window.innerWidth
@@ -38,41 +36,6 @@ export default function OnBoardingTemplate() {
 			x: mousex,
 		})
 	}
-
-	useEffect(() => {
-		{
-			lottie.loadAnimation({
-				container: webSocketImage,
-				loop: true,
-				autoplay: true,
-				animationData: webSocketJson,
-			})
-		}
-		return () => {
-			lottie
-				.loadAnimation({
-					container: webSocketImage,
-				})
-				.destroy()
-		}
-	}, [])
-	useEffect(() => {
-		{
-			lottie.loadAnimation({
-				container: startImage,
-				loop: true,
-				autoplay: true,
-				animationData: startJson,
-			})
-		}
-		return () => {
-			lottie
-				.loadAnimation({
-					container: startImage,
-				})
-				.destroy()
-		}
-	}, [])
 
 	return (
 		<div className="w-full overflow-hidden">
@@ -173,7 +136,7 @@ export default function OnBoardingTemplate() {
 						/>
 					</div>
 					<div className="h-[60vh] w-full flex justify-between items-center px-[10%]">
-						<div id="webSocket" className="h-full bg-white" />
+						<LottiePlayer animationdata={webSocketJson} />
 						<div className="flex flex-col gap-4 items-end font-jua">
 							<h2 className="text-5xl mb-2">실시간 공유 캔버스</h2>
 							<div className=" text-[24px] font-thin">
@@ -195,7 +158,7 @@ export default function OnBoardingTemplate() {
 							</div>
 						</div>
 						<div className="relative w-[55%] h-full flex justify-between overflow-hidden">
-							<div id="startImage" className="absolute h-full bg-white" />
+							<LottiePlayer animationdata={startJson} />
 							<button
 								className="absolute right-0 top-32 px-4 pt-2 pb-1 h-fit text-2xl text-white font-jua rounded-lg bg-[#66CAE1]"
 								onClick={() => {
@@ -208,10 +171,7 @@ export default function OnBoardingTemplate() {
 							</button>
 						</div>
 					</div>
-					<div
-						id="content"
-						className="absolute top-[-3.5%] w-full h-[400vh] bg-gray-400"
-					>
+					<div id="content" className="absolute top-[-3.5%] w-full h-[400vh]">
 						<PathDrawing />
 					</div>
 				</div>
