@@ -1,7 +1,6 @@
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import CanvasPreview from '../components/MainPage/CanvasPreview'
 import { useEffect, useState } from 'react'
-import NavBar from '../components/General/NavBar'
 import axios from 'axios'
 import plus from '/images/svg/plus.svg'
 
@@ -19,6 +18,7 @@ export type AddCanvasType = {
 }
 
 export default function MainPage() {
+	const nav = useNavigate()
 	const { user_id } = useParams()
 	const [personalCanvasData, setPersonalCanvasData] = useState<
 		CanvasPreviewProps[]
@@ -77,9 +77,26 @@ export default function MainPage() {
 	}, [])
 
 	return (
-		<>
-			<NavBar />
-			<h1 className="mx-8 mt-8 text-xl font-jua">내 캔버스</h1>
+		<div className="w-screen max-w-full overflow-x-hidden">
+			<header className="z-10 fixed top w-full h-[70px] flex justify-between text-white bg-[#fff] px-[30px] py-[15px] border-gray-200 border-b-[1px]">
+				<div className="font-jua text-[#60c0d0] text-4xl">꾸며Zoom</div>
+				<div>
+					<div className="flex font-sans font-normal text-white">
+						<button
+							className="rounded-lg py-[11px] px-5 text-[13px] mx-4 flex items-center bg-cyan-50 text-[#60c0d0] active:bg-cyan-600 hover:bg-[#60c0d0] hover:text-white"
+							onClick={() => {
+								localStorage.clear()
+								nav({
+									pathname: '/',
+								})
+							}}
+						>
+							로그아웃
+						</button>
+					</div>
+				</div>
+			</header>
+			<h1 className="mt-[70px] mx-8 mt-8 text-xl font-medium">내 캔버스</h1>
 			<div className="grid grid-cols-1 gap-8 mx-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 				{personalCanvasData.map((canvas: CanvasPreviewProps) => (
 					<CanvasPreview key={canvas.canvas_id} {...canvas} />
@@ -96,12 +113,12 @@ export default function MainPage() {
 				</div>
 			</div>
 			<hr className="mx-10 mt-12" />
-			<h1 className="mx-8 mt-8 text-xl font-jua">공유된 캔버스</h1>
+			<h1 className="mx-8 mt-8 text-xl font-medium">공유된 캔버스</h1>
 			<div className="grid grid-cols-1 gap-8 mx-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 				{shareCanvasData.map((canvas: CanvasPreviewProps) => (
 					<CanvasPreview key={canvas.canvas_id} {...canvas} />
 				))}
 			</div>
-		</>
+		</div>
 	)
 }
