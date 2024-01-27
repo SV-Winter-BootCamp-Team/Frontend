@@ -5,6 +5,7 @@ import lottie from 'lottie-web'
 import webSocketJson from '../../animations/json/webSocket.json'
 import startJson from '../../animations/json/startImage.json'
 import { useNavigate } from 'react-router-dom'
+import PathDrawing from './PathDrawing'
 
 export type ImageType = {
 	key: number
@@ -153,32 +154,6 @@ export default function OnBoardingTemplate() {
 			x: mousex,
 		})
 	}
-	// const content1 = document.querySelector('#content1')
-	// const path1 = document.querySelector('.path2')
-	// const path1Length = path1.getTotalLength()
-	// path1.style.strokeDasharray = path1Length + ' ' + path1Length
-	// path1.style.strokeDashoffset = calcDashoffset(
-	// 	window.innerHeight * 0.8,
-	// 	content1,
-	// 	path1Length,
-	// )
-
-	// function calcDashoffset(scrollY, element, length) {
-	// 	const ratio = (scrollY - element.offsetTop) / element.offsetHeight
-	// 	const value = length - length * ratio
-	// 	return value < 0 ? 0 : value > length ? length : value
-	// }
-
-	// function scrollHandler() {
-	// 	const scrollY = window.scrollY + window.innerHeight * 0.8
-	// 	path1.style.strokeDashoffset = calcDashoffset(
-	// 		scrollY,
-	// 		content1,
-	// 		path1Length,
-	// 	)
-	// }
-
-	// window.addEventListener('scroll', scrollHandler)
 
 	useEffect(() => {
 		{
@@ -217,7 +192,6 @@ export default function OnBoardingTemplate() {
 
 	return (
 		<div className="w-full overflow-hidden">
-			<div id="content1"></div>
 			<section className="w-full h-fit flex-col ">
 				<div className="w-full h-screen flex justify-center">
 					<Canvas shadows>
@@ -282,15 +256,12 @@ export default function OnBoardingTemplate() {
 						onMouseMove={handleMouseMove}
 					/>
 				</div>
-				<div className="relative w-full h-screen bg-white pt-[8%] overflow-hidden">
+				<div className="relative w-full h-screen bg-white pt-[5%] overflow-hidden">
 					<div className="flex h-fit justify-center gap-16 items-center text-[130px] text-[#66CAE1]">
 						[
-						<div className="text-black h-fit flex flex-col gap-4">
+						<div className="text-black h-fit flex flex-col font-jua gap-4">
 							<h1 className="text-4xl w-full flex justify-center font-semibold pt-8">
-								제한 없이 표현할 수 있는
-							</h1>
-							<h1 className="text-4xl w-full flex justify-center font-semibold">
-								자유로운 공간
+								함께 표현하는 자유로운 공간
 							</h1>
 							<h1 className="w-full flex justify-center text-xl text-gray-400">
 								당신의 창의력을 디자인에 녹여내보세요
@@ -353,37 +324,49 @@ export default function OnBoardingTemplate() {
 						))}
 					</div>
 				</div>
-				<div className="h-[180vh] pt-16">
-					<div className="h-[50vh] w-full flex justify-between items-center px-44">
-						<div className="flex flex-col gap-4 justify-center text-xl font-semibold">
-							<h2 className="text-3xl mb-2">작업을 도와주는 AI</h2>
-							<div>상상만 하던 것을 표현하도록 도움을 줄게요</div>
-							<div>창작에 날개를 달아드립니다!</div>
+				<div className="relative h-[190vh]">
+					<div className="h-[60vh] w-full flex justify-between items-center px-[10%]">
+						<div className="flex flex-col gap-4 justify-center font-jua">
+							<h2 className="text-5xl mb-2">작업을 도와주는 AI</h2>
+							<div className=" text-[24px] font-thin">
+								여러분의 상상력을 표현할 수 있게 도움을 드립니다.
+							</div>
+							<div className=" text-[24px] font-thin">
+								창작에 날개를 달아드립니다!
+							</div>
 						</div>
 						<img
-							className="w-[35%]"
+							className="w-[45%]"
 							alt="aiImage"
 							src="public/images/svg/aiImage.svg"
 						/>
 					</div>
-					<div className="h-[50vh] w-full flex justify-between items-center px-44">
+					<div className="h-[60vh] w-full flex justify-between items-center px-[10%]">
 						<div id="webSocket" className="h-full bg-white" />
-						<div className="flex flex-col gap-4 items-end text-xl font-semibold">
-							<h2 className="text-3xl mb-2">실시간 공유 캔버스</h2>
-							<div>친구를 초대하고, 같이 디자인 해보세요</div>
-							<div>혼자 하는것 보다 재미있을 거에요</div>
+						<div className="flex flex-col gap-4 items-end font-jua">
+							<h2 className="text-5xl mb-2">실시간 공유 캔버스</h2>
+							<div className=" text-[24px] font-thin">
+								친구를 초대하고, 같이 디자인 해보세요
+							</div>
+							<div className=" text-[24px] font-thin">
+								혼자 하는것 보다 재미있을 거에요
+							</div>
 						</div>
 					</div>
-					<div className="h-[50vh] w-full flex justify-between items-center px-44">
-						<div className="flex flex-col gap-4 justify-center text-xl font-semibold">
-							<h2 className="text-3xl mb-2">바로 시작하기</h2>
-							<div>회원가입만 하면 웹 상에서 바로 시작 할 수 있습니다</div>
-							<div>지금 바로 시작해보세요</div>
+					<div className="h-[70vh] w-full flex justify-between items-center px-[10%]">
+						<div className="flex flex-col gap-4 justify-center font-jua">
+							<h2 className="text-5xl mb-2">바로 시작하기</h2>
+							<div className=" text-[24px] font-thin">
+								회원가입까지 걸리는 시간 ONLY 3초!
+							</div>
+							<div className=" text-[24px] font-thin">
+								지금 바로 시작해보세요
+							</div>
 						</div>
-						<div className="w-[50%] h-full pt-32 flex justify-between">
-							<div id="startImage" className="h-full bg-white" />
+						<div className="relative w-[55%] h-full flex justify-between overflow-hidden">
+							<div id="startImage" className="absolute h-full bg-white" />
 							<button
-								className="px-4 pt-2 pb-1 h-fit text-2xl text-white font-jua rounded-lg bg-[#66CAE1]"
+								className="absolute right-0 top-32 px-4 pt-2 pb-1 h-fit text-2xl text-white font-jua rounded-lg bg-[#66CAE1]"
 								onClick={() => {
 									nav({
 										pathname: '/signup/',
@@ -393,6 +376,12 @@ export default function OnBoardingTemplate() {
 								시작하기
 							</button>
 						</div>
+					</div>
+					<div
+						id="content"
+						className="absolute top-[-3.5%] w-full h-[400vh] bg-gray-400"
+					>
+						<PathDrawing />
 					</div>
 				</div>
 			</section>
