@@ -49,7 +49,7 @@ export default function CanvasPreview({
 
 	function deleteCanvas() {
 		axios
-			.delete(`http://localhost:8000/api/v1/canvases/${canvas_id}/`)
+			.delete(`${import.meta.env.VITE_BASE_URL}canvases/${canvas_id}/`)
 			.then(() => {
 				window.location.reload()
 			})
@@ -66,7 +66,7 @@ export default function CanvasPreview({
 			return nextState
 		})
 		axios
-			.put(`http://localhost:8000/api/v1/canvases/${canvas_id}/`, {
+			.put(`${import.meta.env.VITE_BASE_URL}canvases/${canvas_id}/`, {
 				canvas_name: newName,
 			})
 			.then(() => {

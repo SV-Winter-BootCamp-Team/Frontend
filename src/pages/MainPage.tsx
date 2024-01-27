@@ -27,7 +27,7 @@ export default function MainPage() {
 		[],
 	)
 	const [newCanvas, setNewCanvas] = useState<AddCanvasType>({
-		canvas_name: '',
+		canvas_name: 'Untitled',
 		owner_id: Number(user_id),
 	})
 
@@ -38,7 +38,7 @@ export default function MainPage() {
 			return nextState
 		})
 		axios
-			.post('http://localhost:8000/api/v1/canvases/', newCanvas)
+			.post(`${import.meta.env.VITE_BASE_URL}canvases/`, newCanvas)
 			.then(() => {
 				window.location.reload()
 			})
@@ -49,7 +49,9 @@ export default function MainPage() {
 
 	useEffect(() => {
 		axios
-			.get(`http://localhost:8000/api/v1/canvases/personal/${Number(user_id)}/`)
+			.get(
+				`${import.meta.env.VITE_BASE_URL}canvases/personal/${Number(user_id)}/`,
+			)
 			.then((response) => {
 				const loadedCanvas = response.data.result.canvases
 				loadedCanvas.forEach((item: CanvasPreviewProps) => {
@@ -59,13 +61,13 @@ export default function MainPage() {
 			})
 			.catch(() => {})
 		axios
-			.get(`http://localhost:8000/api/v1/canvases/share/${Number(user_id)}/`)
+			.get(`${import.meta.env.VITE_BASE_URL}canvases/share/${Number(user_id)}/`)
 			.then((response) => {
 				const loadedCanvas = response.data.result.canvases
 				loadedCanvas.forEach((item: CanvasPreviewProps) => {
 					item['update_at'] = item['update_at'].substr(0, 19).replace('T', ' ')
 				})
-				setShareCanvasData(response.data.result.canvases)
+				setShareCanvasData(loadedCanvas)
 			})
 			.catch(() => {})
 	}, [])

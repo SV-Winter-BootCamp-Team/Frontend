@@ -4,6 +4,7 @@ import ThreeTest from './ThreeTest'
 import lottie from 'lottie-web'
 import webSocketJson from '../../animations/json/webSocket.json'
 import startJson from '../../animations/json/startImage.json'
+import { useNavigate } from 'react-router-dom'
 
 export type ImageType = {
 	key: number
@@ -17,6 +18,7 @@ export type HandleThreeType = {
 }
 
 export default function OnBoardingTemplate() {
+	const nav = useNavigate()
 	const images1: ImageType[] = [
 		{
 			key: 1,
@@ -383,7 +385,9 @@ export default function OnBoardingTemplate() {
 							<button
 								className="px-4 pt-2 pb-1 h-fit text-2xl text-white font-jua rounded-lg bg-[#66CAE1]"
 								onClick={() => {
-									window.location.replace('/signup')
+									nav({
+										pathname: '/signup/',
+									})
 								}}
 							>
 								시작하기

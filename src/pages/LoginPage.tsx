@@ -23,29 +23,27 @@ export default function LoginPage() {
 	}
 
 	const onSubmit = () => {
-		console.log(userKey)
 		axios
-			.post('http://localhost:8000/api/v1/users/login/', userKey)
+			.post(`${import.meta.env.VITE_BASE_URL}users/login/`, userKey)
 			.then((response) => {
 				localStorage.setItem('user_id', response.data.result.user_id)
 				localStorage.setItem('user_name', response.data.result.user_name)
 				alert(response.data.message)
 				nav({
-					pathname: `/main/${response.data.result.user_id}`,
+					pathname: `/main/${response.data.result.user_id}/`,
 				})
 			})
 			.catch((error) => {
 				console.log(error.response)
 				alert(error.response.data.message)
 			})
-		console.log('done')
 	}
 
 	useEffect(() => {
 		if (typeof localStorage.getItem('user_id') === 'string') {
-			window.location.replace(
-				`http://localhost:5173/main/${localStorage.getItem('user_id')}`,
-			)
+			nav({
+				pathname: `/main/${localStorage.getItem('user_id')}/`,
+			})
 		}
 	}, [])
 
