@@ -90,6 +90,7 @@ export default React.memo(function Canvas({
 								...component,
 								width: data.width,
 								height: data.height,
+								rotate: data.rotate,
 							}
 						}
 						return component
@@ -234,31 +235,17 @@ export default React.memo(function Canvas({
 											let newWidth = width
 											let newHeight = height
 
-											if (
-												target instanceof HTMLElement &&
-												direction[0] &&
-												direction[1]
-											) {
-												// 대각선 방향으로 리사이징하는 경우
-												// 가로세로 비율 유지
-												const originalWidth = target.offsetWidth
-												const originalHeight = target.offsetHeight
-												const ratio = originalWidth / originalHeight
+											const currentRotate = element.rotate
 
-												if (width / height > ratio) {
-													newHeight = newWidth / ratio
-												} else {
-													newWidth = newHeight * ratio
-												}
-											}
 											target.style.width = `${newWidth}px`
 											target.style.height = `${newHeight}px`
-											target.style.transform = `translate(${beforeTranslate[0]}px, ${beforeTranslate[1]}px)`
+											target.style.transform = `rotate(${currentRotate}deg)`
 
 											updateComponent({
 												...element,
 												width: newWidth,
 												height: newHeight,
+												rotate: currentRotate,
 											})
 
 											chatSocket?.send(
@@ -268,15 +255,16 @@ export default React.memo(function Canvas({
 													component_id: element.component_id,
 													width: newWidth,
 													height: newHeight,
+													rotate: currentRotate,
 												}),
 											)
 										}}
-										onRotate={({ target, beforeRotate }) => {
-											target.style.transform = `rotate(${beforeRotate}deg)`
+										onRotate={({ target, rotation }) => {
+											target.style.transform = `rotate(${rotation}deg)`
 
 											updateComponent({
 												...element,
-												rotate: beforeRotate,
+												rotate: rotation,
 											})
 
 											chatSocket?.send(
@@ -284,7 +272,7 @@ export default React.memo(function Canvas({
 													type: 'rotate',
 													user_id: localStorage.getItem('user_id'),
 													component_id: element.component_id,
-													rotate: beforeRotate,
+													rotate: rotation,
 												}),
 											)
 										}}
