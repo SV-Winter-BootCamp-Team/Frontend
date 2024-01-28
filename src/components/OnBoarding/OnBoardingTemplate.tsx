@@ -216,10 +216,10 @@ export default function OnBoardingTemplate() {
 	}, [])
 
 	return (
-		<div className="w-full overflow-hidden">
+		<div className="w-5/6 overflow-hidden">
 			<div id="content1"></div>
 			<section className="w-full h-fit flex-col ">
-				<div className="w-full h-screen flex justify-center">
+				<div className="relative w-full h-screen flex justify-center">
 					<Canvas shadows>
 						<ThreeTest {...handleThree} />
 					</Canvas>
