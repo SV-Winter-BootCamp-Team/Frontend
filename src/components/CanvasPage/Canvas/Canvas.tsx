@@ -253,7 +253,7 @@ export default React.memo(function Canvas({
 											}
 											target.style.width = `${newWidth}px`
 											target.style.height = `${newHeight}px`
-											target.style.transform = `translate(${beforeTranslate[0]}px, ${beforeTranslate[1]}px)`
+											target.style.transform = `rotate(${element.rotate}deg) translate(${beforeTranslate[0]}px, ${beforeTranslate[1]}px)`
 
 											updateComponent({
 												...element,
@@ -268,15 +268,22 @@ export default React.memo(function Canvas({
 													component_id: element.component_id,
 													width: newWidth,
 													height: newHeight,
+													rotate: element.rotate,
 												}),
 											)
 										}}
-										onRotate={({ target, beforeRotate }) => {
-											target.style.transform = `rotate(${beforeRotate}deg)`
+										onRotate={({ target, rotation, drag }) => {
+											target.style.left = `${drag.left}px`
+											target.style.top = `${drag.top}px`
+											target.style.transform = `rotate(${rotation}deg)`
 
 											updateComponent({
 												...element,
-												rotate: beforeRotate,
+												position_x: drag.left,
+												position_y: drag.top,
+												width: element.width, // 현재 너비 유지
+												height: element.height, // 현재 높이 유지
+												rotate: rotation,
 											})
 
 											chatSocket?.send(
@@ -284,7 +291,7 @@ export default React.memo(function Canvas({
 													type: 'rotate',
 													user_id: localStorage.getItem('user_id'),
 													component_id: element.component_id,
-													rotate: beforeRotate,
+													rotate: rotation,
 												}),
 											)
 										}}
