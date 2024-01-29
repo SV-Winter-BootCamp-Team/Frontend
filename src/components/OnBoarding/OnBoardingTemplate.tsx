@@ -28,8 +28,6 @@ export default function OnBoardingTemplate() {
 		x: 0,
 	})
 	const [mousex, setMousex] = useState(0)
-	const webSocketImage = document.querySelector('#webSocket')!
-	const startImage = document.querySelector('#startImage')!
 
 	const handleMouseMove = (e: React.MouseEvent) => {
 		const x = e.clientX / window.innerWidth
