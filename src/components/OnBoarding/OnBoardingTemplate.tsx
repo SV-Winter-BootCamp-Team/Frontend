@@ -245,7 +245,7 @@ export default function OnBoardingTemplate() {
 							}}
 						/>
 					</div>
-					<div className="absolute right-0 h-full w-3/5 font-jua text-5xl">
+					<div className="absolute right-0 h-full w-3/5 font-medium text-5xl">
 						<div
 							style={{
 								width: '100%',
@@ -261,7 +261,7 @@ export default function OnBoardingTemplate() {
 							</div>
 						</div>
 					</div>
-					<div className="absolute left-0 h-full w-3/5 font-jua text-5xl">
+					<div className="absolute left-0 h-full w-3/5 font-medium text-5xl">
 						<div
 							style={{
 								width: '100%',
