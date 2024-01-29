@@ -79,7 +79,16 @@ export default function MainPage() {
 	return (
 		<div className="w-screen max-w-full overflow-x-hidden">
 			<header className="z-10 fixed top w-full h-[70px] flex justify-between text-white bg-[#fff] px-[30px] py-[15px] border-gray-200 border-b-[1px]">
-				<div className="font-jua text-[#60c0d0] text-4xl">꾸며Zoom</div>
+				<div
+					className="font-jua text-[#60c0d0] text-4xl cursor-pointer"
+					onClick={() => {
+						nav({
+							pathname: '/',
+						})
+					}}
+				>
+					꾸며Zoom
+				</div>
 				<div>
 					<div className="flex font-sans font-normal text-white">
 						<button

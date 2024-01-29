@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import download from '/images/svg/download.svg'
 
 type NavBarProps = {
@@ -11,10 +12,20 @@ export default function NavBar({
 	canvasName,
 	handleSaveCanvas,
 }: NavBarProps) {
+	const nav = useNavigate()
 	return (
 		<div className="w-full h-[70px] shadow-lg border-b-[1px]">
 			<div className="font-jua flex justify-between items-center w-full px-[30px] py-[15px]">
-				<div className="text-[#60c0d0] text-4xl">꾸며Zoom</div>
+				<div
+					className="text-[#60c0d0] text-4xl cursor-pointer"
+					onClick={() => {
+						nav({
+							pathname: '/',
+						})
+					}}
+				>
+					꾸며Zoom
+				</div>
 				<p className="font-sans font-medium text-gray-800 text-md">
 					{canvasName}
 				</p>
