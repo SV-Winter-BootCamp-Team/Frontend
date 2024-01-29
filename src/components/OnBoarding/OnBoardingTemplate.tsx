@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import PathDrawing from './PathDrawing'
 import ImageSlider from './ImageSlider'
 import LottiePlayer from './LottiePlayer'
+import aiImage from '/images/svg/aiImage.svg'
 
 export type HandleThreeType = {
 	color: string
@@ -136,11 +137,7 @@ export default function OnBoardingTemplate() {
 									창작에 날개를 달아드립니다!
 								</div>
 							</div>
-							<img
-								className="w-[45%]"
-								alt="aiImage"
-								src="public/images/svg/aiImage.svg"
-							/>
+							<img className="w-[45%]" alt="aiImage" src={aiImage} />
 						</div>
 						<div className="w-full aspect-[595.28/219.49] flex justify-between items-center px-[10%]">
 							<LottiePlayer animationdata={webSocketJson} />
