@@ -6,6 +6,8 @@ import webSocketJson from '../../animations/json/webSocket.json'
 import startJson from '../../animations/json/startImage.json'
 import { useNavigate } from 'react-router-dom'
 import PathDrawing from './PathDrawing'
+import aiImage from '/images/svg/aiImage.svg'
+import ImageSlider from './ImageSlider'
 
 export type ImageType = {
 	key: number
@@ -20,117 +22,7 @@ export type HandleThreeType = {
 
 export default function OnBoardingTemplate() {
 	const nav = useNavigate()
-	const images1: ImageType[] = [
-		{
-			key: 1,
-			src: '/images/svg/examples/example01.svg',
-			alt: 'onBoarding1',
-		},
-		{
-			key: 2,
-			src: '/images/svg/examples/example02.svg',
-			alt: 'onBoarding2',
-		},
-		{
-			key: 3,
-			src: '/images/svg/examples/example03.svg',
-			alt: 'onBoarding2',
-		},
-		{
-			key: 4,
-			src: '/images/svg/examples/example04.svg',
-			alt: 'onBoarding2',
-		},
-		{
-			key: 5,
-			src: '/images/svg/examples/example05.svg',
-			alt: 'onBoarding2',
-		},
-		{
-			key: 6,
-			src: '/images/svg/examples/example06.svg',
-			alt: 'onBoarding2',
-		},
-		{
-			key: 7,
-			src: '/images/svg/examples/example07.svg',
-			alt: 'onBoarding2',
-		},
-	]
-	const images2: ImageType[] = [
-		{
-			key: 1,
-			src: '/images/svg/examples/example11.svg',
-			alt: 'onBoarding1',
-		},
-		{
-			key: 2,
-			src: '/images/svg/examples/example12.svg',
-			alt: 'onBoarding2',
-		},
-		{
-			key: 3,
-			src: '/images/svg/examples/example13.svg',
-			alt: 'onBoarding2',
-		},
-		{
-			key: 4,
-			src: '/images/svg/examples/example14.svg',
-			alt: 'onBoarding2',
-		},
-		{
-			key: 5,
-			src: '/images/svg/examples/example15.svg',
-			alt: 'onBoarding2',
-		},
-		{
-			key: 6,
-			src: '/images/svg/examples/example16.svg',
-			alt: 'onBoarding2',
-		},
-		{
-			key: 7,
-			src: '/images/svg/examples/example17.svg',
-			alt: 'onBoarding2',
-		},
-	]
-	const images3: ImageType[] = [
-		{
-			key: 1,
-			src: '/images/svg/examples/example21.svg',
-			alt: 'onBoarding1',
-		},
-		{
-			key: 2,
-			src: '/images/svg/examples/example22.svg',
-			alt: 'onBoarding2',
-		},
-		{
-			key: 3,
-			src: '/images/svg/examples/example23.svg',
-			alt: 'onBoarding2',
-		},
-		{
-			key: 4,
-			src: '/images/svg/examples/example24.svg',
-			alt: 'onBoarding2',
-		},
-		{
-			key: 5,
-			src: '/images/svg/examples/example25.svg',
-			alt: 'onBoarding2',
-		},
-		{
-			key: 6,
-			src: '/images/svg/examples/example26.svg',
-			alt: 'onBoarding2',
-		},
-		{
-			key: 7,
-			src: '/images/svg/examples/example27.svg',
-			alt: 'onBoarding2',
-		},
-	]
+
 	const [handleThree, setHandleThree] = useState<HandleThreeType>({
 		color: '#80B9BF',
 		x: 0,
@@ -154,32 +46,6 @@ export default function OnBoardingTemplate() {
 			x: mousex,
 		})
 	}
-	// const content1 = document.querySelector('#content1')
-	// const path1 = document.querySelector('.path2')
-	// const path1Length = path1.getTotalLength()
-	// path1.style.strokeDasharray = path1Length + ' ' + path1Length
-	// path1.style.strokeDashoffset = calcDashoffset(
-	// 	window.innerHeight * 0.8,
-	// 	content1,
-	// 	path1Length,
-	// )
-
-	// function calcDashoffset(scrollY, element, length) {
-	// 	const ratio = (scrollY - element.offsetTop) / element.offsetHeight
-	// 	const value = length - length * ratio
-	// 	return value < 0 ? 0 : value > length ? length : value
-	// }
-
-	// function scrollHandler() {
-	// 	const scrollY = window.scrollY + window.innerHeight * 0.8
-	// 	path1.style.strokeDashoffset = calcDashoffset(
-	// 		scrollY,
-	// 		content1,
-	// 		path1Length,
-	// 	)
-	// }
-
-	// window.addEventListener('scroll', scrollHandler)
 
 	useEffect(() => {
 		{
@@ -283,7 +149,7 @@ export default function OnBoardingTemplate() {
 						onMouseMove={handleMouseMove}
 					/>
 				</div>
-				<div className="relative w-full h-screen bg-white pt-[8%] overflow-hidden">
+				<div className="relative w-full h-fit bg-white pt-[8%] overflow-hidden">
 					<div className="flex h-fit justify-center gap-16 items-center text-[130px] text-[#66CAE1]">
 						[
 						<div className="text-black h-fit flex flex-col gap-4">
@@ -299,60 +165,7 @@ export default function OnBoardingTemplate() {
 						</div>
 						]
 					</div>
-					<div className="flex flex-row-reverse gap-[1%] mt-[3%] overflow-hidden">
-						{images1.map((image) => (
-							<img
-								className="w-[15%] animate-slider"
-								key={image.key}
-								alt={image.alt}
-								src={image.src}
-							/>
-						))}
-						{images1.map((image) => (
-							<img
-								className="w-[15%] animate-slider"
-								key={image.key}
-								alt={image.alt}
-								src={image.src}
-							/>
-						))}
-					</div>
-					<div className="flex flex-row gap-[1%] mt-4 overflow-hidden">
-						{images2.map((image) => (
-							<img
-								className="w-[15%] animate-reverse_slider"
-								key={image.key}
-								alt={image.alt}
-								src={image.src}
-							/>
-						))}
-						{images2.map((image) => (
-							<img
-								className="w-[15%] animate-reverse_slider"
-								key={image.key}
-								alt={image.alt}
-								src={image.src}
-							/>
-						))}
-					</div>
-					<div className="flex flex-row-reverse gap-[1%] mt-4 overflow-hidden">
-						{images3.map((image) => (
-							<img
-								className="w-[15%] animate-slider"
-								key={image.key}
-								alt={image.alt}
-								src={image.src}
-							/>
-						))}
-						{images3.map((image) => (
-							<img
-								className="w-[15%] animate-slider"
-								key={image.key}
-								alt={image.alt}
-								src={image.src}
-							/>
-						))}
-					</div>
+					<ImageSlider />
 				</div>
 				<div className="relative h-[180vh] pt-16">
 					<div className="h-[50vh] w-full flex justify-between items-center px-44">
@@ -361,11 +174,7 @@ export default function OnBoardingTemplate() {
 							<div>상상만 하던 것을 표현하도록 도움을 줄게요</div>
 							<div>창작에 날개를 달아드립니다!</div>
 						</div>
-						<img
-							className="w-[35%]"
-							alt="aiImage"
-							src="public/images/svg/aiImage.svg"
-						/>
+						<img className="w-[35%]" alt="aiImage" src={aiImage} />
 					</div>
 					<div className="h-[50vh] w-full flex justify-between items-center px-44">
 						<div id="webSocket" className="h-full bg-white" />
