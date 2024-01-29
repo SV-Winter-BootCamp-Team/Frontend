@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import ThreeTest from './ThreeTest'
-import lottie from 'lottie-web'
 import webSocketJson from '../../animations/json/webSocket.json'
 import startJson from '../../animations/json/startImage.json'
 import { useNavigate } from 'react-router-dom'
 import PathDrawing from './PathDrawing'
 import aiImage from '/images/svg/aiImage.svg'
 import ImageSlider from './ImageSlider'
+import LottiePlayer from './LottiePlayer'
 
 export type ImageType = {
 	key: number
@@ -47,44 +47,8 @@ export default function OnBoardingTemplate() {
 		})
 	}
 
-	useEffect(() => {
-		{
-			lottie.loadAnimation({
-				container: webSocketImage,
-				loop: true,
-				autoplay: true,
-				animationData: webSocketJson,
-			})
-		}
-		return () => {
-			lottie
-				.loadAnimation({
-					container: webSocketImage,
-				})
-				.destroy()
-		}
-	}, [])
-	useEffect(() => {
-		{
-			lottie.loadAnimation({
-				container: startImage,
-				loop: true,
-				autoplay: true,
-				animationData: startJson,
-			})
-		}
-		return () => {
-			lottie
-				.loadAnimation({
-					container: startImage,
-				})
-				.destroy()
-		}
-	}, [])
-
 	return (
 		<div className="w-full overflow-hidden">
-			<div id="content1"></div>
 			<section className="w-full h-fit flex-col ">
 				<div className="w-full h-screen flex justify-center">
 					<Canvas shadows>
@@ -112,7 +76,7 @@ export default function OnBoardingTemplate() {
 							}}
 						/>
 					</div>
-					<div className="absolute right-0 h-full w-3/5 font-medium text-5xl">
+					<div className="absolute right-0 h-full w-3/5 font-medium text-[3vw]">
 						<div
 							style={{
 								width: '100%',
@@ -128,7 +92,7 @@ export default function OnBoardingTemplate() {
 							</div>
 						</div>
 					</div>
-					<div className="absolute left-0 h-full w-3/5 font-medium text-5xl">
+					<div className="absolute left-0 h-full w-3/5 font-medium text-[3vw]">
 						<div
 							style={{
 								width: '100%',
@@ -150,16 +114,16 @@ export default function OnBoardingTemplate() {
 					/>
 				</div>
 				<div className="relative w-full h-fit bg-white pt-[8%] overflow-hidden">
-					<div className="flex h-fit justify-center gap-16 items-center text-[130px] text-[#66CAE1]">
+					<div className="flex h-fit justify-center gap-[3vw] items-center text-[15vw] text-[#66CAE1]">
 						[
-						<div className="text-black h-fit flex flex-col gap-4">
-							<h1 className="text-4xl w-full flex justify-center font-semibold pt-8">
+						<div className="text-black h-fit flex flex-col gap-[0.3vw]">
+							<h1 className="text-[3.5vw] w-full flex justify-center font-semibold pt-8">
 								제한 없이 표현할 수 있는
 							</h1>
-							<h1 className="text-4xl w-full flex justify-center font-semibold">
+							<h1 className="text-[3.5vw] w-full flex justify-center font-semibold">
 								자유로운 공간
 							</h1>
-							<h1 className="w-full flex justify-center text-xl text-gray-400">
+							<h1 className="w-full flex justify-center text-[1.5vw] text-gray-400">
 								당신의 창의력을 디자인에 녹여내보세요
 							</h1>
 						</div>
@@ -167,31 +131,31 @@ export default function OnBoardingTemplate() {
 					</div>
 					<ImageSlider />
 				</div>
-				<div className="relative h-[180vh] pt-16">
-					<div className="h-[50vh] w-full flex justify-between items-center px-44">
-						<div className="flex flex-col gap-4 justify-center text-xl font-semibold">
-							<h2 className="text-3xl mb-2">작업을 도와주는 AI</h2>
+				<div className="relative w-full aspect-[595.28/640.48]">
+					<div className="aspect-[595.28/213.49] w-full flex justify-between items-end px-[10vw]">
+						<div className="flex flex-col gap-4 justify-center text-[2vw] font-semibold">
+							<h2 className="text-[4vw] mb-2">작업을 도와주는 AI</h2>
 							<div>상상만 하던 것을 표현하도록 도움을 줄게요</div>
 							<div>창작에 날개를 달아드립니다!</div>
 						</div>
 						<img className="w-[35%]" alt="aiImage" src={aiImage} />
 					</div>
-					<div className="h-[50vh] w-full flex justify-between items-center px-44">
-						<div id="webSocket" className="h-full bg-white" />
-						<div className="flex flex-col gap-4 items-end text-xl font-semibold">
-							<h2 className="text-3xl mb-2">실시간 공유 캔버스</h2>
+					<div className="aspect-[595.28/213.49] w-full flex justify-between items-center px-[10vw]">
+						<LottiePlayer animationdata={webSocketJson} />
+						<div className="flex flex-col gap-4 items-end text-[2vw] font-semibold">
+							<h2 className="text-[4vw] mb-2">실시간 공유 캔버스</h2>
 							<div>친구를 초대하고, 같이 디자인 해보세요</div>
 							<div>혼자 하는것 보다 재미있을 거에요</div>
 						</div>
 					</div>
-					<div className="h-[50vh] w-full flex justify-between items-center px-44">
-						<div className="flex flex-col gap-4 justify-center text-xl font-semibold">
-							<h2 className="text-3xl mb-2">바로 시작하기</h2>
+					<div className="aspect-[595.28/213.49] w-full flex justify-between items-center px-[10vw]">
+						<div className="flex flex-col gap-4 justify-center text-[2vw] font-semibold">
+							<h2 className="text-[4vw] mb-2">바로 시작하기</h2>
 							<div>회원가입만 하면 웹 상에서 바로 시작 할 수 있습니다</div>
 							<div>지금 바로 시작해보세요</div>
 						</div>
 						<div className="w-[50%] h-full pt-32 flex justify-between">
-							<div id="startImage" className="h-full bg-white" />
+							<LottiePlayer animationdata={startJson} />
 							<button
 								className="px-4 pt-2 pb-1 h-fit text-2xl text-white font-jua rounded-lg bg-[#66CAE1]"
 								onClick={() => {
