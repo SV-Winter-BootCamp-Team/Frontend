@@ -5,6 +5,7 @@ import lottie from 'lottie-web'
 import webSocketJson from '../../animations/json/webSocket.json'
 import startJson from '../../animations/json/startImage.json'
 import { useNavigate } from 'react-router-dom'
+import PathDrawing from './PathDrawing'
 
 export type ImageType = {
 	key: number
@@ -353,7 +354,7 @@ export default function OnBoardingTemplate() {
 						))}
 					</div>
 				</div>
-				<div className="h-[180vh] pt-16">
+				<div className="relative h-[180vh] pt-16">
 					<div className="h-[50vh] w-full flex justify-between items-center px-44">
 						<div className="flex flex-col gap-4 justify-center text-xl font-semibold">
 							<h2 className="text-3xl mb-2">작업을 도와주는 AI</h2>
@@ -393,6 +394,9 @@ export default function OnBoardingTemplate() {
 								시작하기
 							</button>
 						</div>
+					</div>
+					<div className="absolute top-0 w-full">
+						<PathDrawing />
 					</div>
 				</div>
 			</section>
