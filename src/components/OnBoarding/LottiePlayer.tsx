@@ -5,7 +5,7 @@ export default function LottiePlayer({
 	animationdata,
 }: AnimationConfigWithData['animationData']) {
 	const container = document.querySelector('#content')!
-	console.log(animationdata)
+
 	useEffect(() => {
 		{
 			lottie.loadAnimation({
