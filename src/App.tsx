@@ -1,11 +1,9 @@
-import { lazy } from 'react'
 import { Routes, Route } from 'react-router-dom'
-
-const OnBoardingPage = lazy(() => import('./pages/OnBoardingPage'))
-const SignUpPage = lazy(() => import('./pages/SignUpPage'))
-const LoginPage = lazy(() => import('./pages/LoginPage'))
-const MainPage = lazy(() => import('./pages/MainPage'))
-const CanvasPage = lazy(() => import('./pages/CanvasPage'))
+import OnBoardingPage from './pages/OnBoardingPage'
+import SignUpPage from './pages/SignUpPage'
+import LoginPage from './pages/LoginPage'
+import MainPage from './pages/MainPage'
+import CanvasPage from './pages/CanvasPage'
 
 function App() {
 	return (

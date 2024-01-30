@@ -1,13 +1,12 @@
-import { lazy, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import html2canvas from 'html2canvas'
 
 import NavBar from '../components/CanvasPage/NavBar'
 import Canvas from '../components/CanvasPage/Canvas'
 import MenuBar from '../components/CanvasPage/MenuBar'
+import MenuSection from '../components/CanvasPage/MenuSection'
 import axios from 'axios'
 import { useParams } from 'react-router'
-
-const MenuSection = lazy(() => import('../components/CanvasPage/MenuSection'))
 
 export type Component = {
 	component_id: number
@@ -17,8 +16,6 @@ export type Component = {
 	width: number
 	height: number
 	rotate: number
-	beforeTranslate_x: number
-	beforeTranslate_y: number
 }
 
 export default function CanvasPage() {
@@ -32,6 +29,7 @@ export default function CanvasPage() {
 
 	const [canvasName, setCanvasName] = useState<string>('')
 
+	const [canvasPreviewURL, setCanvasPreviewURL] = useState<string>('')
 	const [socket, setSocket] = useState<WebSocket | null>(null)
 
 	const [position_x] = useState<number>(406)
@@ -39,8 +37,6 @@ export default function CanvasPage() {
 	const [width] = useState<number>(100)
 	const [height] = useState<number>(100)
 	const [rotate] = useState<number>(0)
-	const [beforeTranslate_x] = useState<number>(0)
-	const [beforeTranslate_y] = useState<number>(0)
 
 	const updateComponent = (updatedComponent: Component) => {
 		setComponentList((prevList) =>
@@ -54,6 +50,7 @@ export default function CanvasPage() {
 
 	const handleSaveCanvas = async () => {
 		try {
+			// 캔버스 캡처
 			const canvasElement = document.getElementById('board')
 			if (canvasElement) {
 				const canvasImage = await html2canvas(canvasElement, {
@@ -61,24 +58,27 @@ export default function CanvasPage() {
 					scale: 2,
 				})
 				const image = canvasImage.toDataURL('image/png', 1.0)
-
-				const res = await fetch(image)
-				const blob = await res.blob()
-
-				const formData = new FormData()
-				formData.append('components', JSON.stringify(componentList))
-				formData.append('canvas_preview_url', blob)
-
-				await axios.put(
-					`${import.meta.env.VITE_BASE_URL}canvases/${params.canvas_id}/save/`,
-					formData,
-					{
-						headers: {
-							'Content-Type': 'multipart/form-data',
-						},
-					},
-				)
+				setCanvasPreviewURL(image)
 			}
+
+			const res = await fetch(canvasPreviewURL)
+			const blob = await res.blob()
+
+			const formData = new FormData()
+			formData.append('components', JSON.stringify(componentList))
+
+			formData.append('canvas_preview_url', blob)
+
+			await axios.put(
+				`${import.meta.env.VITE_BASE_URL}canvases/${params.canvas_id}/save/`,
+				formData,
+				{
+					headers: {
+						'Content-Type': 'multipart/form-data',
+					},
+				},
+			)
+			console.log('캔버스 저장 완료')
 		} catch (error) {
 			console.error('Error saving canvas:', error)
 		}
@@ -102,20 +102,18 @@ export default function CanvasPage() {
 				width: width,
 				height: height,
 				rotate: rotate,
-				beforeTranslate_x: beforeTranslate_x,
-				beforeTranslate_y: beforeTranslate_y,
 			}
 
 			setComponentList([...componentList, newComponent])
-			socket?.send(
-				JSON.stringify({
-					type: 'add',
-					user_id: localStorage.getItem('user_id'),
-					component_id: newComponent.component_id,
-					component_url: newComponent.component_url,
-					component_type: 'sticker',
-				}),
-			)
+			// socket?.send(
+			// 	JSON.stringify({
+			// 		type: 'add',
+			// 		user_id: localStorage.getItem('user_id'),
+			// 		id: newComponent.component_id,
+			// 		component_url: newComponent.component_url,
+			// 		component_type: 'sticker',
+			// 	}),
+			// )
 		} catch (error) {
 			console.error('Error saving sticker:', error)
 		}
@@ -134,7 +132,7 @@ export default function CanvasPage() {
 			})
 
 			const image = canvasImage.toDataURL('image/png', 1.0)
-
+			setCanvasPreviewURL(image)
 			const downloadLink = document.createElement('a')
 			downloadLink.href = image
 			downloadLink.download = 'captured-canvas.png'
@@ -149,11 +147,12 @@ export default function CanvasPage() {
 				`${import.meta.env.VITE_BASE_URL}canvases/detail/${params.canvas_id}/`,
 			)
 			const fetchedCanvasData = response.data.result
+			console.log(fetchedCanvasData)
 
 			setCanvasName(fetchedCanvasData.canvas_name)
 
 			setBackgroundURL(fetchedCanvasData.background.component_url)
-
+			console.log(fetchedCanvasData.sticker)
 			setComponentList(
 				fetchedCanvasData.sticker.map(
 					({
@@ -164,8 +163,6 @@ export default function CanvasPage() {
 						width,
 						height,
 						rotate,
-						beforeTranslate_x,
-						beforeTranslate_y,
 						...rest
 					}: {
 						id: string
@@ -175,8 +172,6 @@ export default function CanvasPage() {
 						width: number
 						height: number
 						rotate: number
-						beforeTranslate_x: number
-						beforeTranslate_y: number
 					}) => ({
 						component_id: id,
 						position_x,
@@ -184,8 +179,6 @@ export default function CanvasPage() {
 						width,
 						height,
 						rotate,
-						beforeTranslate_x,
-						beforeTranslate_y,
 						...rest,
 					}),
 				),
@@ -201,14 +194,10 @@ export default function CanvasPage() {
 
 	useEffect(() => {
 		fetchCanvasDetails()
-		const newSocket = new WebSocket(
-			`ws://${import.meta.env.VITE_SOCKET_URL}/ws/canvases/${params.canvas_id}/`,
-		) // Adjust the URL to your WebSocket server
-		setSocket(newSocket)
-
-		return () => {
-			newSocket.close()
-		}
+		// const newSocket = new WebSocket(
+		// 	`ws://${import.meta.env.VITE_SOCKET_URL}/ws/canvases/${params.canvas_id}/`,
+		// ) // Adjust the URL to your WebSocket server
+		// setSocket(newSocket)
 	}, [])
 
 	return (
@@ -240,7 +229,6 @@ export default function CanvasPage() {
 					setComponentList={setComponentList}
 					updateComponent={updateComponent}
 					setBackgroundURL={setBackgroundURL}
-					socket={socket}
 				/>
 			</div>
 		</div>
