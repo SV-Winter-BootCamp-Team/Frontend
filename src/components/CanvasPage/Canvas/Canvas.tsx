@@ -11,6 +11,7 @@ type CanvasProps = {
 	setComponentList: (componentList: Component[]) => void
 	updateComponent: (component: Component) => void
 	setBackgroundURL: (backgroundURL: string) => void
+	socket: WebSocket | null
 }
 
 export default React.memo(function Canvas({
@@ -19,13 +20,13 @@ export default React.memo(function Canvas({
 	setComponentList,
 	updateComponent,
 	setBackgroundURL,
+	socket,
 }: CanvasProps) {
 	const params = useParams<{ canvas_id: string }>()
 	const [selectedElement, setSelectedElement] = useState<number | null>(null)
 	const canvasRef = useRef(null)
 
 	const canvasId = params.canvas_id
-	const [chatSocket, setChatSocket] = useState<WebSocket | null>(null)
 
 	const handleElementClick = (elementId: number) => {
 		setSelectedElement(elementId)
@@ -55,7 +56,7 @@ export default React.memo(function Canvas({
 			await axios.delete(
 				`${import.meta.env.VITE_BASE_URL}canvases/${params.canvas_id}/${componentId}/`,
 			)
-			chatSocket?.send(
+			socket?.send(
 				JSON.stringify({
 					type: 'remove',
 					user_id: localStorage.getItem('user_id'),
@@ -70,17 +71,9 @@ export default React.memo(function Canvas({
 	}
 
 	useEffect(() => {
-		const newSocket = new WebSocket(
-			`ws://${import.meta.env.VITE_SOCKET_URL}/ws/canvases/${canvasId}/`,
-		)
-
-		setChatSocket(newSocket)
-	}, [canvasId])
-
-	useEffect(() => {
-		if (chatSocket) {
+		if (socket) {
 			// 메시지 수신 처리
-			chatSocket.onmessage = (e) => {
+			socket.onmessage = (e) => {
 				var data = JSON.parse(e.data)
 				// console.log(data.type)
 				if (data.type === 'resize') {
@@ -91,6 +84,8 @@ export default React.memo(function Canvas({
 								width: data.width,
 								height: data.height,
 								rotate: data.rotate,
+								beforeTranslate_x: data.beforeTranslate_x,
+								beforeTranslate_y: data.beforeTranslate_y,
 							}
 						}
 						return component
@@ -139,6 +134,8 @@ export default React.memo(function Canvas({
 								width: 100,
 								height: 100,
 								rotate: 0,
+								beforeTranslate_x: 0,
+								beforeTranslate_y: 0,
 							}
 							const updatedComponentList = [...componentList, newComponent]
 							setComponentList(updatedComponentList)
@@ -155,7 +152,7 @@ export default React.memo(function Canvas({
 				}
 			}
 		}
-	}, [chatSocket, componentList, backgroundURL])
+	}, [socket, componentList, backgroundURL])
 
 	return (
 		<div
@@ -211,6 +208,8 @@ export default React.memo(function Canvas({
 										onDrag={({ target, left, top }) => {
 											target.style.left = `${left}px`
 											target.style.top = `${top}px`
+											// target.style.transform = `rotate(${element.rotate}deg)`
+
 											console.log(left, top)
 
 											updateComponent({
@@ -219,7 +218,7 @@ export default React.memo(function Canvas({
 												position_y: top,
 											})
 											console.log(localStorage.getItem('user_id'))
-											chatSocket?.send(
+											socket?.send(
 												JSON.stringify({
 													type: 'position',
 													user_id: localStorage.getItem('user_id'),
@@ -230,25 +229,33 @@ export default React.memo(function Canvas({
 											)
 											console.log('drag', left, top)
 										}}
-										onResize={({ target, width, height, drag, direction }) => {
+										onResize={({ target, width, height, drag }) => {
 											const beforeTranslate = drag.beforeTranslate
 											let newWidth = width
 											let newHeight = height
 
 											const currentRotate = element.rotate
 
+											target.style.left = `${drag.left}px`
+											target.style.top = `${drag.top}px`
 											target.style.width = `${newWidth}px`
 											target.style.height = `${newHeight}px`
 											target.style.transform = `rotate(${currentRotate}deg)`
-
+											console.log(
+												'!!!!!!!!',
+												beforeTranslate[0],
+												beforeTranslate[1],
+											)
 											updateComponent({
 												...element,
 												width: newWidth,
 												height: newHeight,
 												rotate: currentRotate,
+												beforeTranslate_x: beforeTranslate[0],
+												beforeTranslate_y: beforeTranslate[1],
 											})
 
-											chatSocket?.send(
+											socket?.send(
 												JSON.stringify({
 													type: 'resize',
 													user_id: localStorage.getItem('user_id'),
@@ -256,6 +263,8 @@ export default React.memo(function Canvas({
 													width: newWidth,
 													height: newHeight,
 													rotate: currentRotate,
+													beforeTranslate_x: beforeTranslate[0],
+													beforeTranslate_y: beforeTranslate[1],
 												}),
 											)
 										}}
@@ -267,7 +276,7 @@ export default React.memo(function Canvas({
 												rotate: rotation,
 											})
 
-											chatSocket?.send(
+											socket?.send(
 												JSON.stringify({
 													type: 'rotate',
 													user_id: localStorage.getItem('user_id'),

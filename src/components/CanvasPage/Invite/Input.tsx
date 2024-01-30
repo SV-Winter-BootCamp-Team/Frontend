@@ -21,7 +21,7 @@ export default React.memo(function Input() {
 	})
 
 	return (
-		<div className="flex items-center justify-center mt-8 mb-8 font-jua">
+		<div className="flex items-center justify-center mt-8 mb-8">
 			<input
 				type="text"
 				placeholder="이메일"
@@ -33,7 +33,7 @@ export default React.memo(function Input() {
 				onClick={() => {
 					createMemberMutate()
 				}}
-				className="px-2.5 pt-[7px] pb-[3px] bg-[#66cae1] rounded-[4px] text-sm text-white flex items-center"
+				className="px-2.5 py-[5px] bg-[#66cae1] rounded-[4px] text-sm text-white flex items-center"
 			>
 				<span>초대하기</span>
 			</button>
