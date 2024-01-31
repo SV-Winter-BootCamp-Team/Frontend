@@ -18,16 +18,41 @@ export default function UploadButton({
 	const fileInputRef = useRef<HTMLInputElement>(null)
 	const params = useParams<{ canvas_id: string }>()
 
+	const convertImageToWebP = (file: Blob) => {
+		return new Promise((resolve, reject) => {
+			const img = new Image()
+			img.src = URL.createObjectURL(file)
+			img.onload = () => {
+				const canvas = document.createElement('canvas')
+				canvas.width = img.width
+				canvas.height = img.height
+				const ctx = canvas.getContext('2d')
+				ctx?.drawImage(img, 0, 0)
+
+				canvas.toBlob((blob) => {
+					if (blob) {
+						resolve(blob)
+					} else {
+						reject(new Error('Image conversion failed'))
+					}
+				}, 'image/webp')
+			}
+			img.onerror = reject
+		})
+	}
+
 	const handleButtonClick = () => {
 		fileInputRef.current?.click()
 	}
 
 	const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files) {
-			const formData = new FormData()
-			formData.append('file', e.target.files[0])
+			const file = e.target.files[0]
 
 			try {
+				const webPBlob: Blob = (await convertImageToWebP(file)) as Blob
+				const formData = new FormData()
+				formData.append('file', webPBlob, 'image.webp')
 				const response = await axios.post(
 					`http://localhost:8000/api/v1/canvases/${params.canvas_id}/backgrounds/upload/`,
 					formData,

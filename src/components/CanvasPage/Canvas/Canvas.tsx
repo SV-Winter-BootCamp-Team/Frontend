@@ -55,13 +55,13 @@ export default React.memo(function Canvas({
 			await axios.delete(
 				`${import.meta.env.VITE_BASE_URL}canvases/${params.canvas_id}/${componentId}/`,
 			)
-			chatSocket?.send(
-				JSON.stringify({
-					type: 'remove',
-					user_id: localStorage.getItem('user_id'),
-					component_id: componentId,
-				}),
-			)
+			// chatSocket?.send(
+			// 	JSON.stringify({
+			// 		type: 'remove',
+			// 		user_id: localStorage.getItem('user_id'),
+			// 		component_id: componentId,
+			// 	}),
+			// )
 		} catch (error) {
 			console.error('Error deleting component:', error)
 		}
@@ -73,88 +73,91 @@ export default React.memo(function Canvas({
 		const newSocket = new WebSocket(
 			`ws://${import.meta.env.VITE_SOCKET_URL}/ws/canvases/${canvasId}/`,
 		)
-
 		setChatSocket(newSocket)
 	}, [canvasId])
 
-	useEffect(() => {
-		if (chatSocket) {
-			// 메시지 수신 처리
-			chatSocket.onmessage = (e) => {
-				var data = JSON.parse(e.data)
-				// console.log(data.type)
-				if (data.type === 'resize') {
-					const updatedComponentList = componentList.map((component) => {
-						if (component.component_id === data.component_id) {
-							return {
-								...component,
-								width: data.width,
-								height: data.height,
-							}
-						}
-						return component
-					})
-					setComponentList(updatedComponentList)
-				} else if (data.type === 'position') {
-					const updatedComponentList = componentList.map((component) => {
-						if (component.component_id === data.component_id) {
-							return {
-								...component,
-								position_x: data.position_x,
-								position_y: data.position_y,
-							}
-						}
-						return component
-					})
-					setComponentList(updatedComponentList)
-				} else if (data.type === 'rotate') {
-					const updatedComponentList = componentList.map((component) => {
-						if (component.component_id === data.component_id) {
-							return {
-								...component,
-								rotate: data.rotate,
-							}
-						}
-						return component
-					})
-					setComponentList(updatedComponentList)
-				} else if (data.type === 'add') {
-					if (data.component_type === 'sticker') {
-						console.log(data.type)
-						console.log(componentList)
+	// useEffect(() => {
+	// 	if (chatSocket) {
+	// 		// 메시지 수신 처리
+	// 		chatSocket.onmessage = (e) => {
+	// 			var data = JSON.parse(e.data)
+	// 			// console.log(data.type)
+	// 			if (data.type === 'resize') {
+	// 				const updatedComponentList = componentList.map((component) => {
+	// 					if (component.component_id === data.component_id) {
+	// 						return {
+	// 							...component,
+	// 							position_x: data.position_x,
+	// 							position_y: data.position_y,
+	// 							width: data.width,
+	// 							height: data.height,
+	// 						}
+	// 					}
+	// 					return component
+	// 				})
+	// 				setComponentList(updatedComponentList)
+	// 			} else if (data.type === 'position') {
+	// 				const updatedComponentList = componentList.map((component) => {
+	// 					if (component.component_id === data.component_id) {
+	// 						return {
+	// 							...component,
+	// 							position_x: data.position_x,
+	// 							position_y: data.position_y,
+	// 						}
+	// 					}
+	// 					return component
+	// 				})
+	// 				setComponentList(updatedComponentList)
+	// 			} else if (data.type === 'rotate') {
+	// 				const updatedComponentList = componentList.map((component) => {
+	// 					if (component.component_id === data.component_id) {
+	// 						return {
+	// 							...component,
+	// 							position_x: data.position_x,
+	// 							position_y: data.position_y,
+	// 							rotate: data.rotate,
+	// 						}
+	// 					}
+	// 					return component
+	// 				})
+	// 				setComponentList(updatedComponentList)
+	// 			} else if (data.type === 'add') {
+	// 				if (data.component_type === 'sticker') {
+	// 					console.log(data.type)
+	// 					console.log(componentList)
 
-						// Check if the component already exists
-						const existingComponent = componentList.find(
-							(component) => component.component_id === data.component_id,
-						)
+	// 					// Check if the component already exists
+	// 					const existingComponent = componentList.find(
+	// 						(component) => component.component_id === data.component_id,
+	// 					)
 
-						if (!existingComponent) {
-							// If the component does not exist, create a new one
-							const newComponent = {
-								component_id: data.component_id,
-								component_url: data.component_url,
-								position_x: 406,
-								position_y: 206,
-								width: 100,
-								height: 100,
-								rotate: 0,
-							}
-							const updatedComponentList = [...componentList, newComponent]
-							setComponentList(updatedComponentList)
-						}
-					} else if (data.component_type === 'background') {
-						const newBackground = data.component_url
-						setBackgroundURL(newBackground)
-					}
-				} else if (data.type === 'remove') {
-					const updatedComponentList = componentList.filter(
-						(component) => component.component_id !== data.component_id,
-					)
-					setComponentList(updatedComponentList)
-				}
-			}
-		}
-	}, [chatSocket, componentList, backgroundURL])
+	// 					if (!existingComponent) {
+	// 						// If the component does not exist, create a new one
+	// 						const newComponent = {
+	// 							component_id: data.component_id,
+	// 							component_url: data.component_url,
+	// 							position_x: 406,
+	// 							position_y: 206,
+	// 							width: 100,
+	// 							height: 100,
+	// 							rotate: 0,
+	// 						}
+	// 						const updatedComponentList = [...componentList, newComponent]
+	// 						setComponentList(updatedComponentList)
+	// 					}
+	// 				} else if (data.component_type === 'background') {
+	// 					const newBackground = data.component_url
+	// 					setBackgroundURL(newBackground)
+	// 				}
+	// 			} else if (data.type === 'remove') {
+	// 				const updatedComponentList = componentList.filter(
+	// 					(component) => component.component_id !== data.component_id,
+	// 				)
+	// 				setComponentList(updatedComponentList)
+	// 			}
+	// 		}
+	// 	}
+	// }, [chatSocket, componentList, backgroundURL])
 
 	return (
 		<div
@@ -178,15 +181,14 @@ export default React.memo(function Canvas({
 						element.component_id && (
 							<div key={element.component_id} className="absolute">
 								<div
-									data-component-id={`element-${element.component_id}`}
+									data-component-component_id={`element-${element.component_id}`}
 									onClick={() => handleElementClick(element.component_id)}
 									className="relative"
 									style={{
-										width: element.width,
-										height: element.height,
-										left: element.position_x,
-										top: element.position_y,
-										transform: `rotate(${element.rotate}deg)`,
+										width: `${element.width}px`,
+										height: `${element.height}px`,
+										transform: `translate(${element.position_x}px, ${element.position_y}px) rotate(${element.rotate}deg)`,
+										position: 'absolute',
 									}}
 								>
 									<img src={element.component_url} className="w-full h-full" />
@@ -203,90 +205,96 @@ export default React.memo(function Canvas({
 								</div>
 								{selectedElement === element.component_id && (
 									<Moveable
-										target={`[data-component-id='element-${element.component_id}']`}
+										target={`[data-component-component_id='element-${element.component_id}']`}
 										draggable={true}
+										throttleDrag={1}
+										edgeDraggable={false}
+										startDragRotate={0}
+										throttleDragRotate={0}
+										// scalable={true}
 										resizable={true}
+										keepRatio={true}
+										throttleScale={0}
+										renderDirections={[
+											'nw',
+											'n',
+											'ne',
+											'w',
+											'e',
+											'sw',
+											's',
+											'se',
+										]}
 										rotatable={true}
-										onDrag={({ target, left, top }) => {
-											target.style.left = `${left}px`
-											target.style.top = `${top}px`
-											console.log(left, top)
-
-											updateComponent({
-												...element,
-												position_x: left,
-												position_y: top,
-											})
-											console.log(localStorage.getItem('user_id'))
-											chatSocket?.send(
-												JSON.stringify({
-													type: 'position',
-													user_id: localStorage.getItem('user_id'),
-													component_id: element.component_id,
-													position_x: left,
-													position_y: top,
-												}),
+										throttleRotate={0}
+										rotationPosition={'top'}
+										onDrag={(e) => {
+											const element = componentList.find(
+												(comp) => comp.component_id === selectedElement,
 											)
-											console.log('drag', left, top)
-										}}
-										onResize={({ target, width, height, drag, direction }) => {
-											const beforeTranslate = drag.beforeTranslate
-											let newWidth = width
-											let newHeight = height
-
-											if (
-												target instanceof HTMLElement &&
-												direction[0] &&
-												direction[1]
-											) {
-												// 대각선 방향으로 리사이징하는 경우
-												// 가로세로 비율 유지
-												const originalWidth = target.offsetWidth
-												const originalHeight = target.offsetHeight
-												const ratio = originalWidth / originalHeight
-
-												if (width / height > ratio) {
-													newHeight = newWidth / ratio
-												} else {
-													newWidth = newHeight * ratio
-												}
+											if (element) {
+												element.position_x = e.beforeTranslate[0]
+												element.position_y = e.beforeTranslate[1]
+												e.target.style.transform = e.transform
+												updateComponent(element)
 											}
-											target.style.width = `${newWidth}px`
-											target.style.height = `${newHeight}px`
-											target.style.transform = `translate(${beforeTranslate[0]}px, ${beforeTranslate[1]}px)`
-
-											updateComponent({
-												...element,
-												width: newWidth,
-												height: newHeight,
-											})
-
-											chatSocket?.send(
-												JSON.stringify({
-													type: 'resize',
-													user_id: localStorage.getItem('user_id'),
-													component_id: element.component_id,
-													width: newWidth,
-													height: newHeight,
-												}),
-											)
+											// chatSocket?.send(
+											// 	JSON.stringify({
+											// 		type: 'position',
+											// 		user_id: localStorage.getItem('user_id'),
+											// 		component_id: element?.component_id,
+											// 		position_x: element?.position_x,
+											// 		position_y: element?.position_y,
+											// 	}),
+											// )
 										}}
-										onRotate={({ target, beforeRotate }) => {
-											target.style.transform = `rotate(${beforeRotate}deg)`
-
-											updateComponent({
-												...element,
-												rotate: beforeRotate,
-											})
-
-											chatSocket?.send(
-												JSON.stringify({
-													type: 'rotate',
-													user_id: localStorage.getItem('user_id'),
-													component_id: element.component_id,
-													rotate: beforeRotate,
-												}),
+										onRotate={(e) => {
+											const element = componentList.find(
+												(comp) => comp.component_id === selectedElement,
 											)
+											if (element) {
+												element.rotate = e.beforeRotate
+												element.position_x = e.drag.beforeTranslate[0]
+												element.position_y = e.drag.beforeTranslate[1]
+												e.target.style.transform = e.drag.transform
+												updateComponent(element)
+											}
+											// chatSocket?.send(
+											// 	JSON.stringify({
+											// 		type: 'rotate',
+											// 		user_id: localStorage.getItem('user_id'),
+											// 		component_id: element?.component_id,
+											// 		position_x: element?.position_x,
+											// 		position_y: element?.position_y,
+											// 		rotate: element?.rotate,
+											// 	}),
+											// )
+										}}
+										onResize={(e) => {
+											const element = componentList.find(
+												(comp) => comp.component_id === selectedElement,
+											)
+											if (element) {
+												element.position_x = e.drag.beforeTranslate[0]
+												element.position_y = e.drag.beforeTranslate[1]
+												element.width = e.width
+												element.height = e.height
+												e.target.style.width = `${e.width}px`
+												e.target.style.height = `${e.height}px`
+												e.target.style.transform = e.drag.transform
+												updateComponent(element)
+											}
+											// chatSocket?.send(
+											// 	JSON.stringify({
+											// 		type: 'resize',
+											// 		user_id: localStorage.getItem('user_id'),
+											// 		component_id: element?.component_id,
+											// 		position_x: element?.position_x,
+											// 		position_y: element?.position_y,
+											// 		width: element?.width,
+											// 		height: element?.height,
+											// 	}),
+											// )
 										}}
 									/>
 								)}

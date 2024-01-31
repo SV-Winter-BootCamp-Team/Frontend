@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom'
-import download from '/images/svg/download.svg'
 
 type NavBarProps = {
 	captureCanvas: () => void
@@ -35,19 +34,18 @@ export default function NavBar({
 				<p className="font-sans font-medium text-gray-800 text-md">
 					{canvasName}
 				</p>
-				<div className="flex text-white font-sans font-medium">
+				<div className="flex font-sans font-normal">
 					<button
-						className="rounded-lg py-[11px] px-5 text-[13px] mx-4 flex items-center bg-cyan-50 text-[#60c0d0] active:bg-cyan-600 hover:bg-[#60c0d0] hover:text-white"
+						className="bg-cyan-50 text-[#60c0d0] active:bg-cyan-600 hover:bg-[#60c0d0] hover:text-white rounded-lg py-[7px] px-4 text-md mx-4 flex items-center"
 						onClick={handleSaveCanvas}
 					>
-						<span className="flex items-center">저장하기</span>
+						저장하기
 					</button>
 					<button
-						className="rounded-lg py-[11px] px-5 text-[13px] mx-4 flex items-center bg-cyan-50 text-[#60c0d0] active:bg-cyan-600 hover:bg-[#60c0d0] hover:text-white"
+						className="bg-cyan-50 text-[#60c0d0] active:bg-cyan-600 hover:bg-[#60c0d0] hover:text-white rounded-lg py-[7px] px-4 text-md flex items-center"
 						onClick={captureCanvas}
 					>
-						<img src={download} alt="download" className="mr-2" />
-						<span>다운로드</span>
+						다운로드
 					</button>
 				</div>
 			</div>

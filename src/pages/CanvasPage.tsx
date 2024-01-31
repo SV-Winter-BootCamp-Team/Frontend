@@ -78,6 +78,7 @@ export default function CanvasPage() {
 					},
 				},
 			)
+			console.log('캔버스 저장 완료')
 		} catch (error) {
 			console.error('Error saving canvas:', error)
 		}
@@ -104,15 +105,15 @@ export default function CanvasPage() {
 			}
 
 			setComponentList([...componentList, newComponent])
-			socket?.send(
-				JSON.stringify({
-					type: 'add',
-					user_id: localStorage.getItem('user_id'),
-					component_id: newComponent.component_id,
-					component_url: newComponent.component_url,
-					component_type: 'sticker',
-				}),
-			)
+			// socket?.send(
+			// 	JSON.stringify({
+			// 		type: 'add',
+			// 		user_id: localStorage.getItem('user_id'),
+			// 		id: newComponent.component_id,
+			// 		component_url: newComponent.component_url,
+			// 		component_type: 'sticker',
+			// 	}),
+			// )
 		} catch (error) {
 			console.error('Error saving sticker:', error)
 		}
@@ -146,11 +147,12 @@ export default function CanvasPage() {
 				`${import.meta.env.VITE_BASE_URL}canvases/detail/${params.canvas_id}/`,
 			)
 			const fetchedCanvasData = response.data.result
+			console.log(fetchedCanvasData)
 
 			setCanvasName(fetchedCanvasData.canvas_name)
 
 			setBackgroundURL(fetchedCanvasData.background.component_url)
-
+			console.log(fetchedCanvasData.sticker)
 			setComponentList(
 				fetchedCanvasData.sticker.map(
 					({
@@ -192,10 +194,10 @@ export default function CanvasPage() {
 
 	useEffect(() => {
 		fetchCanvasDetails()
-		const newSocket = new WebSocket(
-			`ws://${import.meta.env.VITE_SOCKET_URL}/ws/canvases/${params.canvas_id}/`,
-		) // Adjust the URL to your WebSocket server
-		setSocket(newSocket)
+		// const newSocket = new WebSocket(
+		// 	`ws://${import.meta.env.VITE_SOCKET_URL}/ws/canvases/${params.canvas_id}/`,
+		// ) // Adjust the URL to your WebSocket server
+		// setSocket(newSocket)
 	}, [])
 
 	return (
