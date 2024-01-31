@@ -118,7 +118,7 @@ export default function MainPage() {
 						className="relative bg-[#66CAE150] cursor-pointer px-32 py-20 border-2 sm:py-[100px] rounded-lg"
 						onClick={createPersonalCanvas}
 					>
-						<div className="absolute top-0 left-0 flex items-center justify-center w-full h-full bg-white">
+						<div className="absolute top-0 left-0 flex items-center justify-center w-full h-full bg-white hover:bg-gray-100 active:bg-gray-200">
 							<img className="w-5 h-5" src={plus} />
 						</div>
 					</div>
