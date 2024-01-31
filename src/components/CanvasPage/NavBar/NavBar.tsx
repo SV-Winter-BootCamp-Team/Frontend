@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom'
+
 type NavBarProps = {
 	captureCanvas: () => void
 	canvasName: string
@@ -9,10 +11,26 @@ export default function NavBar({
 	canvasName,
 	handleSaveCanvas,
 }: NavBarProps) {
+	const nav = useNavigate()
 	return (
 		<div className="w-full h-[70px] shadow-lg border-b-[1px]">
 			<div className="font-jua flex justify-between items-center w-full px-[30px] py-[15px]">
-				<div className="text-[#60c0d0] text-4xl">꾸며Zoom</div>
+				<div className="flex gap-3">
+					<img
+						className="h-[39px] aspect-squre"
+						src="/images/svg/favicon.svg"
+					/>
+					<div
+						className="text-[#60c0d0] text-4xl cursor-pointer"
+						onClick={() => {
+							nav({
+								pathname: '/',
+							})
+						}}
+					>
+						꾸며Zoom
+					</div>
+				</div>
 				<p className="font-sans font-medium text-gray-800 text-md">
 					{canvasName}
 				</p>

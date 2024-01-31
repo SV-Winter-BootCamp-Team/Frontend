@@ -1,27 +1,36 @@
+import { useNavigate } from 'react-router-dom'
 import OnBoardingTemplate from '../components/OnBoarding'
 
 export default function OnBoardingPage() {
+	const nav = useNavigate()
 	return (
 		<div className="w-screen max-w-full overflow-hidden">
-			<header className="z-10 fixed top w-full h-[70px]">
-				<div className="font-jua flex justify-between text-white bg-[#fff] w-full h-[70px] px-[30px] py-[15px] border-gray-200 border-b-[1px]">
-					<div className="text-[#60c0d0] text-4xl">꾸며Zoom</div>
-					<div>
+			<header className="z-10 fixed top w-full h-[70px] flex justify-between text-white bg-[#fff] px-[30px] py-[15px] border-gray-200 border-b-[1px]">
+				<div className="flex gap-3">
+					<img className="h-full aspect-squre" src="/images/svg/favicon.svg" />
+					<div className="font-jua text-[#66CAD1] text-4xl">꾸며Zoom</div>
+				</div>
+				<div>
+					<div className="flex font-sans font-nomal text-white">
 						<button
-							className="bg-[#60c0d0] rounded-lg pt-1 pb-[2px] px-3 text-lg mx-4"
+							className="rounded-lg py-[11px] px-5 text-[13px] mx-4 flex items-center bg-cyan-50 text-[#66CAD1] active:bg-cyan-600 hover:bg-[#66CAD1] hover:text-white"
 							onClick={() => {
-								window.location.replace('/signup')
+								nav({
+									pathname: '/signup',
+								})
 							}}
 						>
-							<span className="flex items-center">회원가입</span>
+							회원가입
 						</button>
 						<button
-							className="bg-[#60c0d0] rounded-lg pt-1 pb-[2px] px-3 text-lg"
+							className="rounded-lg py-[11px] px-5 text-[13px] mx-4 flex items-center bg-cyan-50 text-[#66CAD1] active:bg-cyan-600 hover:bg-[#66CAD1] hover:text-white"
 							onClick={() => {
-								window.location.replace('/login')
+								nav({
+									pathname: '/login',
+								})
 							}}
 						>
-							<span>로그인</span>
+							로그인
 						</button>
 					</div>
 				</div>

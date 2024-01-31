@@ -1,7 +1,6 @@
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import CanvasPreview from '../components/MainPage/CanvasPreview'
 import { useEffect, useState } from 'react'
-import NavBar from '../components/General/NavBar'
 import axios from 'axios'
 import plus from '/images/svg/plus.svg'
 
@@ -19,6 +18,7 @@ export type AddCanvasType = {
 }
 
 export default function MainPage() {
+	const nav = useNavigate()
 	const { user_id } = useParams()
 	const [personalCanvasData, setPersonalCanvasData] = useState<
 		CanvasPreviewProps[]
@@ -27,7 +27,7 @@ export default function MainPage() {
 		[],
 	)
 	const [newCanvas, setNewCanvas] = useState<AddCanvasType>({
-		canvas_name: '',
+		canvas_name: 'Untitled',
 		owner_id: Number(user_id),
 	})
 
@@ -42,7 +42,7 @@ export default function MainPage() {
 			return nextState
 		})
 		axios
-			.post('http://localhost:8000/api/v1/canvases/', newCanvas)
+			.post(`${import.meta.env.VITE_BASE_URL}canvases/`, newCanvas)
 			.then(() => {
 				window.location.reload()
 			})
@@ -53,7 +53,9 @@ export default function MainPage() {
 
 	useEffect(() => {
 		axios
-			.get(`http://localhost:8000/api/v1/canvases/personal/${Number(user_id)}/`)
+			.get(
+				`${import.meta.env.VITE_BASE_URL}canvases/personal/${Number(user_id)}/`,
+			)
 			.then((response) => {
 				const loadedCanvas = response.data.result.canvases
 				loadedCanvas.forEach((item: CanvasPreviewProps) => {
@@ -63,21 +65,50 @@ export default function MainPage() {
 			})
 			.catch(() => {})
 		axios
-			.get(`http://localhost:8000/api/v1/canvases/share/${Number(user_id)}/`)
+			.get(`${import.meta.env.VITE_BASE_URL}canvases/share/${Number(user_id)}/`)
 			.then((response) => {
 				const loadedCanvas = response.data.result.canvases
 				loadedCanvas.forEach((item: CanvasPreviewProps) => {
 					item['update_at'] = item['update_at'].substr(0, 19).replace('T', ' ')
 				})
-				setShareCanvasData(response.data.result.canvases)
+				setShareCanvasData(loadedCanvas)
 			})
 			.catch(() => {})
 	}, [])
 
 	return (
-		<>
-			<NavBar />
-			<h1 className="mx-8 mt-8 text-xl font-jua">내 캔버스</h1>
+		<div className="w-screen max-w-full overflow-x-hidden">
+			<header className="z-10 fixed top w-full h-[70px] flex justify-between text-white bg-[#fff] px-[30px] py-[15px] border-gray-200 border-b-[1px]">
+				<div className="flex gap-3">
+					<img className="h-full aspect-squre" src="/images/svg/favicon.svg" />
+					<div
+						className="font-jua text-[#60c0d0] text-4xl cursor-pointer"
+						onClick={() => {
+							nav({
+								pathname: '/',
+							})
+						}}
+					>
+						꾸며Zoom
+					</div>
+				</div>
+				<div>
+					<div className="flex font-sans font-normal text-white">
+						<button
+							className="rounded-lg py-[11px] px-5 text-[13px] mx-4 flex items-center bg-cyan-50 text-[#60c0d0] active:bg-cyan-600 hover:bg-[#60c0d0] hover:text-white"
+							onClick={() => {
+								localStorage.clear()
+								nav({
+									pathname: '/',
+								})
+							}}
+						>
+							로그아웃
+						</button>
+					</div>
+				</div>
+			</header>
+			<h1 className="mt-[94px] mx-8 text-xl font-medium">내 캔버스</h1>
 			<div className="grid grid-cols-1 gap-8 mx-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 				{personalCanvasData.map((canvas: CanvasPreviewProps) => (
 					<CanvasPreview key={canvas.canvas_id} {...canvas} />
@@ -87,19 +118,19 @@ export default function MainPage() {
 						className="relative bg-[#66CAE150] cursor-pointer px-32 py-20 border-2 sm:py-[100px] rounded-lg"
 						onClick={createPersonalCanvas}
 					>
-						<div className="absolute top-0 left-0 flex items-center justify-center w-full h-full bg-white">
+						<div className="absolute top-0 left-0 flex items-center justify-center w-full h-full bg-white hover:bg-gray-100 active:bg-gray-200">
 							<img className="w-5 h-5" src={plus} />
 						</div>
 					</div>
 				</div>
 			</div>
 			<hr className="mx-10 mt-12" />
-			<h1 className="mx-8 mt-8 text-xl font-jua">공유된 캔버스</h1>
+			<h1 className="mx-8 mt-8 text-xl font-medium">공유된 캔버스</h1>
 			<div className="grid grid-cols-1 gap-8 mx-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 				{shareCanvasData.map((canvas: CanvasPreviewProps) => (
 					<CanvasPreview key={canvas.canvas_id} {...canvas} />
 				))}
 			</div>
-		</>
+		</div>
 	)
 }
