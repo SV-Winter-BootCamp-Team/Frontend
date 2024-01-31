@@ -13,7 +13,7 @@ export default function OnBoardingPage() {
 				<div>
 					<div className="flex font-sans font-nomal text-white">
 						<button
-							className="rounded-lg py-[11px] px-5 text-[13px] mx-4 flex items-center bg-cyan-50 text-[#66CAD1] cative:bg-cyan-600 hover:bg-[#66CAD1] hover:text-white"
+							className="rounded-lg py-[11px] px-5 text-[13px] mx-4 flex items-center bg-cyan-50 text-[#66CAD1] active:bg-cyan-600 hover:bg-[#66CAD1] hover:text-white"
 							onClick={() => {
 								nav({
 									pathname: '/signup',
@@ -23,7 +23,7 @@ export default function OnBoardingPage() {
 							회원가입
 						</button>
 						<button
-							className="rounded-lg py-[11px] px-5 text-[13px] mx-4 flex items-center bg-cyan-50 text-[#66CAD1] cative:bg-cyan-600 hover:bg-[#66CAD1] hover:text-white"
+							className="rounded-lg py-[11px] px-5 text-[13px] mx-4 flex items-center bg-cyan-50 text-[#66CAD1] active:bg-cyan-600 hover:bg-[#66CAD1] hover:text-white"
 							onClick={() => {
 								nav({
 									pathname: '/login',

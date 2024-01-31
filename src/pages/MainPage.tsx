@@ -108,7 +108,7 @@ export default function MainPage() {
 					</div>
 				</div>
 			</header>
-			<h1 className="mt-[70px] mx-8 mt-8 text-xl font-medium">내 캔버스</h1>
+			<h1 className="mt-[94px] mx-8 text-xl font-medium">내 캔버스</h1>
 			<div className="grid grid-cols-1 gap-8 mx-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 				{personalCanvasData.map((canvas: CanvasPreviewProps) => (
 					<CanvasPreview key={canvas.canvas_id} {...canvas} />

@@ -151,7 +151,7 @@ export default function OnBoardingTemplate() {
 						<div className="w-[34vw] h-full pt-32 flex justify-between">
 							<img className="w-[20vw] h-fit" src={startImage} />
 							<button
-								className="z-20 mr-4 px-3 pt-1 pb-[2px] h-fit text-[2vw] text-white font-jua rounded-lg bg-[#66CAE1]"
+								className="z-20 mr-4 px-3 pt-1 pb-[2px] h-fit text-[2vw] text-white font-jua rounded-lg bg-[#66CAE1] hover:bg-cyan-100 hover:text-[#66CAD1] active:bg-cyan-50"
 								onClick={() => {
 									nav({
 										pathname: '/signup/',

@@ -35,15 +35,15 @@ export default function NavBar({
 				<p className="font-sans font-medium text-gray-800 text-md">
 					{canvasName}
 				</p>
-				<div className="flex text-white">
+				<div className="flex text-white font-sans font-medium">
 					<button
-						className="bg-[#60c0d0] rounded-lg pt-1 pb-[2px] px-3 text-lg mx-4 flex items-center"
+						className="rounded-lg py-[11px] px-5 text-[13px] mx-4 flex items-center bg-cyan-50 text-[#60c0d0] active:bg-cyan-600 hover:bg-[#60c0d0] hover:text-white"
 						onClick={handleSaveCanvas}
 					>
 						<span className="flex items-center">저장하기</span>
 					</button>
 					<button
-						className="bg-[#60c0d0] rounded-lg pt-1 pb-[2px] px-3 text-lg flex items-center"
+						className="rounded-lg py-[11px] px-5 text-[13px] mx-4 flex items-center bg-cyan-50 text-[#60c0d0] active:bg-cyan-600 hover:bg-[#60c0d0] hover:text-white"
 						onClick={captureCanvas}
 					>
 						<img src={download} alt="download" className="mr-2" />
