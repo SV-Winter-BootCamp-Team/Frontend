@@ -111,7 +111,7 @@ export default function OnBoardingTemplate() {
 					/>
 				</div>
 				<div className="relative w-full h-fit bg-white pt-[8%] overflow-hidden">
-					<div className="flex h-fit justify-center gap-[3vw] items-center text-[15vw] text-[#66CAE1]">
+					<div className="flex h-fit justify-center gap-[3vw] items-center text-[13vw] text-[#66CAE1]">
 						[
 						<div className="text-black h-fit flex flex-col gap-[0.3vw]">
 							<h1 className="text-[3.5vw] w-full flex justify-center font-semibold pt-8">
@@ -127,8 +127,8 @@ export default function OnBoardingTemplate() {
 				</div>
 				<div className="relative w-full aspect-[595.28/640.48]">
 					<div className="aspect-[595.28/213.49] w-full flex justify-between items-end px-[10vw]">
-						<div className="flex flex-col gap-4 justify-center text-[2vw] font-semibold">
-							<h2 className="text-[4vw] mb-2">작업을 도와주는 AI</h2>
+						<div className="flex flex-col gap-4 items-start text-[1.6vw] font-semibold pb-[4vw]">
+							<h2 className="text-[3.2vw] mb-2">작업을 도와주는 AI</h2>
 							<div>여러분의 상상력을 표현할 수 있게 도움을 드립니다. </div>
 							<div>창작에 날개를 달아드립니다!</div>
 						</div>
@@ -136,15 +136,15 @@ export default function OnBoardingTemplate() {
 					</div>
 					<div className="aspect-[595.28/213.49] w-full flex justify-between items-end px-[8vw]">
 						<img className="w-[39vw]" src={webSocketImage} />
-						<div className="flex flex-col gap-4 items-end text-[2vw] font-semibold pb-[4vw]">
-							<h2 className="text-[4vw] mb-2">실시간 공유 캔버스</h2>
+						<div className="flex flex-col gap-4 items-end text-[1.6vw] font-semibold pb-[4vw]">
+							<h2 className="text-[3.2vw] mb-2">실시간 공유 캔버스</h2>
 							<div>친구를 초대하고, 같이 디자인 해보세요</div>
 							<div>혼자 하는것 보다 재미있을 거에요</div>
 						</div>
 					</div>
 					<div className="aspect-[595.28/213.49] w-full flex justify-between items-center px-[10vw]">
-						<div className="flex flex-col gap-4 justify-center text-[2vw] font-semibold">
-							<h2 className="text-[4vw] mb-2">바로 시작하기</h2>
+						<div className="flex flex-col gap-4 justify-center text-[1.6vw] font-semibold">
+							<h2 className="text-[3.2vw] mb-2">바로 시작하기</h2>
 							<div>회원가입까지 걸리는 시간 ONLY 3초!</div>
 							<div>지금 바로 시작해보세요</div>
 						</div>
@@ -166,6 +166,7 @@ export default function OnBoardingTemplate() {
 						<PathDrawing />
 					</div>
 				</div>
+				<div className="h-[8vw] x-full " />
 			</section>
 		</div>
 	)
