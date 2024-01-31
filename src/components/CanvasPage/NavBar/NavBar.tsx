@@ -36,13 +36,13 @@ export default function NavBar({
 				</p>
 				<div className="flex font-sans font-normal">
 					<button
-						className="bg-cyan-50 text-[#60c0d0] active:bg-cyan-600 hover:bg-[#60c0d0] hover:text-white rounded-lg py-[7px] px-4 text-md mx-4 flex items-center"
+						className="bg-cyan-50 text-[#60c0d0] active:bg-cyan-600 hover:bg-[#60c0d0] hover:text-white rounded-lg py-[11px] px-5 text-[13px] mx-4 flex items-center"
 						onClick={handleSaveCanvas}
 					>
 						저장하기
 					</button>
 					<button
-						className="bg-cyan-50 text-[#60c0d0] active:bg-cyan-600 hover:bg-[#60c0d0] hover:text-white rounded-lg py-[7px] px-4 text-md flex items-center"
+						className="bg-cyan-50 text-[#60c0d0] active:bg-cyan-600 hover:bg-[#60c0d0] hover:text-white rounded-lg py-[11px] px-5 text-[13px] flex items-center"
 						onClick={captureCanvas}
 					>
 						다운로드
