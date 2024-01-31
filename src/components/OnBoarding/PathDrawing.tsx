@@ -6,6 +6,9 @@ export default function PathDrawing() {
 		const path = document.querySelector('#path')! as SVGGeometryElement
 		const pathLength = path.getTotalLength()
 
+		let startY = 0
+		let nowY = 0
+
 		path.style.strokeDasharray = pathLength + ' ' + pathLength
 		path.style.strokeDashoffset = calcDashoffset(
 			window.innerHeight,
@@ -19,22 +22,37 @@ export default function PathDrawing() {
 			length: number,
 		) {
 			const ratio = (scrollY - element.offsetTop) / element.offsetHeight
-			const value = length - length * ratio
-			return value < 0 ? 0 : value > length ? length : value
+			const value = length - length * (ratio * 1.1 - 1.41)
+			console.log(ratio + 0.1)
+			return value
 		}
 
-		function scrollHandler() {
-			const scrollY = window.scrollY + window.innerHeight
-			path.style.strokeDashoffset = (
-				1.5 * calcDashoffset(scrollY, content, pathLength)
+		function lerp(s: number, e: number, a: number) {
+			return s + (e - s) * a
+		}
+
+		function frame() {
+			requestAnimationFrame(frame)
+
+			startY = lerp(startY, nowY, 0.2)
+
+			path.style.strokeDashoffset = calcDashoffset(
+				startY + window.innerHeight,
+				content,
+				pathLength,
 			).toString()
+		}
+		requestAnimationFrame(frame)
+
+		function scrollHandler() {
+			nowY = window.scrollY
 		}
 
 		window.addEventListener('scroll', scrollHandler)
 	}, [])
 
 	return (
-		<div id="content" className="w-full h-full">
+		<div id="content" className="w-full aspect-[595.28/640.48]">
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 595.28 640.48">
 				<path
 					className="fill-none stroke-[#66c0d0]"

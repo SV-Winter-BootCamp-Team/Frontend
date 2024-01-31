@@ -79,15 +79,18 @@ export default function MainPage() {
 	return (
 		<div className="w-screen max-w-full overflow-x-hidden">
 			<header className="z-10 fixed top w-full h-[70px] flex justify-between text-white bg-[#fff] px-[30px] py-[15px] border-gray-200 border-b-[1px]">
-				<div
-					className="font-jua text-[#60c0d0] text-4xl cursor-pointer"
-					onClick={() => {
-						nav({
-							pathname: '/',
-						})
-					}}
-				>
-					꾸며Zoom
+				<div className="flex gap-3">
+					<img className="h-full aspect-squre" src="/images/svg/favicon.svg" />
+					<div
+						className="font-jua text-[#60c0d0] text-4xl cursor-pointer"
+						onClick={() => {
+							nav({
+								pathname: '/',
+							})
+						}}
+					>
+						꾸며Zoom
+					</div>
 				</div>
 				<div>
 					<div className="flex font-sans font-normal text-white">
@@ -105,7 +108,7 @@ export default function MainPage() {
 					</div>
 				</div>
 			</header>
-			<h1 className="mt-[70px] mx-8 mt-8 text-xl font-medium">내 캔버스</h1>
+			<h1 className="mt-[94px] mx-8 text-xl font-medium">내 캔버스</h1>
 			<div className="grid grid-cols-1 gap-8 mx-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 				{personalCanvasData.map((canvas: CanvasPreviewProps) => (
 					<CanvasPreview key={canvas.canvas_id} {...canvas} />
@@ -115,7 +118,7 @@ export default function MainPage() {
 						className="relative bg-[#66CAE150] cursor-pointer px-32 py-20 border-2 sm:py-[100px] rounded-lg"
 						onClick={createPersonalCanvas}
 					>
-						<div className="absolute top-0 left-0 flex items-center justify-center w-full h-full bg-white">
+						<div className="absolute top-0 left-0 flex items-center justify-center w-full h-full bg-white hover:bg-gray-100 active:bg-gray-200">
 							<img className="w-5 h-5" src={plus} />
 						</div>
 					</div>
