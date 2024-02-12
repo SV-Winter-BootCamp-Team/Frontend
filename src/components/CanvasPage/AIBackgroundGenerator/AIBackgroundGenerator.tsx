@@ -26,7 +26,7 @@ export default React.memo(function AIBackgroundGenerator({
 	// 사용자가 입력할 때마다 호출되는 이벤트 핸들러
 	const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
 		const input = event.target.value
-		if (input.length <= 20) {
+		if (input.length <= 100) {
 			setBackgroundInputText(input)
 		}
 	}
@@ -46,7 +46,7 @@ export default React.memo(function AIBackgroundGenerator({
 			<div className="mt-2 ml-8">
 				<p className="my-4 font-medium">색상</p>
 				<div className="grid grid-cols-7 gap-x-3 gap-y-2 w-72">
-					<Color color="#FFFFFF" setColor={setColor} selectedColor={color} />
+					<Color color="#fff" setColor={setColor} selectedColor={color} />
 					<Color color="#EC5F59" setColor={setColor} selectedColor={color} />
 					<Color color="#F1A259" setColor={setColor} selectedColor={color} />
 					<Color color="#FAE74F" setColor={setColor} selectedColor={color} />

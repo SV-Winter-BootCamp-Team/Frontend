@@ -39,7 +39,7 @@ export default function MenuBar({
 		<div className="h-full grow flex flex-col items-center justify-around w-[75px] border-r-[1px] border-solid border-[#E7E8EA] shadow-sm">
 			<button
 				onClick={handleMenuBarClick}
-				className="flex flex-col items-center justify-center mt-6 mb-2"
+				className="flex flex-col items-center justify-center mt-5 mb-2"
 			>
 				<img src={hamburger} alt="menu" className="w-5" />
 			</button>

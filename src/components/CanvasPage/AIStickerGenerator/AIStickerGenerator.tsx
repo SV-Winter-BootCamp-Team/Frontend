@@ -40,7 +40,7 @@ export default function AIStickerGenerator({
 					</p>
 				</div>
 				{/* 사용자 입력 영역 */}
-				<div className="relative flex items-center justify-center mt-4">
+				<div className="relative flex items-center mt-4 ml-8">
 					<div className="flex border-[1px] h-24 rounded-lg p-2.5">
 						<textarea
 							placeholder="입력해주세요"

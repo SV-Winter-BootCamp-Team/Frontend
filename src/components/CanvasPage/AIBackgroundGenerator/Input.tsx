@@ -19,7 +19,7 @@ export default React.memo(function Input({
 					만들고 싶은 배경을 간단히 설명해 보세요.
 				</p>
 			</div>
-			<div className="relative flex items-center justify-center mt-4">
+			<div className="relative flex items-center mt-4 ml-8">
 				<div className="flex border-[1px] h-24 rounded-lg p-2.5">
 					<textarea
 						placeholder="입력해주세요"

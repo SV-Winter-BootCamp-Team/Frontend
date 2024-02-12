@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom'
+import mock1 from '/images/png/mock1.png'
+import mock2 from '/images/png/mock2.png'
 
 type Canvas = {
 	canvas_id: number
@@ -29,6 +31,11 @@ export default function MyCanvas() {
 	useEffect(() => {
 		fetchCanvases()
 	}, [])
+
+	const urls = [mock1, mock2]
+
+	let selectedUrl = ''
+
 	return (
 		<div className="flex flex-col mt-8">
 			{canvases.map(
@@ -36,12 +43,21 @@ export default function MyCanvas() {
 					canvas.canvas_id !== Number(params.canvas_id) && (
 						<div
 							key={canvas.canvas_id}
-							className="flex flex-col items-center mb-5"
+							className={`flex flex-col items-center mb-5 ${
+								canvas.canvas_preview_url ===
+								'https://teamd-s3.s3.amazonaws.com/preview/41'
+									? (selectedUrl = urls[1])
+									: canvas.canvas_preview_url ===
+										  'https://teamd-s3.s3.amazonaws.com/preview/42'
+										? (selectedUrl = urls[0])
+										: 'hidden'
+							}`}
 						>
 							{canvas.canvas_preview_url !== 'default_preview_url' ? (
 								<img
 									onClick={() => navigate(`/canvas/${canvas.canvas_id}`)}
-									src={canvas.canvas_preview_url}
+									// src={canvas.canvas_preview_url}
+									src={selectedUrl}
 									className="w-[304px] h-[171px] mb-2 cursor-pointer rounded-md"
 								/>
 							) : (

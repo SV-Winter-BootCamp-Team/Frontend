@@ -46,14 +46,14 @@ export default function OnBoardingTemplate() {
 
 	return (
 		<div className="w-full overflow-hidden">
-			<section className="w-full h-fit flex-col ">
-				<div className="w-full h-screen flex justify-center">
+			<section className="flex-col w-full h-fit ">
+				<div className="flex justify-center w-full h-screen">
 					<Canvas shadows>
 						<ThreeTest {...handleThree} />
 					</Canvas>
-					<div className="absolute bottom-5 h-3 w-7 flex justify-between items-center">
+					<div className="absolute flex items-center justify-between h-3 bottom-5 w-7">
 						<div
-							className="bg-gray-600 aspect-square rounded-full"
+							className="bg-gray-600 rounded-full aspect-square"
 							style={{
 								height: `${6 + (1 - mousex) * 6}px`,
 							}}
@@ -67,7 +67,7 @@ export default function OnBoardingTemplate() {
 							}}
 						/>
 						<div
-							className="bg-gray-600 aspect-square rounded-full"
+							className="bg-gray-600 rounded-full aspect-square"
 							style={{
 								height: `${6 + mousex * 6}px`,
 							}}
@@ -83,7 +83,7 @@ export default function OnBoardingTemplate() {
 								opacity: 0.8 - mousex * 2,
 							}}
 						>
-							<div className="flex flex-col items-center mx-20 h-80 justify-center">
+							<div className="flex flex-col items-center justify-center mx-20 h-80">
 								<p>AI를 활용한 '나'를</p>
 								<p>표현하는 배경 만들기!</p>
 							</div>
@@ -99,14 +99,14 @@ export default function OnBoardingTemplate() {
 								opacity: mousex * 2 - 1.2,
 							}}
 						>
-							<div className="flex flex-col items-center mx-20 h-80 justify-center">
+							<div className="flex flex-col items-center justify-center mx-20 h-80">
 								<p>지루한 회의...</p>
 								<p>재미없는 시간...</p>
 							</div>
 						</div>
 					</div>
 					<div
-						className="absolute h-full w-full"
+						className="absolute w-full h-full"
 						onMouseMove={handleMouseMove}
 					/>
 				</div>

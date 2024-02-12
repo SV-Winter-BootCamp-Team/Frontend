@@ -46,42 +46,19 @@ export default function MenuSection({
 	const [backgroundList, setBackgroundList] = useState<string[]>([])
 	const [Recommendbackgrounds, setRecommendbackgrounds] = useState<string[]>([])
 
-	// const fetchStickerData = async () => {
-	// 	setStickerStatus('loading')
-
-	// 	try {
-	// 		const response = await axios.post(
-	// 			`${import.meta.env.VITE_BASE_URL}canvases/${params.canvas_id}/stickers/ai/`,
-	// 			{
-	// 				describe: stickerInputText,
-	// 				style: style,
-	// 			},
-	// 		)
-	// 		setStickerStatus('completed')
-	// 		setStickerList(response.data.result.s3_urls)
-	// 	} catch (error) {
-	// 		console.error('Error fetching AI sticker data:', error)
-	// 		throw error
-	// 	}
-	// }
-
 	const fetchStickerData = async () => {
 		setStickerStatus('loading')
+
 		try {
-			// 실제 API 요청 대신 사용할 가짜 응답 데이터
-			const fakeResponse = {
-				data: {
-					result: {
-						s3_urls: [m1, m2, m1, m2],
-					},
+			const response = await axios.post(
+				`${import.meta.env.VITE_BASE_URL}canvases/${params.canvas_id}/stickers/ai/`,
+				{
+					describe: stickerInputText,
+					style: style,
 				},
-			}
-
-			// 가짜 지연 시간 설정 (예: 500ms)
-			await new Promise((resolve) => setTimeout(resolve, 5000))
-
+			)
 			setStickerStatus('completed')
-			setStickerList(fakeResponse.data.result.s3_urls)
+			setStickerList(response.data.result.s3_urls)
 		} catch (error) {
 			console.error('Error fetching AI sticker data:', error)
 			throw error
@@ -91,23 +68,65 @@ export default function MenuSection({
 	const fetchBackgroundData = async () => {
 		setBackgroundStatus('loading')
 		try {
-			// 실제 API 요청 대신 사용할 가짜 응답 데이터
-			const fakeResponse = {
-				data: {
-					result: {
-						s3_urls: [m1, m2, m1],
-					},
+			const response = await axios.post(
+				`${import.meta.env.VITE_BASE_URL}canvases/${params.canvas_id}/backgrounds/ai/`,
+				{
+					color: color,
+					theme: theme,
+					place: backgroundInputText,
 				},
-			}
-			await new Promise((resolve) => setTimeout(resolve, 5000))
-
+			)
 			setBackgroundStatus('completed')
-			setBackgroundList(fakeResponse.data.result.s3_urls)
+			setBackgroundList(response.data.result.s3_urls)
 		} catch (error) {
 			console.error('Error fetching AI background data:', error)
 			throw error
 		}
 	}
+
+	// const fetchStickerData = async () => {
+	// 	setStickerStatus('loading')
+	// 	try {
+	// 		// 실제 API 요청 대신 사용할 가짜 응답 데이터
+	// 		const fakeResponse = {
+	// 			data: {
+	// 				result: {
+	// 					s3_urls: [m1, m2, m1, m2],
+	// 				},
+	// 			},
+	// 		}
+
+	// 		// 가짜 지연 시간 설정 (예: 500ms)
+	// 		await new Promise((resolve) => setTimeout(resolve, 5000))
+
+	// 		setStickerStatus('completed')
+	// 		setStickerList(fakeResponse.data.result.s3_urls)
+	// 	} catch (error) {
+	// 		console.error('Error fetching AI sticker data:', error)
+	// 		throw error
+	// 	}
+	// }
+
+	// const fetchBackgroundData = async () => {
+	// 	setBackgroundStatus('loading')
+	// 	try {
+	// 		// 실제 API 요청 대신 사용할 가짜 응답 데이터
+	// 		const fakeResponse = {
+	// 			data: {
+	// 				result: {
+	// 					s3_urls: [m1, m2, m1],
+	// 				},
+	// 			},
+	// 		}
+	// 		await new Promise((resolve) => setTimeout(resolve, 5000))
+
+	// 		setBackgroundStatus('completed')
+	// 		setBackgroundList(fakeResponse.data.result.s3_urls)
+	// 	} catch (error) {
+	// 		console.error('Error fetching AI background data:', error)
+	// 		throw error
+	// 	}
+	// }
 
 	const fetchRecommendedBackgrounds = async () => {
 		try {

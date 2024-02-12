@@ -3,6 +3,8 @@ import CanvasPreview from '../components/MainPage/CanvasPreview'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import plus from '/images/svg/plus.svg'
+import NavBar from '../components/General/NavBar'
+import { ButtonProps } from '../components/General/NavBar/Button'
 
 export type CanvasPreviewProps = {
 	canvas_id: number
@@ -31,9 +33,20 @@ export default function MainPage() {
 		owner_id: Number(user_id),
 	})
 
-	console.log(import.meta.env.DEV ? '개발' : '배포')
-	console.log(import.meta.env.VITE_BASE_URL)
-	console.log(import.meta.env.VITE_SOCKET_URL)
+	const buttons: ButtonProps[] = [
+		{
+			text: '로그아웃',
+			handleClickButton: () => {
+				localStorage.clear()
+				nav({
+					pathname: '/',
+				})
+			},
+			hoverBackgroundColor: 'hover:bg-[#fff]',
+			activeBackgroundColor: 'active:bg-[#f8f5f5]',
+			hoverTextColor: 'hover:text-[#60c0d0]',
+		},
+	]
 
 	function createPersonalCanvas() {
 		setNewCanvas((current) => {
@@ -78,37 +91,12 @@ export default function MainPage() {
 
 	return (
 		<div className="w-screen max-w-full overflow-x-hidden">
-			<header className="z-10 fixed top w-full h-[70px] flex justify-between text-white bg-[#fff] px-[30px] py-[15px] border-gray-200 border-b-[1px]">
-				<div className="flex gap-3">
-					<img className="h-full aspect-squre" src="/images/svg/favicon.svg" />
-					<div
-						className="font-jua text-[#60c0d0] text-4xl cursor-pointer"
-						onClick={() => {
-							nav({
-								pathname: '/',
-							})
-						}}
-					>
-						꾸며Zoom
-					</div>
-				</div>
-				<div>
-					<div className="flex font-sans font-normal text-white">
-						<button
-							className="rounded-lg py-[11px] px-5 text-[13px] mx-4 flex items-center bg-cyan-50 text-[#60c0d0] active:bg-cyan-600 hover:bg-[#60c0d0] hover:text-white"
-							onClick={() => {
-								localStorage.clear()
-								nav({
-									pathname: '/',
-								})
-							}}
-						>
-							로그아웃
-						</button>
-					</div>
-				</div>
-			</header>
-			<h1 className="mt-[94px] mx-8 text-xl font-medium">내 캔버스</h1>
+			<NavBar
+				buttons={buttons}
+				backgroundColor="bg-[#60c0d0]"
+				textColor="text-[#fff]"
+			/>
+			<h1 className="mt-[40px] mx-8 text-xl font-medium">내 캔버스</h1>
 			<div className="grid grid-cols-1 gap-8 mx-8 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 				{personalCanvasData.map((canvas: CanvasPreviewProps) => (
 					<CanvasPreview key={canvas.canvas_id} {...canvas} />

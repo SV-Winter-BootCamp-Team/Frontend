@@ -1,40 +1,43 @@
 import { useNavigate } from 'react-router-dom'
 import OnBoardingTemplate from '../components/OnBoarding'
+import NavBar from '../components/General/NavBar'
+import { ButtonProps } from '../components/General/NavBar/Button'
 
 export default function OnBoardingPage() {
 	const nav = useNavigate()
+	const buttons: ButtonProps[] = [
+		{
+			text: '로그인',
+			handleClickButton: () => {
+				nav({
+					pathname: '/login',
+				})
+			},
+			hoverBackgroundColor: 'hover:bg-[#60c0d0]',
+			activeBackgroundColor: 'active:bg-cyan-600',
+			hoverTextColor: 'hover:text-white',
+		},
+		{
+			text: '회원가입',
+			handleClickButton: () => {
+				nav({
+					pathname: '/signup',
+				})
+			},
+			hoverBackgroundColor: 'hover:bg-[#60c0d0]',
+			activeBackgroundColor: 'active:bg-cyan-600',
+			hoverTextColor: 'hover:text-white',
+		},
+	]
 	return (
 		<div className="w-screen max-w-full overflow-hidden">
-			<header className="z-10 fixed top w-full h-[70px] flex justify-between text-white bg-[#fff] px-[30px] py-[15px] border-gray-200 border-b-[1px]">
-				<div className="flex gap-3">
-					<img className="h-full aspect-squre" src="/images/svg/favicon.svg" />
-					<div className="font-jua text-[#66CAD1] text-4xl">꾸며Zoom</div>
-				</div>
-				<div>
-					<div className="flex font-sans font-nomal text-white">
-						<button
-							className="rounded-lg py-[11px] px-5 text-[13px] mx-4 flex items-center bg-cyan-50 text-[#66CAD1] active:bg-cyan-600 hover:bg-[#66CAD1] hover:text-white"
-							onClick={() => {
-								nav({
-									pathname: '/signup',
-								})
-							}}
-						>
-							회원가입
-						</button>
-						<button
-							className="rounded-lg py-[11px] px-5 text-[13px] mx-4 flex items-center bg-cyan-50 text-[#66CAD1] active:bg-cyan-600 hover:bg-[#66CAD1] hover:text-white"
-							onClick={() => {
-								nav({
-									pathname: '/login',
-								})
-							}}
-						>
-							로그인
-						</button>
-					</div>
-				</div>
-			</header>
+			<div className="fixed top-0 z-10 w-full">
+				<NavBar
+					buttons={buttons}
+					backgroundColor="bg-[#fff]"
+					textColor="text-[#60c0d0]"
+				/>
+			</div>
 			<OnBoardingTemplate />
 		</div>
 	)

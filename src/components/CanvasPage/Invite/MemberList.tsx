@@ -10,12 +10,12 @@ type Member = {
 	user_name: string
 	user_email: string
 }
-
+export const getMemberListKey = (canvas_id: string) => ['members', canvas_id]
 export default React.memo(function MemberList() {
 	const params = useParams<Partial<ParamsType>>()
 
 	const { data: memberList, error: fetchMembersError } = useQuery({
-		queryKey: ['members', params.canvas_id],
+		queryKey: getMemberListKey(params.canvas_id as string),
 		queryFn: () => fetchMembers(params.canvas_id as ParamsType),
 		enabled: !!params.canvas_id,
 	})

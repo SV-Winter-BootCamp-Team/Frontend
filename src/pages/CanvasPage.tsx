@@ -1,12 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import html2canvas from 'html2canvas'
 
-import NavBar from '../components/CanvasPage/NavBar'
+import NavBar from '../components/General/NavBar'
 import Canvas from '../components/CanvasPage/Canvas'
 import MenuBar from '../components/CanvasPage/MenuBar'
 import MenuSection from '../components/CanvasPage/MenuSection'
 import axios from 'axios'
 import { useParams } from 'react-router'
+import { ButtonProps } from '../components/General/NavBar/Button'
+import { useCaptureCanvas } from '../hooks/useCaptureCavas'
 
 export type Component = {
 	component_id: number
@@ -37,6 +39,29 @@ export default function CanvasPage() {
 	const [width] = useState<number>(100)
 	const [height] = useState<number>(100)
 	const [rotate] = useState<number>(0)
+
+	const canvasRef = useRef<HTMLDivElement>(null)
+
+	const buttons: ButtonProps[] = [
+		{
+			text: '저장하기',
+			handleClickButton: () => {
+				handleSaveCanvas()
+			},
+			hoverBackgroundColor: 'hover:bg-[#60c0d0]',
+			activeBackgroundColor: 'active:bg-cyan-600',
+			hoverTextColor: 'hover:text-white',
+		},
+		{
+			text: '다운로드',
+			handleClickButton: () => {
+				captureCanvas()
+			},
+			hoverBackgroundColor: 'hover:bg-[#60c0d0]',
+			activeBackgroundColor: 'active:bg-cyan-600',
+			hoverTextColor: 'hover:text-white',
+		},
+	]
 
 	const updateComponent = (updatedComponent: Component) => {
 		setComponentList((prevList) =>
@@ -123,23 +148,32 @@ export default function CanvasPage() {
 		setIsOpen(!isOpen)
 	}
 
+	const { captureAndDownload } = useCaptureCanvas(canvasRef)
+
 	const captureCanvas = async () => {
-		const canvasElement = document.getElementById('board')
-		if (canvasElement) {
-			const canvasImage = await html2canvas(canvasElement, {
-				useCORS: true,
-				scale: 4,
-			})
-
-			const image = canvasImage.toDataURL('image/png', 1.0)
-			setCanvasPreviewURL(image)
-			const downloadLink = document.createElement('a')
-			downloadLink.href = image
-			downloadLink.download = 'captured-canvas.png'
-
-			downloadLink.click()
-		}
+		const imageURL = await captureAndDownload(canvasName)
+		console.log(imageURL)
+		if (!imageURL) return
+		setCanvasPreviewURL(imageURL)
 	}
+
+	// const captureCanvas = async () => {
+	// 	const canvasElement = document.getElementById('board')
+	// 	if (canvasElement) {
+	// 		const canvasImage = await html2canvas(canvasElement, {
+	// 			useCORS: true,
+	// 			scale: 4,
+	// 		})
+
+	// 		const image = canvasImage.toDataURL('image/png', 1.0)
+	// 		setCanvasPreviewURL(image)
+	// 		const downloadLink = document.createElement('a')
+	// 		downloadLink.href = image
+	// 		downloadLink.download = { canvasName } + '.png'
+
+	// 		downloadLink.click()
+	// 	}
+	// }
 
 	const fetchCanvasDetails = async () => {
 		try {
@@ -203,9 +237,10 @@ export default function CanvasPage() {
 	return (
 		<div className="flex flex-col min-h-screen">
 			<NavBar
-				captureCanvas={captureCanvas}
-				canvasName={canvasName}
-				handleSaveCanvas={handleSaveCanvas}
+				buttons={buttons}
+				text={canvasName}
+				backgroundColor="bg-[#fff]"
+				textColor="text-[#60c0d0]"
 			/>
 			<div className="flex flex-grow" style={{ height: 'calc(100vh - 70px)' }}>
 				<div className="flex h-full bg-white">
@@ -229,6 +264,7 @@ export default function CanvasPage() {
 					setComponentList={setComponentList}
 					updateComponent={updateComponent}
 					setBackgroundURL={setBackgroundURL}
+					canvasRef={canvasRef}
 				/>
 			</div>
 		</div>

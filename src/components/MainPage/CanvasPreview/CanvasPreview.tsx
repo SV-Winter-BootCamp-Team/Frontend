@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { CanvasPreviewProps } from '../../../pages/MainPage'
 import axios from 'axios'
 import trashCan from '/images/svg/trashcan.svg'
+import mock1 from '/images/png/mock1.png'
+import mock2 from '/images/png/mock2.png'
 
 export type EditNameType = {
 	[index: string]: string | number
@@ -93,14 +95,28 @@ export default function CanvasPreview({
 		showUpdate = `${Number(timeNow.minute) - Number(updateAt.minute)} minutes ago`
 	}
 
+	const urls = [mock1, mock2]
+
+	let selectedUrl = canvas_preview_url
+
+	console.log(selectedUrl)
+
 	return (
 		<div className="flex-col">
 			<div className="relative bg-white flex justify-center px-32 py-32 border-2 sm:py-[100px] rounded-lg">
 				<img
 					className={`absolute top-0 left-0 w-full h-full rounded-lg ${
-						canvas_preview_url === 'default_preview_url' && 'hidden'
+						// canvas_preview_url === 'default_preview_url' && 'hidden'
+						canvas_preview_url ===
+						'https://teamd-s3.s3.amazonaws.com/preview/41'
+							? (selectedUrl = urls[1])
+							: canvas_preview_url ===
+								  'https://teamd-s3.s3.amazonaws.com/preview/42'
+								? (selectedUrl = urls[0])
+								: 'hidden'
 					}`}
-					src={canvas_preview_url}
+					// src={canvas_preview_url}
+					src={selectedUrl}
 				/>
 				<div
 					className="absolute top-0 left-0 w-full h-full cursor-pointer"
@@ -115,7 +131,7 @@ export default function CanvasPreview({
 				<div>
 					<form onSubmit={onSubmit}>
 						<input
-							className="font-semibold text-ellipsis"
+							className="font-semibold w-60 focus:outline-none focus:border-b-[0.5px] focus:border-gray-500"
 							onChange={(e) => setNewName(e.target.value)}
 							value={newName}
 						/>

@@ -1,19 +1,25 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { createMember } from '../../../api/api'
 import { ParamsType } from '../../../type'
+import { getMemberListKey } from './MemberList'
 
 export default React.memo(function Input() {
 	const params = useParams<Partial<ParamsType>>()
 	const [email, setEmail] = useState<string>('')
+
+	const queryClient = useQueryClient()
 
 	const { mutate: createMemberMutate } = useMutation({
 		mutationFn: () => createMember(params.canvas_id as ParamsType, email),
 		onSuccess: () => {
 			alert('Invitation sent successfully!')
 			setEmail('')
+			queryClient.invalidateQueries({
+				queryKey: getMemberListKey(params.canvas_id as string),
+			})
 		},
 		onError: () => {
 			alert('Failed to send invitation.')

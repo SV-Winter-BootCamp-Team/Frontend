@@ -11,6 +11,7 @@ type CanvasProps = {
 	setComponentList: (componentList: Component[]) => void
 	updateComponent: (component: Component) => void
 	setBackgroundURL: (backgroundURL: string) => void
+	canvasRef: React.RefObject<HTMLDivElement>
 }
 
 export default React.memo(function Canvas({
@@ -19,10 +20,10 @@ export default React.memo(function Canvas({
 	setComponentList,
 	updateComponent,
 	setBackgroundURL,
+	canvasRef,
 }: CanvasProps) {
 	const params = useParams<{ canvas_id: string }>()
 	const [selectedElement, setSelectedElement] = useState<number | null>(null)
-	const canvasRef = useRef(null)
 
 	const canvasId = params.canvas_id
 	const [chatSocket, setChatSocket] = useState<WebSocket | null>(null)
@@ -159,13 +160,12 @@ export default React.memo(function Canvas({
 	// 	}
 	// }, [chatSocket, componentList, backgroundURL])
 
+	console.log('back', backgroundURL)
+
 	return (
-		<div
-			ref={canvasRef}
-			className="flex items-center h-full justify-center w-screen bg-[#F0F1F3]"
-		>
+		<div className="flex items-center h-full justify-center w-screen bg-[#F0F1F3]">
 			<div
-				id="board"
+				ref={canvasRef}
 				className="overflow-hidden bg-white relative w-[912px] h-[513px] border-solid border-[1px] border-[#E7E8EA] shadow-sm"
 				onClick={handleDeselect}
 			>
