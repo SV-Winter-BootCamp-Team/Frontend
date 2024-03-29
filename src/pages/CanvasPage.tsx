@@ -130,15 +130,15 @@ export default function CanvasPage() {
 			}
 
 			setComponentList([...componentList, newComponent])
-			// socket?.send(
-			// 	JSON.stringify({
-			// 		type: 'add',
-			// 		user_id: localStorage.getItem('user_id'),
-			// 		id: newComponent.component_id,
-			// 		component_url: newComponent.component_url,
-			// 		component_type: 'sticker',
-			// 	}),
-			// )
+			socket?.send(
+				JSON.stringify({
+					type: 'add',
+					user_id: localStorage.getItem('user_id'),
+					id: newComponent.component_id,
+					component_url: newComponent.component_url,
+					component_type: 'sticker',
+				}),
+			)
 		} catch (error) {
 			console.error('Error saving sticker:', error)
 		}
@@ -156,24 +156,6 @@ export default function CanvasPage() {
 		if (!imageURL) return
 		setCanvasPreviewURL(imageURL)
 	}
-
-	// const captureCanvas = async () => {
-	// 	const canvasElement = document.getElementById('board')
-	// 	if (canvasElement) {
-	// 		const canvasImage = await html2canvas(canvasElement, {
-	// 			useCORS: true,
-	// 			scale: 4,
-	// 		})
-
-	// 		const image = canvasImage.toDataURL('image/png', 1.0)
-	// 		setCanvasPreviewURL(image)
-	// 		const downloadLink = document.createElement('a')
-	// 		downloadLink.href = image
-	// 		downloadLink.download = { canvasName } + '.png'
-
-	// 		downloadLink.click()
-	// 	}
-	// }
 
 	const fetchCanvasDetails = async () => {
 		try {
@@ -228,10 +210,10 @@ export default function CanvasPage() {
 
 	useEffect(() => {
 		fetchCanvasDetails()
-		// const newSocket = new WebSocket(
-		// 	`ws://${import.meta.env.VITE_SOCKET_URL}/ws/canvases/${params.canvas_id}/`,
-		// ) // Adjust the URL to your WebSocket server
-		// setSocket(newSocket)
+		const newSocket = new WebSocket(
+			`ws://${import.meta.env.VITE_SOCKET_URL}/ws/canvases/${params.canvas_id}/`,
+		) // Adjust the URL to your WebSocket server
+		setSocket(newSocket)
 	}, [])
 
 	return (

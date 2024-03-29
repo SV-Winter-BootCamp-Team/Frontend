@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Moveable from 'react-moveable'
 import { Component } from '../../../pages/CanvasPage'
 import x from '/images/svg/x.svg'
@@ -56,13 +56,13 @@ export default React.memo(function Canvas({
 			await axios.delete(
 				`${import.meta.env.VITE_BASE_URL}canvases/${params.canvas_id}/${componentId}/`,
 			)
-			// chatSocket?.send(
-			// 	JSON.stringify({
-			// 		type: 'remove',
-			// 		user_id: localStorage.getItem('user_id'),
-			// 		component_id: componentId,
-			// 	}),
-			// )
+			chatSocket?.send(
+				JSON.stringify({
+					type: 'remove',
+					user_id: localStorage.getItem('user_id'),
+					component_id: componentId,
+				}),
+			)
 		} catch (error) {
 			console.error('Error deleting component:', error)
 		}
@@ -77,88 +77,88 @@ export default React.memo(function Canvas({
 		setChatSocket(newSocket)
 	}, [canvasId])
 
-	// useEffect(() => {
-	// 	if (chatSocket) {
-	// 		// 메시지 수신 처리
-	// 		chatSocket.onmessage = (e) => {
-	// 			var data = JSON.parse(e.data)
-	// 			// console.log(data.type)
-	// 			if (data.type === 'resize') {
-	// 				const updatedComponentList = componentList.map((component) => {
-	// 					if (component.component_id === data.component_id) {
-	// 						return {
-	// 							...component,
-	// 							position_x: data.position_x,
-	// 							position_y: data.position_y,
-	// 							width: data.width,
-	// 							height: data.height,
-	// 						}
-	// 					}
-	// 					return component
-	// 				})
-	// 				setComponentList(updatedComponentList)
-	// 			} else if (data.type === 'position') {
-	// 				const updatedComponentList = componentList.map((component) => {
-	// 					if (component.component_id === data.component_id) {
-	// 						return {
-	// 							...component,
-	// 							position_x: data.position_x,
-	// 							position_y: data.position_y,
-	// 						}
-	// 					}
-	// 					return component
-	// 				})
-	// 				setComponentList(updatedComponentList)
-	// 			} else if (data.type === 'rotate') {
-	// 				const updatedComponentList = componentList.map((component) => {
-	// 					if (component.component_id === data.component_id) {
-	// 						return {
-	// 							...component,
-	// 							position_x: data.position_x,
-	// 							position_y: data.position_y,
-	// 							rotate: data.rotate,
-	// 						}
-	// 					}
-	// 					return component
-	// 				})
-	// 				setComponentList(updatedComponentList)
-	// 			} else if (data.type === 'add') {
-	// 				if (data.component_type === 'sticker') {
-	// 					console.log(data.type)
-	// 					console.log(componentList)
+	useEffect(() => {
+		if (chatSocket) {
+			// 메시지 수신 처리
+			chatSocket.onmessage = (e) => {
+				var data = JSON.parse(e.data)
+				// console.log(data.type)
+				if (data.type === 'resize') {
+					const updatedComponentList = componentList.map((component) => {
+						if (component.component_id === data.component_id) {
+							return {
+								...component,
+								position_x: data.position_x,
+								position_y: data.position_y,
+								width: data.width,
+								height: data.height,
+							}
+						}
+						return component
+					})
+					setComponentList(updatedComponentList)
+				} else if (data.type === 'position') {
+					const updatedComponentList = componentList.map((component) => {
+						if (component.component_id === data.component_id) {
+							return {
+								...component,
+								position_x: data.position_x,
+								position_y: data.position_y,
+							}
+						}
+						return component
+					})
+					setComponentList(updatedComponentList)
+				} else if (data.type === 'rotate') {
+					const updatedComponentList = componentList.map((component) => {
+						if (component.component_id === data.component_id) {
+							return {
+								...component,
+								position_x: data.position_x,
+								position_y: data.position_y,
+								rotate: data.rotate,
+							}
+						}
+						return component
+					})
+					setComponentList(updatedComponentList)
+				} else if (data.type === 'add') {
+					if (data.component_type === 'sticker') {
+						console.log(data.type)
+						console.log(componentList)
 
-	// 					// Check if the component already exists
-	// 					const existingComponent = componentList.find(
-	// 						(component) => component.component_id === data.component_id,
-	// 					)
+						// Check if the component already exists
+						const existingComponent = componentList.find(
+							(component) => component.component_id === data.component_id,
+						)
 
-	// 					if (!existingComponent) {
-	// 						// If the component does not exist, create a new one
-	// 						const newComponent = {
-	// 							component_id: data.component_id,
-	// 							component_url: data.component_url,
-	// 							position_x: 406,
-	// 							position_y: 206,
-	// 							width: 100,
-	// 							height: 100,
-	// 							rotate: 0,
-	// 						}
-	// 						const updatedComponentList = [...componentList, newComponent]
-	// 						setComponentList(updatedComponentList)
-	// 					}
-	// 				} else if (data.component_type === 'background') {
-	// 					const newBackground = data.component_url
-	// 					setBackgroundURL(newBackground)
-	// 				}
-	// 			} else if (data.type === 'remove') {
-	// 				const updatedComponentList = componentList.filter(
-	// 					(component) => component.component_id !== data.component_id,
-	// 				)
-	// 				setComponentList(updatedComponentList)
-	// 			}
-	// 		}
-	// 	}
-	// }, [chatSocket, componentList, backgroundURL])
+						if (!existingComponent) {
+							// If the component does not exist, create a new one
+							const newComponent = {
+								component_id: data.component_id,
+								component_url: data.component_url,
+								position_x: 406,
+								position_y: 206,
+								width: 100,
+								height: 100,
+								rotate: 0,
+							}
+							const updatedComponentList = [...componentList, newComponent]
+							setComponentList(updatedComponentList)
+						}
+					} else if (data.component_type === 'background') {
+						const newBackground = data.component_url
+						setBackgroundURL(newBackground)
+					}
+				} else if (data.type === 'remove') {
+					const updatedComponentList = componentList.filter(
+						(component) => component.component_id !== data.component_id,
+					)
+					setComponentList(updatedComponentList)
+				}
+			}
+		}
+	}, [chatSocket, componentList, backgroundURL])
 
 	console.log('back', backgroundURL)
 
@@ -211,7 +211,6 @@ export default React.memo(function Canvas({
 										edgeDraggable={false}
 										startDragRotate={0}
 										throttleDragRotate={0}
-										// scalable={true}
 										resizable={true}
 										keepRatio={true}
 										throttleScale={0}
@@ -238,15 +237,15 @@ export default React.memo(function Canvas({
 												e.target.style.transform = e.transform
 												updateComponent(element)
 											}
-											// chatSocket?.send(
-											// 	JSON.stringify({
-											// 		type: 'position',
-											// 		user_id: localStorage.getItem('user_id'),
-											// 		component_id: element?.component_id,
-											// 		position_x: element?.position_x,
-											// 		position_y: element?.position_y,
-											// 	}),
-											// )
+											chatSocket?.send(
+												JSON.stringify({
+													type: 'position',
+													user_id: localStorage.getItem('user_id'),
+													component_id: element?.component_id,
+													position_x: element?.position_x,
+													position_y: element?.position_y,
+												}),
+											)
 										}}
 										onRotate={(e) => {
 											const element = componentList.find(
@@ -259,16 +258,16 @@ export default React.memo(function Canvas({
 												e.target.style.transform = e.drag.transform
 												updateComponent(element)
 											}
-											// chatSocket?.send(
-											// 	JSON.stringify({
-											// 		type: 'rotate',
-											// 		user_id: localStorage.getItem('user_id'),
-											// 		component_id: element?.component_id,
-											// 		position_x: element?.position_x,
-											// 		position_y: element?.position_y,
-											// 		rotate: element?.rotate,
-											// 	}),
-											// )
+											chatSocket?.send(
+												JSON.stringify({
+													type: 'rotate',
+													user_id: localStorage.getItem('user_id'),
+													component_id: element?.component_id,
+													position_x: element?.position_x,
+													position_y: element?.position_y,
+													rotate: element?.rotate,
+												}),
+											)
 										}}
 										onResize={(e) => {
 											const element = componentList.find(
@@ -284,17 +283,17 @@ export default React.memo(function Canvas({
 												e.target.style.transform = e.drag.transform
 												updateComponent(element)
 											}
-											// chatSocket?.send(
-											// 	JSON.stringify({
-											// 		type: 'resize',
-											// 		user_id: localStorage.getItem('user_id'),
-											// 		component_id: element?.component_id,
-											// 		position_x: element?.position_x,
-											// 		position_y: element?.position_y,
-											// 		width: element?.width,
-											// 		height: element?.height,
-											// 	}),
-											// )
+											chatSocket?.send(
+												JSON.stringify({
+													type: 'resize',
+													user_id: localStorage.getItem('user_id'),
+													component_id: element?.component_id,
+													position_x: element?.position_x,
+													position_y: element?.position_y,
+													width: element?.width,
+													height: element?.height,
+												}),
+											)
 										}}
 									/>
 								)}
